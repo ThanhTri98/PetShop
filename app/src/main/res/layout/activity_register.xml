@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical"
+    android:padding="30dp"
+    android:scrollbarSize="1dp"
+    android:scrollbarStyle="outsideOverlay"
+    tools:context=".Views.RegisterActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="callHiddenKeyboard"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imgBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/AppName"
+            android:onClick="callFinish"
+            android:padding="5dp"
+            android:src="@drawable/ic_close" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/muli_black"
+                android:text="Tạo\nTài khoản"
+                android:textAllCaps="true"
+                android:textColor="@color/colorBlack"
+                android:textSize="40sp"
+                android:transitionName="transition_layout_rg" />
+
+            <TextView
+                android:id="@+id/tvStep"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="23dp"
+                android:background="@drawable/bg_step"
+                android:fontFamily="@font/audio_wide"
+                android:gravity="center"
+                android:text="@string/RGStep1"
+                android:textColor="@color/colorBlack"
+                android:textSize="30sp" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilFullName"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:hint="@string/RGFullName"
+                android:textColorHint="@color/colorBlack"
+                app:boxStrokeColor="@color/colorBlack"
+                app:boxStrokeWidthFocused="2dp"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/colorBlack"
+                app:hintTextColor="@color/colorBlack"
+                app:startIconDrawable="@drawable/ic_edit_24"
+                app:startIconTint="@color/colorBlack">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etFullName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="textPersonName"
+                    android:maxLength="50"
+                    android:textColor="@color/colorBlack" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilPhoneNumber"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tilFullName"
+                android:layout_marginTop="2dp"
+                android:hint="@string/RGPhoneNumber"
+                android:textColorHint="@color/colorBlack"
+                app:boxStrokeColor="@color/colorBlack"
+                app:boxStrokeWidthFocused="2dp"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/colorBlack"
+                app:hintTextColor="@color/colorBlack"
+                app:prefixText="+84 "
+                app:startIconDrawable="@drawable/ic_phone"
+                app:startIconTint="@color/colorBlack">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPhoneNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="number"
+                    android:maxLength="10"
+                    android:textColor="@color/colorBlack" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilUid"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tilPhoneNumber"
+                android:layout_marginTop="2dp"
+                android:hint="@string/RGUid"
+                android:textColorHint="@color/colorBlack"
+                app:boxStrokeColor="@color/colorBlack"
+                app:boxStrokeWidthFocused="2dp"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/colorBlack"
+                app:hintTextColor="@color/colorBlack"
+                app:startIconDrawable="@drawable/ic_login_user"
+                app:startIconTint="@color/colorBlack">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etUid"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="textPersonName"
+                    android:maxLength="50"
+                    android:textColor="@color/colorBlack" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilPwd"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tilUid"
+                android:layout_marginTop="2dp"
+                android:hint="@string/RGPwd"
+                android:textColorHint="@color/colorBlack"
+                app:boxStrokeColor="@color/colorBlack"
+                app:boxStrokeWidthFocused="2dp"
+                app:endIconTint="@color/colorBlack"
+                app:hintTextColor="@color/colorBlack"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/colorBlack"
+                app:startIconDrawable="@drawable/ic_login_pass"
+                app:startIconTint="@color/colorBlack">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPwd"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="textPassword"
+                    android:maxLength="50"
+                    android:textColor="@color/colorBlack" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:id="@+id/llGender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tilPwd"
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/RGGender"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="18sp" />
+
+                <RadioGroup
+                    android:id="@+id/rgGender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rdMale"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="@string/RGMale"
+                        android:textColor="@color/colorBlack" />
+
+                    <RadioButton
+                        android:id="@+id/rdFemale"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:text="@string/RGFemale"
+                        android:textColor="@color/colorBlack" />
+
+                    <RadioButton
+                        android:id="@+id/rdOther"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/RGOther"
+                        android:textColor="@color/colorBlack" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <View
+                android:id="@+id/line1"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_below="@id/llGender"
+                android:layout_marginVertical="20dp"
+                android:background="@color/colorBlack" />
+
+            <LinearLayout
+                android:id="@+id/llDob"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/RGDob"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tvNoti"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="@string/RGNonFormat"
+                    android:textColor="@color/colorRedDark"
+                    android:textSize="17sp"
+                    android:textStyle="italic"
+                    android:visibility="invisible" />
+            </LinearLayout>
+
+            <DatePicker
+                android:id="@+id/dpDoB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/llDob"
+                android:calendarViewShown="false"
+                android:datePickerMode="spinner"
+                android:spinnersShown="true" />
+
+            <RelativeLayout
+                android:id="@+id/rlBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@drawable/bg_pbar"
+                android:elevation="8dp"
+                android:padding="17dp"
+                android:visibility="invisible">
+
+                <ProgressBar
+                    android:layout_width="30dp"
+                    android:layout_height="30dp" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btnNext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorBlack"
+            android:fontFamily="@font/muli_black"
+            android:onClick="callNextStep"
+            android:text="@string/Continue"
+            android:textColor="@color/colorWhite"
+            android:transitionName="transition_next" />
+    </LinearLayout>
+</ScrollView>

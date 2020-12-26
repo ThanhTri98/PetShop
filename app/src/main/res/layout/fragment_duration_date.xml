@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite">
+
+    <LinearLayout
+        android:id="@+id/lnPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_border_bottom"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/DDPrice"
+            android:textColor="@color/colorTextDefault"
+            android:textSize="16sp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints=""
+            android:background="@drawable/bg_price"
+            android:hint="@string/DDDfault"
+            android:inputType="numberDecimal"
+            android:paddingStart="13dp"
+            android:textColor="@color/colorTextDefault"
+            android:textSize="15sp"
+            tools:ignore="RtlSymmetry" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlEvent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lnPrice"
+        android:background="@drawable/bg_border_bottom"
+        android:paddingStart="10dp"
+        tools:ignore="RtlSymmetry">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:text="@string/DDTime"
+            android:textColor="@color/colorTextDefault"
+            android:textSize="16sp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:layout_alignParentEnd="true"
+            app:endIconDrawable="@drawable/ic_dropdown"
+            app:hintEnabled="false"
+            tools:ignore="RelativeOverlap">
+
+            <AutoCompleteTextView
+                android:id="@+id/actv"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:background="@color/colorWhite"
+                android:focusable="false"
+                android:inputType="none"
+                android:padding="0dp"
+                android:textColor="@color/colorTextDefault"
+                android:textSize="16sp"
+                tools:ignore="LabelFor" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </RelativeLayout>
+
+</RelativeLayout>
