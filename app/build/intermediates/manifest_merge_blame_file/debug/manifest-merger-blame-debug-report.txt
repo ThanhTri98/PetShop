@@ -1,0 +1,198 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.petmarket2020"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="24"
+8-->C:\Users\ThanhTri98\AndroidStudioProjects\PetMarket2020\app\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="30" />
+9-->C:\Users\ThanhTri98\AndroidStudioProjects\PetMarket2020\app\src\main\AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.READ_SMS" />
+11-->C:\Users\ThanhTri98\AndroidStudioProjects\PetMarket2020\app\src\main\AndroidManifest.xml:5:5-67
+11-->C:\Users\ThanhTri98\AndroidStudioProjects\PetMarket2020\app\src\main\AndroidManifest.xml:5:22-64
+12    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+12-->C:\Users\ThanhTri98\AndroidStudioProjects\PetMarket2020\app\src\main\AndroidManifest.xml:6:5-70
+12-->C:\Users\ThanhTri98\AndroidStudioProjects\PetMarket2020\app\src\main\AndroidManifest.xml:6:22-67
+13    <uses-permission android:name="android.permission.INTERNET" />
+13-->C:\Users\ThanhTri98\AndroidStudioProjects\PetMarket2020\app\src\main\AndroidManifest.xml:7:5-67
+13-->C:\Users\ThanhTri98\AndroidStudioProjects\PetMarket2020\app\src\main\AndroidManifest.xml:7:22-64
+14
+15    <!-- Although the *SdkVersion is captured in gradle build files, this is required for non gradle builds -->
+16    <!-- <uses-sdk android:minSdkVersion="14"/> -->
+17    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+17-->[com.google.firebase:firebase-database:19.6.0] C:\Users\ThanhTri98\.gradle\caches\transforms-2\files-2.1\1ac55671c19017fc13671c13ed97e475\jetified-firebase-database-19.6.0\AndroidManifest.xml:25:5-79
+17-->[com.google.firebase:firebase-database:19.6.0] C:\Users\ThanhTri98\.gradle\caches\transforms-2\files-2.1\1ac55671c19017fc13671c13ed97e475\jetified-firebase-database-19.6.0\AndroidManifest.xml:25:22-76
+18
+19    <application
+19-->C:\Users\ThanhTri98\AndroidStudioProjects\PetMarket2020\app\src\main\AndroidManifest.xml:9:5-47:19
+20        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+20-->[androidx.core:core:1.3.1] C:\Users\ThanhTri98\.gradle\caches\transforms-2\files-2.1\cdfea8f3da9d3d8e26bbb73a40c2de98\core-1.3.1\AndroidManifest.xml:24:18-86
+21        android:debuggable="true"
+22        android:extractNativeLibs="false"
+23        android:icon="@mipmap/ic_launcher"
+23-->C:\Users\ThanhTri98\AndroidStudioProjects\PetMarket2020\app\src\main\AndroidManifest.xml:10:9-43
+24        android:label="@string/AppName"
+24-->C:\Users\ThanhTri98\AndroidStudioProjects\PetMarket2020\app\src\main\AndroidManifest.xml:11:9-40
+25        android:roundIcon="@mipmap/ic_launcher_round"
+25-->C:\Users\ThanhTri98\AndroidStudioProjects\PetMarket2020\app\src\main\AndroidManifest.xml:12:9-54
+26        android:supportsRtl="true"
+26-->C:\Users\ThanhTri98\AndroidStudioProjects\PetMarket2020\app\src\main\AndroidManifest.xml:13:9-35
+27        android:testOnly="true"
+28        android:theme="@style/AppTheme" >
+28-->C:\Users\ThanhTri98\AndroidStudioProjects\PetMarket2020\app\src\main\AndroidManifest.xml:14:9-40
+29        <activity
+29-->C:\Users\ThanhTri98\AndroidStudioProjects\PetMarket2020\app\src\main\AndroidManifest.xml:15:9-17:55
+30            android:name="com.example.petmarket2020.Views.ProfileActivity"
+30-->C:\Users\ThanhTri98\AndroidStudioProjects\PetMarket2020\app\src\main\AndroidManifest.xml:16:13-50
+31            android:windowSoftInputMode="adjustPan" />
+31-->C:\Users\ThanhTri98\AndroidStudioProjects\PetMarket2020\app\src\main\AndroidManifest.xml:17:13-52
+32        <activity android:name="com.example.petmarket2020.Views.LocationActivity" />
+32-->C:\Users\ThanhTri98\AndroidStudioProjects\PetMarket2020\app\src\main\AndroidManifest.xml:18:9-60
+32-->C:\Users\ThanhTri98\AndroidStudioProjects\PetMarket2020\app\src\main\AndroidManifest.xml:18:19-57
+33        <activity
+33-->C:\Users\ThanhTri98\AndroidStudioProjects\PetMarket2020\app\src\main\AndroidManifest.xml:19:9-21:55
+34            android:name="com.example.petmarket2020.Views.RegisterActivity"
+34-->C:\Users\ThanhTri98\AndroidStudioProjects\PetMarket2020\app\src\main\AndroidManifest.xml:20:13-51
+35            android:windowSoftInputMode="adjustPan" />
+35-->C:\Users\ThanhTri98\AndroidStudioProjects\PetMarket2020\app\src\main\AndroidManifest.xml:21:13-52
+36        <activity android:name="com.example.petmarket2020.Views.Register2ndActivity" />
+36-->C:\Users\ThanhTri98\AndroidStudioProjects\PetMarket2020\app\src\main\AndroidManifest.xml:22:9-63
+36-->C:\Users\ThanhTri98\AndroidStudioProjects\PetMarket2020\app\src\main\AndroidManifest.xml:22:19-60
+37        <activity android:name="com.example.petmarket2020.Views.SuccessfullyActivity" />
+37-->C:\Users\ThanhTri98\AndroidStudioProjects\PetMarket2020\app\src\main\AndroidManifest.xml:23:9-64
+37-->C:\Users\ThanhTri98\AndroidStudioProjects\PetMarket2020\app\src\main\AndroidManifest.xml:23:19-61
+38        <activity
+38-->C:\Users\ThanhTri98\AndroidStudioProjects\PetMarket2020\app\src\main\AndroidManifest.xml:24:9-26:58
+39            android:name="com.example.petmarket2020.Views.PostActivity"
+39-->C:\Users\ThanhTri98\AndroidStudioProjects\PetMarket2020\app\src\main\AndroidManifest.xml:25:13-47
+40            android:windowSoftInputMode="adjustResize" />
+40-->C:\Users\ThanhTri98\AndroidStudioProjects\PetMarket2020\app\src\main\AndroidManifest.xml:26:13-55
+41        <activity
+41-->C:\Users\ThanhTri98\AndroidStudioProjects\PetMarket2020\app\src\main\AndroidManifest.xml:27:9-35:20
+42            android:name="com.example.petmarket2020.Views.HomeActivity"
+42-->C:\Users\ThanhTri98\AndroidStudioProjects\PetMarket2020\app\src\main\AndroidManifest.xml:28:13-47
+43            android:windowSoftInputMode="adjustPan" >
+43-->C:\Users\ThanhTri98\AndroidStudioProjects\PetMarket2020\app\src\main\AndroidManifest.xml:29:13-52
+44            <intent-filter>
+44-->C:\Users\ThanhTri98\AndroidStudioProjects\PetMarket2020\app\src\main\AndroidManifest.xml:30:13-34:29
+45                <action android:name="android.intent.action.MAIN" />
+45-->C:\Users\ThanhTri98\AndroidStudioProjects\PetMarket2020\app\src\main\AndroidManifest.xml:31:17-69
+45-->C:\Users\ThanhTri98\AndroidStudioProjects\PetMarket2020\app\src\main\AndroidManifest.xml:31:25-66
+46
+47                <category android:name="android.intent.category.LAUNCHER" />
+47-->C:\Users\ThanhTri98\AndroidStudioProjects\PetMarket2020\app\src\main\AndroidManifest.xml:33:17-77
+47-->C:\Users\ThanhTri98\AndroidStudioProjects\PetMarket2020\app\src\main\AndroidManifest.xml:33:27-74
+48            </intent-filter>
+49        </activity>
+50        <activity android:name="com.example.petmarket2020.Views.LoginActivity" />
+50-->C:\Users\ThanhTri98\AndroidStudioProjects\PetMarket2020\app\src\main\AndroidManifest.xml:36:9-57
+50-->C:\Users\ThanhTri98\AndroidStudioProjects\PetMarket2020\app\src\main\AndroidManifest.xml:36:19-54
+51
+52        <receiver
+52-->C:\Users\ThanhTri98\AndroidStudioProjects\PetMarket2020\app\src\main\AndroidManifest.xml:38:9-46:20
+53            android:name="com.example.petmarket2020.Broadcast.SmsReceiver"
+53-->C:\Users\ThanhTri98\AndroidStudioProjects\PetMarket2020\app\src\main\AndroidManifest.xml:39:13-50
+54            android:enabled="true"
+54-->C:\Users\ThanhTri98\AndroidStudioProjects\PetMarket2020\app\src\main\AndroidManifest.xml:40:13-35
+55            android:exported="true"
+55-->C:\Users\ThanhTri98\AndroidStudioProjects\PetMarket2020\app\src\main\AndroidManifest.xml:41:13-36
+56            android:permission="android.permission.BROADCAST_SMS" >
+56-->C:\Users\ThanhTri98\AndroidStudioProjects\PetMarket2020\app\src\main\AndroidManifest.xml:42:13-66
+57            <intent-filter>
+57-->C:\Users\ThanhTri98\AndroidStudioProjects\PetMarket2020\app\src\main\AndroidManifest.xml:43:13-45:29
+58                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+58-->C:\Users\ThanhTri98\AndroidStudioProjects\PetMarket2020\app\src\main\AndroidManifest.xml:44:17-82
+58-->C:\Users\ThanhTri98\AndroidStudioProjects\PetMarket2020\app\src\main\AndroidManifest.xml:44:25-79
+59            </intent-filter>
+60        </receiver>
+61
+62        <service
+62-->[com.google.firebase:firebase-database:19.6.0] C:\Users\ThanhTri98\.gradle\caches\transforms-2\files-2.1\1ac55671c19017fc13671c13ed97e475\jetified-firebase-database-19.6.0\AndroidManifest.xml:29:9-35:19
+63            android:name="com.google.firebase.components.ComponentDiscoveryService"
+63-->[com.google.firebase:firebase-database:19.6.0] C:\Users\ThanhTri98\.gradle\caches\transforms-2\files-2.1\1ac55671c19017fc13671c13ed97e475\jetified-firebase-database-19.6.0\AndroidManifest.xml:30:13-84
+64            android:directBootAware="true"
+64-->[com.google.firebase:firebase-common:19.5.0] C:\Users\ThanhTri98\.gradle\caches\transforms-2\files-2.1\d783eb5e4d25e462c5ff8a9ddfc544e8\jetified-firebase-common-19.5.0\AndroidManifest.xml:35:13-43
+65            android:exported="false" >
+65-->[com.google.firebase:firebase-database:19.6.0] C:\Users\ThanhTri98\.gradle\caches\transforms-2\files-2.1\1ac55671c19017fc13671c13ed97e475\jetified-firebase-database-19.6.0\AndroidManifest.xml:31:13-37
+66            <meta-data
+66-->[com.google.firebase:firebase-database:19.6.0] C:\Users\ThanhTri98\.gradle\caches\transforms-2\files-2.1\1ac55671c19017fc13671c13ed97e475\jetified-firebase-database-19.6.0\AndroidManifest.xml:32:13-34:85
+67                android:name="com.google.firebase.components:com.google.firebase.database.DatabaseRegistrar"
+67-->[com.google.firebase:firebase-database:19.6.0] C:\Users\ThanhTri98\.gradle\caches\transforms-2\files-2.1\1ac55671c19017fc13671c13ed97e475\jetified-firebase-database-19.6.0\AndroidManifest.xml:33:17-109
+68                android:value="com.google.firebase.components.ComponentRegistrar" />
+68-->[com.google.firebase:firebase-database:19.6.0] C:\Users\ThanhTri98\.gradle\caches\transforms-2\files-2.1\1ac55671c19017fc13671c13ed97e475\jetified-firebase-database-19.6.0\AndroidManifest.xml:34:17-82
+69            <meta-data
+69-->[com.google.firebase:firebase-auth:19.3.2] C:\Users\ThanhTri98\.gradle\caches\transforms-2\files-2.1\f4681bfd6d76e33db5ef1831d84f1141\jetified-firebase-auth-19.3.2\AndroidManifest.xml:36:13-38:85
+70                android:name="com.google.firebase.components:com.google.firebase.auth.FirebaseAuthRegistrar"
+70-->[com.google.firebase:firebase-auth:19.3.2] C:\Users\ThanhTri98\.gradle\caches\transforms-2\files-2.1\f4681bfd6d76e33db5ef1831d84f1141\jetified-firebase-auth-19.3.2\AndroidManifest.xml:37:17-109
+71                android:value="com.google.firebase.components.ComponentRegistrar" />
+71-->[com.google.firebase:firebase-auth:19.3.2] C:\Users\ThanhTri98\.gradle\caches\transforms-2\files-2.1\f4681bfd6d76e33db5ef1831d84f1141\jetified-firebase-auth-19.3.2\AndroidManifest.xml:38:17-82
+72            <!--
+73                This registrar is not defined in the dynamic-module-support sdk itself to allow non-firebase
+74                clients to use it as well, by defining this registrar in their own core/common library.
+75            -->
+76            <meta-data
+76-->[com.google.firebase:firebase-common:19.5.0] C:\Users\ThanhTri98\.gradle\caches\transforms-2\files-2.1\d783eb5e4d25e462c5ff8a9ddfc544e8\jetified-firebase-common-19.5.0\AndroidManifest.xml:43:13-45:85
+77                android:name="com.google.firebase.components:com.google.firebase.dynamicloading.DynamicLoadingRegistrar"
+77-->[com.google.firebase:firebase-common:19.5.0] C:\Users\ThanhTri98\.gradle\caches\transforms-2\files-2.1\d783eb5e4d25e462c5ff8a9ddfc544e8\jetified-firebase-common-19.5.0\AndroidManifest.xml:44:17-121
+78                android:value="com.google.firebase.components.ComponentRegistrar" />
+78-->[com.google.firebase:firebase-common:19.5.0] C:\Users\ThanhTri98\.gradle\caches\transforms-2\files-2.1\d783eb5e4d25e462c5ff8a9ddfc544e8\jetified-firebase-common-19.5.0\AndroidManifest.xml:45:17-82
+79        </service>
+80
+81        <activity
+81-->[com.google.firebase:firebase-auth:19.3.2] C:\Users\ThanhTri98\.gradle\caches\transforms-2\files-2.1\f4681bfd6d76e33db5ef1831d84f1141\jetified-firebase-auth-19.3.2\AndroidManifest.xml:24:9-31:50
+82            android:name="com.google.firebase.auth.internal.FederatedSignInActivity"
+82-->[com.google.firebase:firebase-auth:19.3.2] C:\Users\ThanhTri98\.gradle\caches\transforms-2\files-2.1\f4681bfd6d76e33db5ef1831d84f1141\jetified-firebase-auth-19.3.2\AndroidManifest.xml:25:13-85
+83            android:excludeFromRecents="true"
+83-->[com.google.firebase:firebase-auth:19.3.2] C:\Users\ThanhTri98\.gradle\caches\transforms-2\files-2.1\f4681bfd6d76e33db5ef1831d84f1141\jetified-firebase-auth-19.3.2\AndroidManifest.xml:26:13-46
+84            android:exported="true"
+84-->[com.google.firebase:firebase-auth:19.3.2] C:\Users\ThanhTri98\.gradle\caches\transforms-2\files-2.1\f4681bfd6d76e33db5ef1831d84f1141\jetified-firebase-auth-19.3.2\AndroidManifest.xml:27:13-36
+85            android:launchMode="singleTask"
+85-->[com.google.firebase:firebase-auth:19.3.2] C:\Users\ThanhTri98\.gradle\caches\transforms-2\files-2.1\f4681bfd6d76e33db5ef1831d84f1141\jetified-firebase-auth-19.3.2\AndroidManifest.xml:28:13-44
+86            android:permission="com.google.firebase.auth.api.gms.permission.LAUNCH_FEDERATED_SIGN_IN"
+86-->[com.google.firebase:firebase-auth:19.3.2] C:\Users\ThanhTri98\.gradle\caches\transforms-2\files-2.1\f4681bfd6d76e33db5ef1831d84f1141\jetified-firebase-auth-19.3.2\AndroidManifest.xml:29:13-102
+87            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+87-->[com.google.firebase:firebase-auth:19.3.2] C:\Users\ThanhTri98\.gradle\caches\transforms-2\files-2.1\f4681bfd6d76e33db5ef1831d84f1141\jetified-firebase-auth-19.3.2\AndroidManifest.xml:30:13-72
+88
+89        <provider
+89-->[com.google.firebase:firebase-common:19.5.0] C:\Users\ThanhTri98\.gradle\caches\transforms-2\files-2.1\d783eb5e4d25e462c5ff8a9ddfc544e8\jetified-firebase-common-19.5.0\AndroidManifest.xml:26:9-31:39
+90            android:name="com.google.firebase.provider.FirebaseInitProvider"
+90-->[com.google.firebase:firebase-common:19.5.0] C:\Users\ThanhTri98\.gradle\caches\transforms-2\files-2.1\d783eb5e4d25e462c5ff8a9ddfc544e8\jetified-firebase-common-19.5.0\AndroidManifest.xml:27:13-77
+91            android:authorities="com.example.petmarket2020.firebaseinitprovider"
+91-->[com.google.firebase:firebase-common:19.5.0] C:\Users\ThanhTri98\.gradle\caches\transforms-2\files-2.1\d783eb5e4d25e462c5ff8a9ddfc544e8\jetified-firebase-common-19.5.0\AndroidManifest.xml:28:13-72
+92            android:directBootAware="true"
+92-->[com.google.firebase:firebase-common:19.5.0] C:\Users\ThanhTri98\.gradle\caches\transforms-2\files-2.1\d783eb5e4d25e462c5ff8a9ddfc544e8\jetified-firebase-common-19.5.0\AndroidManifest.xml:29:13-43
+93            android:exported="false"
+93-->[com.google.firebase:firebase-common:19.5.0] C:\Users\ThanhTri98\.gradle\caches\transforms-2\files-2.1\d783eb5e4d25e462c5ff8a9ddfc544e8\jetified-firebase-common-19.5.0\AndroidManifest.xml:30:13-37
+94            android:initOrder="100" />
+94-->[com.google.firebase:firebase-common:19.5.0] C:\Users\ThanhTri98\.gradle\caches\transforms-2\files-2.1\d783eb5e4d25e462c5ff8a9ddfc544e8\jetified-firebase-common-19.5.0\AndroidManifest.xml:31:13-36
+95
+96        <activity
+96-->[com.google.android.gms:play-services-base:17.1.0] C:\Users\ThanhTri98\.gradle\caches\transforms-2\files-2.1\d92a27efcac738b4f280b9ad0c07bda7\jetified-play-services-base-17.1.0\AndroidManifest.xml:23:9-26:75
+97            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+97-->[com.google.android.gms:play-services-base:17.1.0] C:\Users\ThanhTri98\.gradle\caches\transforms-2\files-2.1\d92a27efcac738b4f280b9ad0c07bda7\jetified-play-services-base-17.1.0\AndroidManifest.xml:24:13-79
+98            android:exported="false"
+98-->[com.google.android.gms:play-services-base:17.1.0] C:\Users\ThanhTri98\.gradle\caches\transforms-2\files-2.1\d92a27efcac738b4f280b9ad0c07bda7\jetified-play-services-base-17.1.0\AndroidManifest.xml:25:13-37
+99            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+99-->[com.google.android.gms:play-services-base:17.1.0] C:\Users\ThanhTri98\.gradle\caches\transforms-2\files-2.1\d92a27efcac738b4f280b9ad0c07bda7\jetified-play-services-base-17.1.0\AndroidManifest.xml:26:13-72
+100
+101        <meta-data
+101-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\ThanhTri98\.gradle\caches\transforms-2\files-2.1\c03ff831f337462821d0a5c03495569e\jetified-play-services-basement-17.0.0\AndroidManifest.xml:23:9-25:69
+102            android:name="com.google.android.gms.version"
+102-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\ThanhTri98\.gradle\caches\transforms-2\files-2.1\c03ff831f337462821d0a5c03495569e\jetified-play-services-basement-17.0.0\AndroidManifest.xml:24:13-58
+103            android:value="@integer/google_play_services_version" />
+103-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\ThanhTri98\.gradle\caches\transforms-2\files-2.1\c03ff831f337462821d0a5c03495569e\jetified-play-services-basement-17.0.0\AndroidManifest.xml:25:13-66
+104
+105        <provider
+105-->[com.squareup.picasso:picasso:2.71828] C:\Users\ThanhTri98\.gradle\caches\transforms-2\files-2.1\d0ff2bd6ef89ae603d3d3a9a475f6c19\jetified-picasso-2.71828\AndroidManifest.xml:8:9-11:40
+106            android:name="com.squareup.picasso.PicassoProvider"
+106-->[com.squareup.picasso:picasso:2.71828] C:\Users\ThanhTri98\.gradle\caches\transforms-2\files-2.1\d0ff2bd6ef89ae603d3d3a9a475f6c19\jetified-picasso-2.71828\AndroidManifest.xml:9:13-64
+107            android:authorities="com.example.petmarket2020.com.squareup.picasso"
+107-->[com.squareup.picasso:picasso:2.71828] C:\Users\ThanhTri98\.gradle\caches\transforms-2\files-2.1\d0ff2bd6ef89ae603d3d3a9a475f6c19\jetified-picasso-2.71828\AndroidManifest.xml:10:13-72
+108            android:exported="false" />
+108-->[com.squareup.picasso:picasso:2.71828] C:\Users\ThanhTri98\.gradle\caches\transforms-2\files-2.1\d0ff2bd6ef89ae603d3d3a9a475f6c19\jetified-picasso-2.71828\AndroidManifest.xml:11:13-37
+109    </application>
+110
+111</manifest>

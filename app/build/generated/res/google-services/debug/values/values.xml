@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">1097921091957-ggl497qib8hhg812pght8282128tnf82.apps.googleusercontent.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">1097921091957</string>
+    <string name="google_api_key" translatable="false">AIzaSyBLwmHsPi-pCSBdtmhGUgf0YAL25Mkkac4</string>
+    <string name="google_app_id" translatable="false">1:1097921091957:android:1ae1247baf0b11ec5a1b3c</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyBLwmHsPi-pCSBdtmhGUgf0YAL25Mkkac4</string>
+    <string name="google_storage_bucket" translatable="false">pet-market-6996.appspot.com</string>
+    <string name="project_id" translatable="false">pet-market-6996</string>
+</resources>
