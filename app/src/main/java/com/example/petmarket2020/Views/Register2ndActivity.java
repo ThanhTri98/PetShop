@@ -108,6 +108,7 @@ public class Register2ndActivity extends AppCompatActivity {
 
     // Xác thực code người dùng
     private boolean verifyCode(String code) {
+//        Toast.makeText(this,code,Toast.LENGTH_LONG).show();
         StringBuilder usrInputCode = new StringBuilder();
         for (EditText editText : codes) {
             usrInputCode.append(editText.getText().toString());
@@ -160,22 +161,19 @@ public class Register2ndActivity extends AppCompatActivity {
                 new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
                     @Override
                     public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
+                        codeResponse = phoneAuthCredential.getSmsCode();
                     }
 
                     @Override
                     public void onVerificationFailed(@NonNull FirebaseException e) {
 
                     }
-
-                    @Override
-                    public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-                        myAsyncTask.cancel(true);
-                        myAsyncTask = new MyAsyncTask(tvSeconds, tvTimeEnd, btnResend);
-                        myAsyncTask.execute();
-                        rlBar.setVisibility(View.INVISIBLE);
-                    }
                 }
         );
+        myAsyncTask.cancel(true);
+        myAsyncTask = new MyAsyncTask(tvSeconds, tvTimeEnd, btnResend);
+        myAsyncTask.execute();
+        rlBar.setVisibility(View.INVISIBLE);
     }
 
     // Chọn tất cả trong edittext
@@ -248,6 +246,7 @@ public class Register2ndActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            codeResponse = "";
             tvSeconds.setVisibility(View.GONE);
             tvTimeEnd.setText("Mã kích hoạt hết hiệu lực");
             btnResend.setVisibility(View.VISIBLE);

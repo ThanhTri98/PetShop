@@ -19,7 +19,7 @@ public class Users implements Serializable {
     public Users(String fullName, String uid, String pwd, String gender, String dateOfBirth, String phoneNumber) {
         this.fullName = fullName;
         Uid = uid;
-        this.pwd = pwd;
+        this.pwd = BCrypt.hashpw(pwd, BCrypt.gensalt(12));
         this.gender = gender;
         this.dateOfBirth = dateOfBirth;
         this.phoneNumber = phoneNumber;

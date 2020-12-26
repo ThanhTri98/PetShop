@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/colorWhite"
     android:orientation="vertical"
     android:padding="10dp">
 
@@ -18,18 +19,15 @@
         android:id="@+id/tilTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="-10dp"
+        android:background="@color/colorWhite"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
         app:counterEnabled="true"
         app:counterMaxLength="70"
-        app:errorEnabled="true"
-        app:errorIconTint="@android:color/transparent"
         app:hintEnabled="false"
         tools:ignore="RtlSymmetry">
 
         <EditText
-            android:maxLength="70"
             android:id="@+id/etTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -39,10 +37,20 @@
             android:gravity="top"
             android:hint="@string/TTHint"
             android:inputType="textMultiLine"
+            android:maxLength="70"
             android:padding="0dp"
-            android:textColor="@color/colorTextDefault" />
-
+            android:textColor="@color/colorTextDefault"
+            android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:text="Vui lòng nhập tiêu đề!"
+        android:id="@+id/tvError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-19dp"
+        android:textColor="@color/colorRedDark"
+        android:textSize="13sp" />
 
     <LinearLayout
         android:layout_width="match_parent"

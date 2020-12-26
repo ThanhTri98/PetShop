@@ -68,7 +68,7 @@
     <string name="CTCity">Tỉnh/Thành phố</string>
     <string name="CTDistrict">Quận/Huyện</string>
     <string name="CTSelect">chọn Quận/Huyện</string>
-    <string name="CTDefaul">chọn Quận/Huyện</string>
+    <string name="CTDefault">Toàn Quốc</string>
     //Duration Date
     <string name="DDPrice">Giá bán:</string>
     <string name="DDTime">Thời hạn đăng bài:</string>
@@ -112,5 +112,26 @@
     <string name="LGPwd">Mật khẩu</string>
     <string name="RGStep2">2|2</string>
     <string name="RGCodeInvalid">Mã kích hoạt không hợp lệ!</string>
+    <string name="MAction">Đăng nhập/Đăng ký</string>
+    <string name="MoViewProfile">Xem trang cá nhân của bạn</string>
+    <string name="MoCoins">Điểm Tốt của tôi</string>
+    <string name="MoCoinsScore">Điểm tốt</string>
+    <string name="Mo0">0</string>
+    <string name="MoSaved">Tin đăng đã lưu</string>
+    <string name="MoCoin">Đồng Tốt</string>
+    <string name="MoHistory">Lịch sử giao dịch</string>
+    <string name="MoSale">Mã khuyến mãi</string>
+    <string name="MoLogout">Đăng xuất</string>
+    <string name="PrfPwd">*************</string>
+    <string name="LGTitleError">Tài khoản hoặc mật khẩu không chính xác</string>
+    <string name="PrfTitle">Thông tin cá nhân</string>
+    <string name="PrfFullName">Họ và tên</string>
+    <string name="HintDefault">Aa</string>
+    <string name="PrfSave">Lưu</string>
+    <string name="PrfInVerify">Chưa xác thực</string>
+    <string name="PrfHaveNot">Chưa có</string>
+    <string name="PrfVerify">Xác thực</string>
+    <string name="PrfAddress">Địa chỉ</string>
+    <string name="PrfStartDate">Ngày tham gia</string>
 
 </resources>

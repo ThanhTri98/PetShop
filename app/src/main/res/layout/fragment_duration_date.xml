@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite">
 
     <LinearLayout
         android:id="@+id/lnPrice"
@@ -54,20 +55,20 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
+            android:gravity="center_vertical"
             android:layout_alignParentEnd="true"
-            app:boxStrokeWidth="0dp"
-            app:boxStrokeWidthFocused="0dp"
             app:endIconDrawable="@drawable/ic_dropdown"
             app:hintEnabled="false"
             tools:ignore="RelativeOverlap">
 
             <AutoCompleteTextView
                 android:id="@+id/actv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
                 android:background="@color/colorWhite"
+                android:focusable="false"
                 android:inputType="none"
-                android:textAlignment="viewEnd"
+                android:padding="0dp"
                 android:textColor="@color/colorTextDefault"
                 android:textSize="16sp"
                 tools:ignore="LabelFor" />

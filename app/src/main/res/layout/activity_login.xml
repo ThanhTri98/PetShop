@@ -76,7 +76,7 @@
             android:rotationX="180" />
     </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -91,6 +91,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/AppName"
+            android:onClick="callFinish"
             android:padding="5dp"
             android:src="@drawable/ic_close"
             android:transitionName="transition_back" />
@@ -99,6 +100,7 @@
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/imgClose"
             android:layout_marginTop="40dp"
             android:layout_marginBottom="20dp"
             android:fontFamily="@font/muli_black"
@@ -112,6 +114,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/tvTitle"
             android:layout_marginTop="2dp"
             android:layout_marginBottom="2dp"
             android:hint="@string/LGUid"
@@ -138,6 +141,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/tilUid"
             android:layout_marginTop="2dp"
             android:hint="@string/LGPwd"
             android:textColorHint="@color/colorBlack"
@@ -160,8 +164,11 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
+            android:id="@+id/tvFp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/tilPwd"
+            android:layout_alignParentEnd="true"
             android:layout_gravity="end"
             android:layout_marginBottom="20dp"
             android:paddingVertical="8dp"
@@ -169,17 +176,45 @@
             android:textColor="@color/colorBlack"
             android:textSize="16sp" />
 
+        <TextView
+            android:id="@+id/tvError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvTitle"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="-18dp"
+            android:text="@string/LGTitleError"
+            android:textColor="@color/colorRedDark"
+            android:visibility="invisible" />
+
+        <RelativeLayout
+            android:id="@+id/rlBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvFp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="-52dp"
+            android:background="@drawable/bg_pbar"
+            android:elevation="8dp"
+            android:padding="17dp"
+            android:visibility="invisible">
+
+            <ProgressBar
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
+        </RelativeLayout>
+
         <Button
-            android:id="@+id/btnNext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/tvFp"
             android:layout_marginTop="20dp"
             android:background="@color/colorBlack"
             android:fontFamily="@font/muli_black"
+            android:onClick="callLogin"
             android:text="@string/LG"
-            android:textColor="@color/colorWhite"
-            android:transitionName="transition_next" />
-    </LinearLayout>
+            android:textColor="@color/colorWhite" />
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout3"

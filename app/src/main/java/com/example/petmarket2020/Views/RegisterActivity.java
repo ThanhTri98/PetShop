@@ -2,6 +2,7 @@ package com.example.petmarket2020.Views;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -24,6 +25,7 @@ import androidx.core.content.ContextCompat;
 import com.example.petmarket2020.Models.Users;
 import com.example.petmarket2020.R;
 import com.example.petmarket2020.Utils.Utils;
+import com.google.android.gms.tasks.TaskExecutors;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.PhoneAuthCredential;
@@ -43,10 +45,12 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
+    @SuppressLint("StaticFieldLeak")
+    public static Activity activity;
     private static final String REF = "Users";
     private static final String PHONE_PATTERN = "^[+]84[3-9][0-9]{8}$";
     private static final String UID_PATTERN = "^[a-z0-9]+$";
-    private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.US);
+    private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
     private Date currentDate;
     private TextInputLayout tilFullName, tilUid, tilPhoneNumber, tilPwd;
     private RelativeLayout rlBar;
@@ -63,6 +67,7 @@ public class RegisterActivity extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        activity = this;
         getWidget();
         currentDate = new Date();
         mRef = FirebaseDatabase.getInstance().getReference(REF);
@@ -200,7 +205,7 @@ public class RegisterActivity extends AppCompatActivity {
         int year = dpDoB.getYear();
         int month = dpDoB.getMonth() + 1;
         int day = dpDoB.getDayOfMonth() + 1;
-        String dateTmp = year + "/" + month + "/" + day;
+        String dateTmp = day + "/" + month + "/" + year;
         try {
             if (currentDate.compareTo(simpleDateFormat.parse(dateTmp)) <= 0) {
                 tvNoti.setVisibility(View.VISIBLE);
@@ -211,7 +216,7 @@ public class RegisterActivity extends AppCompatActivity {
         } catch (ParseException e) {
             return null;
         }
-        String dateOfBirth = year + "/" + month + "/" + (day - 1);
+        String dateOfBirth = (day - 1) + "/" + month + "/" + year;
         // End: Kiểm tra ngày sinh
         return new Users(fullName, uId, pwd, defaultGender, dateOfBirth, phone);
     }
@@ -253,24 +258,25 @@ public class RegisterActivity extends AppCompatActivity {
         // Tạo mã OTP
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 phone,
-                62L,
+                60L,
                 TimeUnit.SECONDS,
-                RegisterActivity.this,
+                this,
                 new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
                     @Override
                     public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-                        Log.w("onVerificationCompleted", phoneAuthCredential.getSmsCode());
+                        String code = phoneAuthCredential.getSmsCode();
+                        Log.w("getProvider", phoneAuthCredential.getProvider());
+                        Log.w("getSignInMethod", phoneAuthCredential.getSignInMethod());
+                        if (code != null) {
+                            Register2ndActivity.codeResponse = code;
+                            Log.w("KAKAK", Register2ndActivity.codeResponse);
+                        } else {
+                            Log.w("KAKAK", "Failllled");
+                        }
                     }
 
                     @Override
                     public void onVerificationFailed(@NonNull FirebaseException e) {
-                        Log.w("onVerificationFailed", "FAILEDDDD");
-                    }
-
-                    @Override
-                    public void onCodeAutoRetrievalTimeOut(@NonNull String s) {
-                        super.onCodeAutoRetrievalTimeOut(s);
-                        Log.w("onCodeAutoRetrievalTimeOut", s);
                     }
 
                     @Override

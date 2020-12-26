@@ -13,6 +13,7 @@
         tools:ignore="UselessParent">
 
         <RadioButton
+            android:paddingVertical="8dp"
             android:id="@+id/rdbtnDog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -25,6 +26,7 @@
             android:textSize="15sp" />
 
         <RadioButton
+            android:paddingVertical="8dp"
             android:id="@+id/rdbtnCat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
