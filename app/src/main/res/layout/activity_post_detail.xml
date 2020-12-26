@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/cat1" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="[BÁN]"
+                                android:textColor="@color/colorTextDefault"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="5dp"
+                                android:text="Mèo Anh lông ngắn 5 tháng tuổi"
+                                android:textColor="@color/colorTextDefault"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                        <RelativeLayout
+                            android:paddingVertical="5dp"
+                            android:gravity="center_vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:id="@+id/priceText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="5.555 đ"
+                                android:textColor="@color/colorRedDark"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+                            <LinearLayout
+                                android:id="@+id/llSavePosts"
+                                android:paddingVertical="3dp"
+                                android:paddingHorizontal="10dp"
+                                android:background="@drawable/bg_border_cirle_red"
+                                android:gravity="center"
+                                android:layout_alignParentEnd="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+                                <TextView
+                                    android:id="@+id/tvStatus"
+                                    android:layout_marginEnd="3dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Lưu tin"
+                                    android:textColor="@color/colorRedDark"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold" />
+                                <View
+                                    android:id="@+id/vIcon"
+                                    android:background="@drawable/ic_item_tym"
+                                    android:layout_width="19dp"
+                                    android:layout_height="19dp"/>
+                            </LinearLayout>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/colorGrayLight" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:paddingVertical="10dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:text="@string/location"
+                                android:textColor="@color/grey_font"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+                            <View
+                                android:layout_marginTop="5dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/colorGrayLight" />
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+                                <LinearLayout
+                                    android:layout_marginTop="5dp"
+                                    android:orientation="horizontal"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content">
+                                    <View
+
+                                        android:layout_marginLeft="5dp"
+                                        android:background="@drawable/ic_location"
+                                        android:layout_width="24dp"
+                                        android:layout_height="24dp"/>
+                                    <TextView
+                                        android:paddingLeft="10dp"
+                                        android:text="Phường 6, Quận Bình Thạnh, Tp. Hồ Chí Minh"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"/>
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_marginTop="5dp"
+                                    android:orientation="horizontal"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content">
+                                    <View
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="5dp"
+                                        android:background="@drawable/ic_protect"
+                                        android:layout_width="24dp"
+                                        android:layout_height="24dp"/>
+                                    <TextView
+
+                                        android:textStyle="italic"
+                                        android:paddingLeft="10dp"
+                                        android:text="Tin đăng này đã được kiểm duyệt. Nếu gặp vấn đề, vui lòng báo cáo tin đăng hoặc liên hệ CSKH để được trợ giúp."
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"/>
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_marginTop="5dp"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+                                   <Button
+
+                                       android:layout_weight="2"
+                                       android:text="Báo tin đã bán"
+                                       android:textAllCaps="false"
+                                       android:textColor="@color/colorRedDark"
+                                       android:backgroundTint="@color/colorWhite"
+                                       android:layout_width="match_parent"
+                                       android:layout_height="match_parent"/>
+                                    <Button
+                                        android:layout_weight="1"
+                                        android:text="Báo tin không hợp lệ"
+                                        android:textAllCaps="false"
+                                        android:textColor="@color/colorRedDark"
+                                        android:backgroundTint="@color/colorWhite"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"/>
+                                </LinearLayout>
+                            </LinearLayout>
+                            <View
+                                android:layout_marginTop="5dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/colorGrayLight" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:paddingVertical="10dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:text="@string/samePost"
+                                android:textColor="@color/grey_font"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+                            <View
+                                android:layout_marginTop="5dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/colorGrayLight" />
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@color/colorWhite"
+                                android:orientation="vertical"
+                                android:paddingHorizontal="10dp"
+                                android:paddingTop="5dp">
+
+
+
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/rvPoster"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    tools:itemCount="0" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <View
+
+                                android:layout_marginLeft="5dp"
+                                android:background="@drawable/ic_location"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"/>
+                            <TextView
+                                android:paddingLeft="10dp"
+                                android:text="Phường 6, Quận Bình Thạnh, Tp. Hồ Chí Minh"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <View
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="5dp"
+                                android:background="@drawable/ic_protect"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"/>
+                            <TextView
+
+                                android:textStyle="italic"
+                                android:paddingLeft="10dp"
+                                android:text="Tin đăng này đã được kiểm duyệt. Nếu gặp vấn đề, vui lòng báo cáo tin đăng hoặc liên hệ CSKH để được trợ giúp."
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <Button
+
+                                android:layout_weight="2"
+                                android:text="Báo tin đã bán"
+                                android:textAllCaps="false"
+                                android:textColor="@color/colorRedDark"
+                                android:backgroundTint="@color/colorWhite"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"/>
+                            <Button
+                                android:layout_weight="1"
+                                android:text="Báo tin không hợp lệ"
+                                android:textAllCaps="false"
+                                android:textColor="@color/colorRedDark"
+                                android:backgroundTint="@color/colorWhite"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+
+
+
+    <LinearLayout
+        android:background="@drawable/bg_bottom_contact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:orientation="horizontal">
+
+        <Button
+
+            android:id="@+id/btnCall"
+            android:layout_width="206dp"
+            android:layout_height="match_parent"
+            android:backgroundTint="@color/colorGreen"
+            android:text="@string/PDCall"
+            android:textAllCaps="false"
+            android:textColor="@color/colorWhite"
+            android:drawableStart="@drawable/ic_details_call"
+           />
+
+        <Button
+            android:id="@+id/btnSms"
+            android:layout_width="206dp"
+            android:layout_height="match_parent"
+            android:backgroundTint="@color/colorWhite"
+            android:text="@string/PDSms"
+            android:textAllCaps="false"
+            android:textColor="@color/colorGreen"
+            android:drawableStart="@drawable/ic_details_sms"
+            app:iconTint="@color/colorGreen"/>
+
+
+    </LinearLayout>
+</RelativeLayout>

@@ -112,5 +112,9 @@
     <string name="LGPwd">Mật khẩu</string>
     <string name="RGStep2">2|2</string>
     <string name="RGCodeInvalid">Mã kích hoạt không hợp lệ!</string>
+    <string name="PDCall">Gọi điện</string>
+    <string name="PDSms">Gửi SMS</string>
+    <string name="location">Khu vực</string>
+    <string name="samePost">Tin đăng tương tự</string>
 
 </resources>

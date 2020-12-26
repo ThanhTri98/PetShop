@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.petmarket2020">
+
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -12,12 +13,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Views.LocationActivity" />
-        <activity android:name=".Views.RegisterActivity">
+        <activity android:name=".Views.PostDetailActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".Views.LocationActivity" />
+        <activity android:name=".Views.RegisterActivity">
+
         </activity>
         <activity android:name=".Views.Register2ndActivity" />
         <activity android:name=".Views.SuccessfullyActivity" />
