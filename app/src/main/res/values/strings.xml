@@ -1,0 +1,116 @@
+<resources>
+    //Commons
+    <string name="AppName">Pet Shop</string>
+    <string name="Confirm">Xác nhận</string>
+    <string name="Continue">Tiếp tục</string>
+    <string name="Email">Email</string>
+    <string name="Pwd">Mật khẩu</string>
+    <string name="PhoneNumber">Số điện thoại</string>
+    //Forgot Password
+    <string name="FPTitle">Nhập email bạn đã đăng ký để lấy lại mật khẩu</string>
+    //Register
+    <string name="RGNonNull">Không được bỏ trống!</string>
+    <string name="RGNonFormat">Không hợp lệ!</string>
+    <string name="RGLenPwd">Mật khẩu phải từ 6 ký tự trở lên!</string>
+    <string name="RGDupUid">Tài khoản đã có người sử dụng!</string>
+    <string name="RGPwd">Mật khẩu*</string>
+    <string name="RGUid">Tài khoản*</string>
+    <string name="RGFullName">Họ tên*</string>
+    <string name="RGStep1">1|2</string>
+    <string name="RGPhoneNumber">Số điện thoại*</string>
+    <string name="RGGender">Giới tính:</string>
+    <string name="RGMale">Nam</string>
+    <string name="RGFemale">Nữ</string>
+    <string name="RGOther">Khác</string>
+    <string name="RGDob">Ngày sinh:</string>
+    <string name="RGResend">Gửi lại</string>
+    <string name="RGCode">C O D E</string>
+    //Login
+    <string name="LG">Đăng nhập</string>
+    <string name="LGHello">xin chào!</string>
+    <string name="LGForgot">Quên mật khẩu?</string>
+    <string name="LGOr">hoặc</string>
+    <string name="LGText1">Bạn chưa có tài khoản?</string>
+    <string name="LGNow">Đăng ký ngay</string>
+    //Home
+    <string name="HSearch">Tìm kiếm trên PetMarket</string>
+    <string name="HTitle1">Khám phá danh mục thú cưng</string>
+    <string name="HTitle2">Tin đăng dành cho bạn</string>
+    //Location
+    <string name="LSearch">Tìm kiếm</string>
+
+    // Fragments
+    // Add Image
+    <string name="AIText1">Thêm hình ảnh để tin đăng thêm thu hút</string>
+    <string name="AIText2">Vui lòng chọn ít nhất 1 hình ảnh</string>
+    <string name="AIText3">Tối đa</string>
+    <string name="AIText4">* Ảnh: 5 ảnh</string>
+    <string name="AIText5">Để tin đăng thu hút hơn nên đăng kèm hình ảnh</string>
+    <string name="AIText6">* Chụp ảnh toàn thân của thú cưng</string>
+    <string name="AIText7">* Chụp ảnh rõ nét</string>
+    <string name="AIText8">* Chụp ảnh giấy tờ hay chứng từ nếu có (phiếu chích ngừa, giấy khai sinh)</string>
+    <string name="AIText9">Không nên</string>
+    <string name="AIText10">* Không thêm số điện thoại, thông tin cá nhân và giá mua bán</string>
+    <string name="AIText11">* Không sử dụng hình ảnh được lấy từ internet</string>
+    <string name="AIText12">* Không đăng hình của nhiều loài khác nhau trong một bộ hình</string>
+    //Additional Infor
+    <string name="AIFGender">Giới tính</string>
+    <string name="AIFMale">Đực</string>
+    <string name="AIFFemale">Cái</string>
+    <string name="AIFOther">Không rõ</string>
+    <string name="AIFStatus">Tình trạng tiêm chủng</string>
+    <string name="AIFYes">Có</string>
+    <string name="AIFNo">Không</string>
+    <string name="AIFHealt">Bảo hành sức khỏe</string>
+    <string name="AIFYearsOld">Độ tuổi thú cưng</string>
+    //Contact
+    <string name="CTYourName">Tên của bạn</string>
+    <string name="CTCity">Tỉnh/Thành phố</string>
+    <string name="CTDistrict">Quận/Huyện</string>
+    <string name="CTSelect">chọn Quận/Huyện</string>
+    <string name="CTDefaul">chọn Quận/Huyện</string>
+    //Duration Date
+    <string name="DDPrice">Giá bán:</string>
+    <string name="DDTime">Thời hạn đăng bài:</string>
+    <string name="DDDfault">Nếu bạn không muốn để giá, hãy nhập "0"</string>
+    //Pet Type
+    <string name="PTDog">Chó</string>
+    <string name="PTCat">Mèo</string>
+    //Post Type
+    <string name="PoTSell">Cần bán</string>
+    <string name="PoTBuy">Cần mua</string>
+    //Title
+    <string name="TT">Tiêu đề</string>
+    <string name="TTHint">Nhập tiêu đề</string>
+    <string name="TTText1">Ví dụ</string>
+    <string name="TTText2">Nên viết tiếng việt có dấu</string>
+    <string name="TTText3">* Giống thú cưng</string>
+    <string name="TTText4">* Giới tính</string>
+    <string name="TTText5">* Xuất xứ</string>
+    <string name="TTText6">* Tháng tuổi</string>
+    <string name="TTText7">* Cân nặng</string>
+    <string name="TTText8">* Màu lông</string>
+    <string name="TTText9">Không nên</string>
+    <string name="TTText10">* Không thêm số điện thoại, thông tin cá nhân và giá mua bán</string>
+    //View Post
+    <string name="VPInfor">Thông tin mô tả</string>
+    <string name="VPBreed">Giống</string>
+    <string name="VPGender">Giới tính</string>
+    <string name="VPYear">Độ tuổi</string>
+    <string name="VPTiemNgua">Tiêm ngừa</string>
+    <string name="VPContact">Thông tin liên hệ</string>
+    <string name="VPArea">Khu vực</string>
+
+
+    // Menu
+    // Bottom
+    <string name="BNV1">Trang chủ</string>
+    <string name="BNV2">Tôi bán</string>
+    <string name="BNV3">Thông báo</string>
+    <string name="BNV4">Thêm</string>
+    <string name="LGUid">Tài khoản</string>
+    <string name="LGPwd">Mật khẩu</string>
+    <string name="RGStep2">2|2</string>
+    <string name="RGCodeInvalid">Mã kích hoạt không hợp lệ!</string>
+
+</resources>
