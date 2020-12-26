@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical"
+    android:transitionName="transition_layout_lg"
+    tools:context=".Views.LoginActivity">
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:background="@drawable/bg_login"
+            android:backgroundTint="@color/colorPrimary" />
+    </FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/frameLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="135dp"
+        android:background="@color/colorWhite"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout">
+
+        <ImageView
+            android:id="@+id/view3"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:contentDescription="@string/AppName"
+            android:src="@mipmap/ic_pet_shop_round" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="52dp"
+            android:layout_marginTop="27dp"
+            android:fontFamily="@font/brandon_grotesque_black"
+            android:text="@string/AppName"
+            android:textColor="@color/colorBlack"
+            android:textSize="35sp" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/textView2"
+            android:layout_marginStart="3dp"
+            android:layout_toEndOf="@+id/textView2"
+            android:fontFamily="@font/brandon_grotesque_black"
+            android:text="@string/LGHello"
+            android:textColor="@color/colorBlack"
+            android:textSize="20sp" />
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/bg_login"
+            android:backgroundTint="@color/colorPrimary"
+            android:rotationX="180" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout2">
+
+        <ImageView
+            android:id="@+id/imgClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/AppName"
+            android:padding="5dp"
+            android:src="@drawable/ic_close"
+            android:transitionName="transition_back" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/muli_black"
+            android:text="@string/LG"
+            android:textAllCaps="true"
+            android:textColor="@color/colorBlack"
+            android:textSize="40sp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilUid"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:hint="@string/LGUid"
+            android:textColorHint="@color/colorBlack"
+            app:boxStrokeColor="@color/colorBlack"
+            app:boxStrokeWidthFocused="2dp"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/colorBlack"
+            app:hintTextColor="@color/colorBlack"
+            app:startIconDrawable="@drawable/ic_login_user"
+            app:startIconTint="@color/colorBlack">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etUid"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textPersonName"
+                android:maxLength="50"
+                android:textColor="@color/colorBlack" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilPwd"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:hint="@string/LGPwd"
+            android:textColorHint="@color/colorBlack"
+            app:boxStrokeColor="@color/colorBlack"
+            app:boxStrokeWidthFocused="2dp"
+            app:endIconTint="@color/colorBlack"
+            app:hintTextColor="@color/colorBlack"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/colorBlack"
+            app:startIconDrawable="@drawable/ic_login_pass"
+            app:startIconTint="@color/colorBlack">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPwd"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textPassword"
+                android:maxLength="50"
+                android:textColor="@color/colorBlack" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginBottom="20dp"
+            android:paddingVertical="8dp"
+            android:text="@string/LGForgot"
+            android:textColor="@color/colorBlack"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btnNext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorBlack"
+            android:fontFamily="@font/muli_black"
+            android:text="@string/LG"
+            android:textColor="@color/colorWhite"
+            android:transitionName="transition_next" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingVertical="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <View
+            android:layout_width="135dp"
+            android:layout_height="1dp"
+            android:background="@color/colorBlack" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="4dp"
+            android:text="@string/LGOr"
+            android:textColor="@color/colorBlack" />
+
+        <View
+            android:layout_width="135dp"
+            android:layout_height="1dp"
+            android:background="@color/colorBlack" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+
+        <ImageView
+            android:id="@+id/imgGG"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:contentDescription="@string/AppName"
+            android:padding="5dp"
+            android:src="@drawable/ic_login_gg" />
+
+        <ImageView
+            android:id="@+id/imgFB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/AppName"
+            android:padding="5dp"
+            android:src="@drawable/ic_login_fb" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:text="@string/LGText1"
+            android:textColor="@color/colorBlack" />
+
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="140dp"
+            android:layout_height="35dp"
+            android:background="@color/colorBlack"
+            android:onClick="callRegisterLG"
+            android:text="@string/LGNow"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
