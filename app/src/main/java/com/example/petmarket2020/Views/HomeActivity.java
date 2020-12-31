@@ -6,11 +6,10 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 
 import com.example.petmarket2020.Adapters.VP_MainAdapter;
 import com.example.petmarket2020.R;
-import com.example.petmarket2020.Utils.MyViewPager;
+import com.example.petmarket2020.HelperClass.MyViewPager;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;

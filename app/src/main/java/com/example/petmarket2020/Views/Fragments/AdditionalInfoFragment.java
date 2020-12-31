@@ -10,7 +10,7 @@ import android.widget.AutoCompleteTextView;
 import androidx.fragment.app.Fragment;
 
 import com.example.petmarket2020.R;
-import com.example.petmarket2020.Utils.Utils;
+import com.example.petmarket2020.HelperClass.Utils;
 
 import java.util.Objects;
 
@@ -32,7 +32,7 @@ public class AdditionalInfoFragment extends Fragment {
 
     @Override
     public void onResume() {
-        Utils.HiddenKeyboard(Objects.requireNonNull(getActivity()));
+        Utils.hiddenKeyboard(Objects.requireNonNull(getActivity()));
         super.onResume();
     }
 }

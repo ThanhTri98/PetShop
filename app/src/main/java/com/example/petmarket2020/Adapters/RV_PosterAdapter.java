@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -64,17 +65,27 @@ public class RV_PosterAdapter extends RecyclerView.Adapter<RV_PosterAdapter.MyVi
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageView;
+        ImageView imageView, imgFav;
         TextView tvTitle, tvPrice, tvAddress, tvDate;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.imageView);
+            imgFav = itemView.findViewById(R.id.imgFav);
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvPrice = itemView.findViewById(R.id.tvPrice);
             tvAddress = itemView.findViewById(R.id.tvAddress);
             tvDate = itemView.findViewById(R.id.tvDate);
-
+            imgFav.setOnClickListener(v -> {
+                if (imgFav.getTag().toString().equals("1")) {
+                    imgFav.setTag("2");
+                    imgFav.setImageResource(R.drawable.ic_item_tym_checked);
+                    Toast.makeText(itemView.getContext(), "Đã lưu", Toast.LENGTH_SHORT).show();
+                } else {
+                    imgFav.setTag("1");
+                    imgFav.setImageResource(R.drawable.ic_item_tym);
+                }
+            });
         }
     }
 }

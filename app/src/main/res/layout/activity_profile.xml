@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhite"
-    android:orientation="vertical">
+    android:background="@color/colorWhite">
 
     <RelativeLayout
+        android:id="@+id/r1"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary">
@@ -33,22 +33,42 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:id="@+id/llProfile"
+        android:id="@+id/r2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/r1"
         android:background="@drawable/bg_border_bottom"
         android:gravity="center_vertical"
         android:paddingVertical="10dp"
         android:paddingStart="10dp"
         tools:ignore="RtlSymmetry,UselessParent">
 
-        <ImageView
-            android:id="@+id/imgAvatar"
+        <RelativeLayout
+            android:id="@+id/rlImgProfile"
             android:layout_width="70dp"
-            android:layout_height="80dp"
-            android:contentDescription="@string/app_name"
-            android:foreground="@drawable/fg_circle"
-            android:src="@drawable/cat1" />
+            android:layout_height="80dp">
+
+            <ImageView
+                android:id="@+id/imgAvatar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/app_name"
+                android:foreground="@drawable/fg_circle"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_login_user" />
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/bg_border_circle"
+                android:backgroundTint="@color/colorWhite"
+                android:contentDescription="@string/AppName"
+                android:padding="4dp"
+                android:src="@drawable/ic_camera" />
+        </RelativeLayout>
+
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -69,31 +89,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/tvLabel"
+                android:layout_marginEnd="30dp"
                 android:autofillHints=""
                 android:background="@drawable/bg_et"
-                android:focusable="false"
-                android:focusableInTouchMode="true"
+                android:enabled="false"
                 android:hint="@string/HintDefault"
                 android:inputType="textPersonName"
-                android:maxLength="30"
+                android:maxLength="40"
                 android:padding="0dp"
                 android:textColor="@color/colorTextDefault"
                 android:textSize="16sp" />
 
-            <Button
-                android:id="@+id/btnSave"
-                android:layout_width="50dp"
-                android:layout_height="40dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:backgroundTint="#FF9800"
-                android:text="@string/PrfSave"
-                android:textAllCaps="false"
-                android:textColor="@color/colorWhite"
-                android:textSize="14sp"
-                android:visibility="visible" />
-
             <ImageView
+                android:id="@+id/ivEditName"
                 android:layout_width="30dp"
                 android:layout_height="35dp"
                 android:layout_alignParentEnd="true"
@@ -105,8 +113,10 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:id="@+id/r3"
         android:layout_width="match_parent"
         android:layout_height="55dp"
+        android:layout_below="@+id/r2"
         android:background="@drawable/bg_border_bottom"
         android:paddingVertical="5dp">
 
@@ -150,8 +160,10 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/r4"
         android:layout_width="match_parent"
         android:layout_height="55dp"
+        android:layout_below="@+id/r3"
         android:background="@drawable/bg_border_bottom"
         android:paddingVertical="5dp">
 
@@ -184,25 +196,24 @@
             android:textColor="@color/grey_font"
             android:textSize="15sp" />
 
-        <TextView
-            android:id="@+id/tvMailErr"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+        <View
+            android:id="@+id/vMailStatus"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginStart="3dp"
             android:layout_marginTop="2dp"
             android:layout_toEndOf="@+id/tvEmail"
-            android:text="@string/PrfInVerify"
-            android:textColor="@color/colorRedDark"
-            android:textSize="12sp"
-            android:textStyle="italic"
+            android:background="@drawable/ic_baseline_info_24"
+            android:contentDescription="@string/AppName"
             tools:ignore="RelativeOverlap" />
 
         <EditText
             android:id="@+id/etEmail"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="10dp"
+            android:layout_marginEnd="40dp"
             android:layout_toEndOf="@+id/flEmail"
             android:autofillHints=""
             android:background="@drawable/bg_et"
@@ -210,47 +221,32 @@
             android:inputType="textEmailAddress"
             android:maxLength="60"
             android:padding="0dp"
-            android:text="@string/PrfHaveNot"
+            android:hint="@string/HintDefault"
             android:textColor="@color/colorTextDefault"
             android:textSize="15sp"
             tools:ignore="LabelFor" />
 
         <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="3dp"
-            android:layout_marginBottom="-4dp"
-            android:layout_toEndOf="@id/etEmail"
-            android:contentDescription="@string/AppName"
-            android:padding="5dp"
-            android:src="@drawable/ic_edit_24"
-            android:visibility="visible" />
-
-        <Button
-            android:id="@+id/btnSaveEmail"
-            android:layout_width="45dp"
-            android:layout_height="30dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="3dp"
-            android:layout_marginBottom="-4dp"
-            android:layout_toEndOf="@id/etEmail"
-            android:backgroundTint="#FF9800"
-            android:padding="0dp"
-            android:text="@string/PrfSave"
-            android:textAllCaps="false"
-            android:textColor="@color/colorWhite"
-            android:textSize="13sp"
-            android:visibility="gone" />
-
-        <Button
-            android:id="@+id/btnVerify"
-            android:layout_width="75dp"
-            android:layout_height="40dp"
+            android:id="@+id/ivEditEmail"
+            android:layout_width="30dp"
+            android:layout_height="35dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="5dp"
-            android:backgroundTint="#FF9800"
+            android:contentDescription="@string/AppName"
+            android:padding="5dp"
+            android:src="@drawable/ic_edit_24" />
+
+        <Button
+            android:id="@+id/btnVerify"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/vMailStatus"
+            android:background="@drawable/bg_border_circle"
+            android:backgroundTint="@color/colorGreen"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="0dp"
             android:text="@string/PrfVerify"
             android:textAllCaps="false"
             android:textColor="@color/colorWhite"
@@ -259,8 +255,10 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/r5"
         android:layout_width="match_parent"
         android:layout_height="55dp"
+        android:layout_below="@+id/r4"
         android:background="@drawable/bg_border_bottom"
         android:paddingVertical="5dp">
 
@@ -293,18 +291,25 @@
             android:textSize="15sp"
             tools:ignore="RelativeOverlap" />
 
-        <TextView
-            android:id="@+id/tvAddress"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/etAddress"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="10dp"
+            android:layout_marginEnd="40dp"
             android:layout_toEndOf="@+id/flAddress"
-            android:text="@string/PrfHaveNot"
+            android:autofillHints=""
+            android:background="@drawable/bg_et"
+            android:enabled="false"
+            android:inputType="textPersonName"
+            android:padding="0dp"
             android:textColor="@color/colorTextDefault"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            tools:ignore="LabelFor" />
 
         <ImageView
+            android:id="@+id/ivEditAddress"
             android:layout_width="30dp"
             android:layout_height="35dp"
             android:layout_alignParentEnd="true"
@@ -316,8 +321,10 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/rlPwd"
         android:layout_width="match_parent"
         android:layout_height="55dp"
+        android:layout_below="@+id/r5"
         android:background="@drawable/bg_border_bottom"
         android:paddingVertical="5dp">
 
@@ -362,6 +369,7 @@
             android:textSize="15sp" />
 
         <ImageView
+            android:id="@+id/ivEditPwd"
             android:layout_width="30dp"
             android:layout_height="35dp"
             android:layout_alignParentEnd="true"
@@ -373,8 +381,10 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/r7"
         android:layout_width="match_parent"
         android:layout_height="55dp"
+        android:layout_below="@+id/rlPwd"
         android:background="@drawable/bg_border_bottom"
         android:paddingVertical="5dp">
 
@@ -418,6 +428,7 @@
             android:textSize="15sp" />
 
         <ImageView
+            android:id="@+id/ivEditGender"
             android:layout_width="30dp"
             android:layout_height="35dp"
             android:layout_alignParentEnd="true"
@@ -429,8 +440,10 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/r8"
         android:layout_width="match_parent"
         android:layout_height="55dp"
+        android:layout_below="@+id/r7"
         android:background="@drawable/bg_border_bottom"
         android:paddingVertical="5dp">
 
@@ -474,19 +487,22 @@
             android:textSize="15sp" />
 
         <ImageView
+            android:id="@+id/ivEditDob"
             android:layout_width="30dp"
             android:layout_height="35dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="5dp"
-            android:contentDescription="TODO"
+            android:contentDescription="@string/AppName"
             android:padding="5dp"
             android:src="@drawable/ic_edit_24" />
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/r9"
         android:layout_width="match_parent"
         android:layout_height="55dp"
+        android:layout_below="@+id/r8"
         android:background="@drawable/bg_border_bottom"
         android:paddingVertical="5dp">
 
@@ -525,8 +541,37 @@
             android:layout_alignParentBottom="true"
             android:layout_marginStart="10dp"
             android:layout_toEndOf="@+id/flStartDate"
-            android:text="20/09/2020"
             android:textColor="@color/colorTextDefault"
             android:textSize="15sp" />
     </RelativeLayout>
-</LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/bg_pbar"
+        android:elevation="8dp"
+        android:padding="17dp"
+        android:visibility="invisible">
+
+        <ProgressBar
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btnUpdate"
+        android:layout_width="100dp"
+        android:layout_height="35dp"
+        android:layout_below="@+id/r9"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_border_circle"
+        android:backgroundTint="@color/colorBlack"
+        android:fontFamily="@font/muli_black"
+        android:text="@string/PrfUpdate"
+        android:textAllCaps="false"
+        android:textColor="@color/colorWhite"
+        android:textSize="16sp" />
+</RelativeLayout>

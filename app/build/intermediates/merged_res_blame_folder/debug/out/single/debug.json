@@ -16,28 +16,28 @@
         "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher.png"
     },
     {
-        "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_more.xml.flat",
-        "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\layout\\fragment_more.xml"
-    },
-    {
         "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\drawable_bg_border_circle.xml.flat",
         "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\drawable\\bg_border_circle.xml"
     },
     {
-        "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-anydpi-v26_ic_launcher.xml.flat",
-        "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\mipmap-anydpi-v26\\ic_launcher.xml"
+        "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_more.xml.flat",
+        "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\layout\\fragment_more.xml"
     },
     {
         "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_nav_home.xml.flat",
         "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\drawable\\ic_nav_home.xml"
     },
     {
-        "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\font_muli_black.ttf.flat",
-        "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\font\\muli_black.ttf"
+        "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\mipmap-anydpi-v26\\ic_launcher.xml"
     },
     {
         "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_home_state.xml.flat",
         "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\drawable\\ic_home_state.xml"
+    },
+    {
+        "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\font_muli_black.ttf.flat",
+        "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\font\\muli_black.ttf"
     },
     {
         "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_nav_post.xml.flat",
@@ -46,6 +46,10 @@
     {
         "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\drawable_bg_border_horizontal.xml.flat",
         "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\drawable\\bg_border_horizontal.xml"
+    },
+    {
+        "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_image_picker.xml.flat",
+        "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\layout\\activity_image_picker.xml"
     },
     {
         "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_nav_home_checked.xml.flat",
@@ -96,28 +100,36 @@
         "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\layout\\activity_login.xml"
     },
     {
-        "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\drawable_bg_rd_selector.xml.flat",
-        "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\drawable\\bg_rd_selector.xml"
-    },
-    {
         "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\drawable_bg_otp.xml.flat",
         "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\drawable\\bg_otp.xml"
+    },
+    {
+        "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\drawable_bg_rd_selector.xml.flat",
+        "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\drawable\\bg_rd_selector.xml"
     },
     {
         "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_profile.xml.flat",
         "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\layout\\activity_profile.xml"
     },
     {
+        "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_baseline_location_on_24.xml.flat",
+        "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\drawable\\ic_baseline_location_on_24.xml"
+    },
+    {
         "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\drawable_banner6.jpg.flat",
         "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\drawable\\banner6.jpg"
     },
     {
-        "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\drawable_bg_rd_ic_end_selector.xml.flat",
-        "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\drawable\\bg_rd_ic_end_selector.xml"
+        "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_map.xml.flat",
+        "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\layout\\activity_map.xml"
     },
     {
         "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\drawable_dog2.jpg.flat",
         "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\drawable\\dog2.jpg"
+    },
+    {
+        "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\drawable_bg_rd_ic_end_selector.xml.flat",
+        "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\drawable\\bg_rd_ic_end_selector.xml"
     },
     {
         "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_forgot_pw.xml.flat",
@@ -138,6 +150,10 @@
     {
         "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_ic_pet_shop_round.png.flat",
         "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\mipmap-xhdpi\\ic_pet_shop_round.png"
+    },
+    {
+        "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_camera.xml.flat",
+        "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\drawable\\ic_camera.xml"
     },
     {
         "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_nav_more_checked.xml.flat",
@@ -224,12 +240,12 @@
         "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\layout\\activity_successfully.xml"
     },
     {
-        "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi_ic_pet_shop_round.png.flat",
-        "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\mipmap-mdpi\\ic_pet_shop_round.png"
-    },
-    {
         "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\drawable_banner4.jpg.flat",
         "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\drawable\\banner4.jpg"
+    },
+    {
+        "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi_ic_pet_shop_round.png.flat",
+        "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\mipmap-mdpi\\ic_pet_shop_round.png"
     },
     {
         "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_post_arrow_back.xml.flat",
@@ -240,16 +256,16 @@
         "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\drawable\\ic_search_back.xml"
     },
     {
+        "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\drawable_banner1.jpg.flat",
+        "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\drawable\\banner1.jpg"
+    },
+    {
         "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\drawable_bg_search.xml.flat",
         "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\drawable\\bg_search.xml"
     },
     {
         "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_register_person.xml.flat",
         "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\drawable\\ic_register_person.xml"
-    },
-    {
-        "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\drawable_banner1.jpg.flat",
-        "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\drawable\\banner1.jpg"
     },
     {
         "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_login_user.xml.flat",
@@ -268,24 +284,24 @@
         "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\drawable\\ic_date.xml"
     },
     {
-        "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_ic_launcher_round.png.flat",
-        "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher_round.png"
-    },
-    {
         "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_logout.xml.flat",
         "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\drawable\\ic_logout.xml"
+    },
+    {
+        "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_ic_launcher_round.png.flat",
+        "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher_round.png"
     },
     {
         "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi_ic_pet_shop.png.flat",
         "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\mipmap-hdpi\\ic_pet_shop.png"
     },
     {
-        "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_nav_me_checked.xml.flat",
-        "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\drawable\\ic_nav_me_checked.xml"
-    },
-    {
         "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_register2nd.xml.flat",
         "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\layout\\activity_register2nd.xml"
+    },
+    {
+        "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_nav_me_checked.xml.flat",
+        "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\drawable\\ic_nav_me_checked.xml"
     },
     {
         "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_login_fb.xml.flat",
@@ -340,6 +356,10 @@
         "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\drawable\\bg_step.xml"
     },
     {
+        "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\xml_file_paths.xml.flat",
+        "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\xml\\file_paths.xml"
+    },
+    {
         "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\drawable_bg_pbar.xml.flat",
         "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\drawable\\bg_pbar.xml"
     },
@@ -370,6 +390,10 @@
     {
         "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_pet_type.xml.flat",
         "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\layout\\fragment_pet_type.xml"
+    },
+    {
+        "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_baseline_play_for_work_24.xml.flat",
+        "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\drawable\\ic_baseline_play_for_work_24.xml"
     },
     {
         "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_ic_pet_shop.png.flat",
@@ -432,12 +456,12 @@
         "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\drawable\\banner3.jpg"
     },
     {
-        "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_ic_pet_shop_foreground.png.flat",
-        "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\mipmap-xhdpi\\ic_pet_shop_foreground.png"
-    },
-    {
         "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_notifi_state.xml.flat",
         "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\drawable\\ic_notifi_state.xml"
+    },
+    {
+        "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_ic_pet_shop_foreground.png.flat",
+        "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\mipmap-xhdpi\\ic_pet_shop_foreground.png"
     },
     {
         "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\drawable_bg_rd_normal.xml.flat",
@@ -478,6 +502,10 @@
     {
         "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\drawable_dog1.jpg.flat",
         "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\drawable\\dog1.jpg"
+    },
+    {
+        "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_baseline_info_24.xml.flat",
+        "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\drawable\\ic_baseline_info_24.xml"
     },
     {
         "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi_ic_launcher_round.png.flat",

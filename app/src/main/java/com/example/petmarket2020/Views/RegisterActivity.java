@@ -24,8 +24,7 @@ import androidx.core.content.ContextCompat;
 
 import com.example.petmarket2020.Models.Users;
 import com.example.petmarket2020.R;
-import com.example.petmarket2020.Utils.Utils;
-import com.google.android.gms.tasks.TaskExecutors;
+import com.example.petmarket2020.HelperClass.Utils;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.PhoneAuthCredential;
@@ -50,8 +49,7 @@ public class RegisterActivity extends AppCompatActivity {
     private static final String REF = "Users";
     private static final String PHONE_PATTERN = "^[+]84[3-9][0-9]{8}$";
     private static final String UID_PATTERN = "^[a-z0-9]+$";
-    private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
-    private Date currentDate;
+    private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.KOREA);
     private TextInputLayout tilFullName, tilUid, tilPhoneNumber, tilPwd;
     private RelativeLayout rlBar;
     private RadioGroup rgGender;
@@ -69,7 +67,6 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         activity = this;
         getWidget();
-        currentDate = new Date();
         mRef = FirebaseDatabase.getInstance().getReference(REF);
         setListener();
         per();
@@ -83,7 +80,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     public void callHiddenKeyboard(View view) {
-        Utils.HiddenKeyboard(RegisterActivity.this);
+        Utils.hiddenKeyboard(RegisterActivity.this);
     }
 
     private void getWidget() {
@@ -116,7 +113,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void callFinish(View view) {
-        finishAfterTransition();
+        finish();
     }
 
     private Users checkFieldValid() {
@@ -207,7 +204,7 @@ public class RegisterActivity extends AppCompatActivity {
         int day = dpDoB.getDayOfMonth() + 1;
         String dateTmp = day + "/" + month + "/" + year;
         try {
-            if (currentDate.compareTo(simpleDateFormat.parse(dateTmp)) <= 0) {
+            if (new Date().compareTo(simpleDateFormat.parse(dateTmp)) <= 0) {
                 tvNoti.setVisibility(View.VISIBLE);
                 return null;
             } else {
@@ -218,7 +215,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
         String dateOfBirth = (day - 1) + "/" + month + "/" + year;
         // End: Kiểm tra ngày sinh
-        return new Users(fullName, uId, pwd, defaultGender, dateOfBirth, phone);
+        return new Users(uId, pwd, fullName, defaultGender, dateOfBirth, phone);
     }
 
     public void callNextStep(View view) {
@@ -240,7 +237,7 @@ public class RegisterActivity extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(), Register2ndActivity.class);
                         intent.putExtra("Users", users);
                         // Add transition
-                        ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(RegisterActivity.this, view, "transition_layout");
+                        ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(RegisterActivity.this, view, "transition_rg2");
                         rlBar.setVisibility(View.GONE);
                         startActivity(intent, activityOptions.toBundle());
                     }
@@ -265,24 +262,20 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
                         String code = phoneAuthCredential.getSmsCode();
-                        Log.w("getProvider", phoneAuthCredential.getProvider());
-                        Log.w("getSignInMethod", phoneAuthCredential.getSignInMethod());
+                        Log.d("CODE", code);
                         if (code != null) {
                             Register2ndActivity.codeResponse = code;
-                            Log.w("KAKAK", Register2ndActivity.codeResponse);
-                        } else {
-                            Log.w("KAKAK", "Failllled");
                         }
                     }
 
                     @Override
                     public void onVerificationFailed(@NonNull FirebaseException e) {
+                        Log.d("CODE", "Error ne");
                     }
 
                     @Override
                     public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-                        super.onCodeSent(s, forceResendingToken);
-                        Log.w("onCodeSent", s);
+                        Log.d("CODE", "Error ne--"+s);
                     }
                 }
         );

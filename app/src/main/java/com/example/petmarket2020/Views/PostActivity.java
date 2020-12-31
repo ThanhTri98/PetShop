@@ -11,7 +11,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.example.petmarket2020.Adapters.VP_PostAdapter;
 import com.example.petmarket2020.R;
-import com.example.petmarket2020.Utils.MyViewPager;
+import com.example.petmarket2020.HelperClass.MyViewPager;
 import com.google.android.material.bottomappbar.BottomAppBar;
 
 import java.util.ArrayList;

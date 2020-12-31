@@ -10,7 +10,7 @@ import android.widget.RadioGroup;
 import androidx.fragment.app.Fragment;
 
 import com.example.petmarket2020.R;
-import com.example.petmarket2020.Utils.Utils;
+import com.example.petmarket2020.HelperClass.Utils;
 import com.example.petmarket2020.Views.PostActivity;
 
 import java.util.Objects;
@@ -50,7 +50,7 @@ public class BreedsFragment extends Fragment {
 
     @Override
     public void onResume() {
-        Utils.HiddenKeyboard(Objects.requireNonNull(getActivity()));
+        Utils.hiddenKeyboard(Objects.requireNonNull(getActivity()));
         PostActivity.bab.setVisibility(View.GONE);
         super.onResume();
     }

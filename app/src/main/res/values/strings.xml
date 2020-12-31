@@ -130,8 +130,20 @@
     <string name="PrfSave">Lưu</string>
     <string name="PrfInVerify">Chưa xác thực</string>
     <string name="PrfHaveNot">Chưa có</string>
-    <string name="PrfVerify">Xác thực</string>
+    <string name="PrfVerify">Xác thực ngay</string>
     <string name="PrfAddress">Địa chỉ</string>
     <string name="PrfStartDate">Ngày tham gia</string>
+    <string name="SuCreateAcc">Tạo tài khoản</string>
+    <string name="SuComplete">Thành công</string>
+    <string name="SuLogan">Chần chừ gì nữa mà không</string>
+    <string name="facebook_app_id">227296632169908</string>
+    <string name="fb_login_protocol_scheme">fb227296632169908</string>
+    <string name="lbl_set_profile_photo">Chọn ảnh từ</string>
+    <string name="lbl_take_camera_picture">Máy ảnh</string>
+    <string name="lbl_choose_from_gallery">Thư viện</string>
+    <string name="PrfUpdate">Cập nhật</string>
+    <string name="MapBack">Trở về</string>
+    // Keys
+    <string name="api_key">AIzaSyDim8ZTsjRMFKrrvmZsJpAEV4TvRcQn3ww</string>
 
 </resources>

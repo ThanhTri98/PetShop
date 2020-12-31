@@ -22,7 +22,7 @@ import com.example.petmarket2020.Adapters.RV_PosterAdapter;
 import com.example.petmarket2020.Adapters.items.PetCategoryItem;
 import com.example.petmarket2020.Adapters.items.PosterItem;
 import com.example.petmarket2020.R;
-import com.example.petmarket2020.Utils.Utils;
+import com.example.petmarket2020.HelperClass.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,7 +73,7 @@ public class MainHomeFragment extends Fragment {
         svHome.setOnQueryTextFocusChangeListener((v, hasFocus) -> ivBack.setVisibility(View.VISIBLE));
         ivBack.setOnClickListener(v -> {
             svHome.clearFocus();
-            Utils.HiddenKeyboard(getActivity());
+            Utils.hiddenKeyboard(getActivity());
             v.setVisibility(View.GONE);
         });
         //  ++ Slider
@@ -124,8 +124,13 @@ public class MainHomeFragment extends Fragment {
         itemHomePosterList.add(new PosterItem(R.drawable.dog1, "Mèo nhân sư, mèo không lông chân lùn tai xoăn đực", 45000000, "Bình Định", "06/11/2020"));
         itemHomePosterList.add(new PosterItem(R.drawable.dog2, "Mèo nhân sư, mèo không lông chân lùn tai xoăn đực", 244000000, "Hà Nậu", "06/11/2020"));
         itemHomePosterList.add(new PosterItem(R.drawable.cat1, "Mèo nhân sư, mèo không lông chân lùn tai xoăn đực", 69000000, "Campuchia", "06/11/2020"));
-//        itemHomePosterList.add(new Item_Home_Poster(R.drawable.dog1, "Mèo nhân sư, mèo không lông chân lùn tai xoăn đực", 42000000, "Quận Cam", "06/11/2020"));
-//        itemHomePosterList.add(new Item_Home_Poster(R.drawable.cat1, "Mèo nhân sư, mèo không lông chân lùn tai xoăn đực", 425000000, "TP. Hồ Chí Minh", "06/11/2020"));
+        itemHomePosterList.add(new PosterItem(R.drawable.dog1, "Mèo nhân sư, mèo không lông chân lùn tai xoăn đực", 42000000, "Quận Cam", "06/11/2020"));
+        itemHomePosterList.add(new PosterItem(R.drawable.cat1, "Mèo nhân sư, mèo không lông chân lùn tai xoăn đực", 425000000, "TP. Hồ Chí Minh", "06/11/2020"));
+        itemHomePosterList.add(new PosterItem(R.drawable.cat1, "Mèo nhân sư, mèo không lông chân lùn tai xoăn đực", 425000000, "TP. Hồ Chí Minh", "06/11/2020"));
+        itemHomePosterList.add(new PosterItem(R.drawable.cat1, "Mèo nhân sư, mèo không lông chân lùn tai xoăn đực", 425000000, "TP. Hồ Chí Minh", "06/11/2020"));
+        itemHomePosterList.add(new PosterItem(R.drawable.cat1, "Mèo nhân sư, mèo không lông chân lùn tai xoăn đực", 425000000, "TP. Hồ Chí Minh", "06/11/2020"));
+        itemHomePosterList.add(new PosterItem(R.drawable.cat1, "Mèo nhân sư, mèo không lông chân lùn tai xoăn đực", 425000000, "TP. Hồ Chí Minh", "06/11/2020"));
+        itemHomePosterList.add(new PosterItem(R.drawable.cat1, "Mèo nhân sư, mèo không lông chân lùn tai xoăn đực", 425000000, "TP. Hồ Chí Minh", "06/11/2020"));
         RV_PosterAdapter homeRVPosterAdapter = new RV_PosterAdapter(context, itemHomePosterList);
         rvPoster.setLayoutManager(new GridLayoutManager(context, 2));
         rvPoster.setAdapter(homeRVPosterAdapter);

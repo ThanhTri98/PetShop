@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:orientation="vertical"
-    android:transitionName="transition_layout_lg"
     tools:context=".Views.LoginActivity">
 
     <FrameLayout
@@ -93,8 +92,7 @@
             android:contentDescription="@string/AppName"
             android:onClick="callFinish"
             android:padding="5dp"
-            android:src="@drawable/ic_close"
-            android:transitionName="transition_back" />
+            android:src="@drawable/ic_close" />
 
         <TextView
             android:id="@+id/tvTitle"
@@ -262,6 +260,7 @@
             android:contentDescription="@string/AppName"
             android:padding="5dp"
             android:src="@drawable/ic_login_gg" />
+
 
         <ImageView
             android:id="@+id/imgFB"

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".Views.HomeActivity">
 
-    <com.example.petmarket2020.Utils.MyViewPager
+    <com.example.petmarket2020.HelperClass.MyViewPager
         android:id="@+id/vpg"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

@@ -22,13 +22,13 @@
             android:padding="5dp"
             android:src="@drawable/ic_arrow_back" />
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:gravity="center_vertical">
+            android:layout_marginTop="20dp">
 
             <TextView
+                android:id="@+id/tvTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/muli_black"
@@ -41,15 +41,15 @@
                 android:id="@+id/tvStep"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:layout_marginStart="23dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
                 android:background="@drawable/bg_step"
                 android:fontFamily="@font/audio_wide"
                 android:gravity="center"
                 android:text="@string/RGStep2"
                 android:textColor="@color/colorBlack"
                 android:textSize="30sp" />
-        </LinearLayout>
-
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -102,8 +102,7 @@
                     android:id="@+id/llCode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:transitionName="transition_layout">
+                    android:gravity="center_horizontal">
 
                     <EditText
                         android:id="@+id/etCode1"
@@ -250,7 +249,7 @@
             android:text="@string/Confirm"
             android:textColor="@color/colorWhite"
             android:textSize="15sp"
-            android:transitionName="transition_next" />
+            android:transitionName="transition_rg2" />
 
     </LinearLayout>
 </ScrollView>

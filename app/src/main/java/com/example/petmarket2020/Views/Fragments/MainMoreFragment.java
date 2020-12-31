@@ -4,9 +4,11 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -14,19 +16,22 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
+import com.example.petmarket2020.HelperClass.NodeRootDB;
 import com.example.petmarket2020.Models.SessionManager;
 import com.example.petmarket2020.Models.Users;
 import com.example.petmarket2020.R;
 import com.example.petmarket2020.Views.LoginActivity;
 import com.example.petmarket2020.Views.ProfileActivity;
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.Objects;
 
 public class MainMoreFragment extends Fragment implements View.OnClickListener {
-    private ShimmerFrameLayout sfl;
+    private ShimmerFrameLayout sflName, sflAvatar;
     private TextView tvAction, tvViewProfile, tvMyCoins;
-    //    private ImageView imgAvatar;
+    private ImageView imgAvatar;
     private LinearLayout llProfile, llCoins, llLogout;
     private SessionManager sessionManager;
 
@@ -49,11 +54,32 @@ public class MainMoreFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onStart() {
         super.onStart();
-        new MyAsyncTask().execute();
+        if (sessionManager.isLogin()) {
+                updateUI(true);
+                new MyAsyncTask().execute();
+        }
+    }
+
+    private void updateUI(boolean is) {
+        if (is) {
+            llCoins.setVisibility(View.VISIBLE);
+            tvMyCoins.setVisibility(View.GONE);
+            tvViewProfile.setVisibility(View.VISIBLE);
+        } else {
+            llCoins.setVisibility(View.GONE);
+            llLogout.setVisibility(View.GONE);
+            tvMyCoins.setVisibility(View.VISIBLE);
+            tvViewProfile.setVisibility(View.GONE);
+            tvAction.setText(R.string.MAction);
+            imgAvatar.setImageResource(R.drawable.ic_login_user);
+        }
     }
 
     private void getWidget(View v) {
-        sfl = v.findViewById(R.id.sfl);
+        sflName = v.findViewById(R.id.sflName);
+        sflAvatar = v.findViewById(R.id.sflAvatar);
+
+        imgAvatar = v.findViewById(R.id.imgAvatar);
 
         tvAction = v.findViewById(R.id.tvAction);
         tvViewProfile = v.findViewById(R.id.tvViewProfile);
@@ -74,75 +100,66 @@ public class MainMoreFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.llProfile:
-                if (!sessionManager.checkLogin()) {
-                    startActivity(new Intent(getActivity(), LoginActivity.class));
-                } else {
+                if (users != null) {
                     Intent intent = new Intent(getActivity(), ProfileActivity.class);
-                    intent.putExtra("Users", users);
+                    intent.putExtra(NodeRootDB.USERS, users);
                     startActivity(intent);
+                } else {
+                    startActivity(new Intent(getActivity(), LoginActivity.class));
                 }
                 break;
             case R.id.llLogout:
+                updateUI(false);
+                users = null;
                 sessionManager.logOut();
-                new MyAsyncTask().execute();
                 break;
         }
     }
 
     @SuppressLint("StaticFieldLeak")
-    private class MyAsyncTask extends AsyncTask<Void, String, Void> {
-        private boolean isLogin;
-
+    private class MyAsyncTask extends AsyncTask<Void, Object, Void> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            if (users != null) {
-                tvAction.setText(users.getFullName());
-            } else {
-                tvAction.setVisibility(View.GONE);
-                sfl.setVisibility(View.VISIBLE);
-                sfl.startShimmer();
-            }
-            isLogin = sessionManager.checkLogin();
-            if (isLogin) {
-                llCoins.setVisibility(View.VISIBLE);
-                llLogout.setVisibility(View.VISIBLE);
-                tvMyCoins.setVisibility(View.GONE);
-                tvViewProfile.setVisibility(View.VISIBLE);
-            } else {
-                llCoins.setVisibility(View.GONE);
-                llLogout.setVisibility(View.GONE);
-                tvMyCoins.setVisibility(View.VISIBLE);
-                tvViewProfile.setVisibility(View.GONE);
-                tvAction.setText(R.string.MAction);
-            }
+            imgAvatar.setVisibility(View.GONE);
+            sflAvatar.setVisibility(View.VISIBLE);
+            sflAvatar.startShimmer();
+
+            tvAction.setVisibility(View.GONE);
+            sflName.setVisibility(View.VISIBLE);
+            sflName.startShimmer();
         }
 
         @Override
-        protected Void doInBackground(Void... values) {
-            if (isLogin) {
-                users = sessionManager.getUserDetail();
-                publishProgress(sessionManager.getUserDetail().getFullName());
-            } else {
-                users = null;
-            }
+        protected Void doInBackground(Void... voids) {
+            users = sessionManager.getUserDetail();
+            publishProgress(users.getFullName(), users.getAvatar());
             return null;
         }
 
         @Override
-        protected void onProgressUpdate(String... strings) {
-            super.onProgressUpdate(strings);
-            if (users != null)
-                tvAction.setText(users.getFullName());
-
+        protected void onProgressUpdate(Object... objects) {
+            super.onProgressUpdate(objects);
+            tvAction.setText((String) objects[0]);
+            if (objects[1] == null) {
+                imgAvatar.setImageResource(R.drawable.ic_login_user);
+            } else {
+                Glide.with(MainMoreFragment.this).load(FirebaseStorage.getInstance().getReference(objects[1].toString())).into(imgAvatar);
+            }
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            sfl.stopShimmer();
-            sfl.setVisibility(View.GONE);
+            sflAvatar.stopShimmer();
+            sflAvatar.setVisibility(View.GONE);
+            imgAvatar.setVisibility(View.VISIBLE);
+
+            sflName.stopShimmer();
+            sflName.setVisibility(View.GONE);
             tvAction.setVisibility(View.VISIBLE);
+            llLogout.setVisibility(View.VISIBLE);
+
         }
     }
 }
