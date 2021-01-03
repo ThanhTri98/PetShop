@@ -12,7 +12,7 @@
         android:background="@color/colorPrimary">
 
         <ImageView
-            android:id="@+id/imgBack"
+            android:id="@+id/ivBack"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
@@ -44,12 +44,12 @@
         tools:ignore="RtlSymmetry,UselessParent">
 
         <RelativeLayout
-            android:id="@+id/rlImgProfile"
+            android:id="@+id/rlIvProfile"
             android:layout_width="70dp"
             android:layout_height="80dp">
 
             <ImageView
-                android:id="@+id/imgAvatar"
+                android:id="@+id/ivAvatar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:contentDescription="@string/app_name"
@@ -139,6 +139,7 @@
         </FrameLayout>
 
         <TextView
+            android:id="@+id/tvPhoneNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -146,17 +147,65 @@
             android:layout_toEndOf="@+id/flPhone"
             android:text="@string/PhoneNumber"
             android:textColor="@color/grey_font"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            tools:ignore="RelativeOverlap" />
 
-        <TextView
-            android:id="@+id/tvPhoneNumber"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/etPhoneNumber"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="10dp"
+            android:layout_marginEnd="40dp"
             android:layout_toEndOf="@+id/flPhone"
+            android:autofillHints=""
+            android:background="@drawable/bg_et"
+            android:enabled="false"
+            android:hint="@string/PrfHaveNot"
+            android:inputType="number"
+            android:maxLength="10"
+            android:padding="0dp"
             android:textColor="@color/colorTextDefault"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            tools:ignore="LabelFor,TextFields" />
+
+        <View
+            android:id="@+id/vMailStatusPhone"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="2dp"
+            android:layout_toEndOf="@+id/tvPhoneNumber"
+            android:background="@drawable/ic_baseline_info_24"
+            android:contentDescription="@string/AppName"
+            tools:ignore="RelativeOverlap" />
+
+        <Button
+            android:id="@+id/btnVerifyPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/vMailStatusPhone"
+            android:background="@drawable/bg_border_circle"
+            android:backgroundTint="@color/colorGreen"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="0dp"
+            android:text="@string/PrfVerify"
+            android:textAllCaps="false"
+            android:textColor="@color/colorWhite"
+            android:textSize="12sp"
+            tools:ignore="RelativeOverlap" />
+
+        <ImageView
+            android:id="@+id/ivEditPhone"
+            android:layout_width="30dp"
+            android:layout_height="35dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="5dp"
+            android:contentDescription="@string/AppName"
+            android:padding="5dp"
+            android:src="@drawable/ic_edit_24" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -196,16 +245,6 @@
             android:textColor="@color/grey_font"
             android:textSize="15sp" />
 
-        <View
-            android:id="@+id/vMailStatus"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:layout_marginStart="3dp"
-            android:layout_marginTop="2dp"
-            android:layout_toEndOf="@+id/tvEmail"
-            android:background="@drawable/ic_baseline_info_24"
-            android:contentDescription="@string/AppName"
-            tools:ignore="RelativeOverlap" />
 
         <EditText
             android:id="@+id/etEmail"
@@ -218,10 +257,10 @@
             android:autofillHints=""
             android:background="@drawable/bg_et"
             android:enabled="false"
+            android:hint="@string/PrfHaveNot"
             android:inputType="textEmailAddress"
             android:maxLength="60"
             android:padding="0dp"
-            android:hint="@string/HintDefault"
             android:textColor="@color/colorTextDefault"
             android:textSize="15sp"
             tools:ignore="LabelFor" />
@@ -237,12 +276,23 @@
             android:padding="5dp"
             android:src="@drawable/ic_edit_24" />
 
+        <View
+            android:id="@+id/vMailStatusEmail"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="2dp"
+            android:layout_toEndOf="@+id/tvEmail"
+            android:background="@drawable/ic_baseline_info_24"
+            android:contentDescription="@string/AppName"
+            tools:ignore="RelativeOverlap" />
+
         <Button
-            android:id="@+id/btnVerify"
+            android:id="@+id/btnVerifyEmail"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:layout_marginStart="5dp"
-            android:layout_toEndOf="@+id/vMailStatus"
+            android:layout_toEndOf="@+id/vMailStatusEmail"
             android:background="@drawable/bg_border_circle"
             android:backgroundTint="@color/colorGreen"
             android:paddingHorizontal="8dp"
@@ -251,7 +301,7 @@
             android:textAllCaps="false"
             android:textColor="@color/colorWhite"
             android:textSize="12sp"
-            android:visibility="visible" />
+            tools:ignore="RelativeOverlap" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -291,22 +341,30 @@
             android:textSize="15sp"
             tools:ignore="RelativeOverlap" />
 
-        <EditText
-            android:id="@+id/etAddress"
+        <HorizontalScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="10dp"
             android:layout_marginEnd="40dp"
             android:layout_toEndOf="@+id/flAddress"
-            android:autofillHints=""
-            android:background="@drawable/bg_et"
-            android:enabled="false"
-            android:inputType="textPersonName"
-            android:padding="0dp"
-            android:textColor="@color/colorTextDefault"
-            android:textSize="15sp"
-            tools:ignore="LabelFor" />
+            android:scrollbarSize="0.2dp">
+
+            <TextView
+                android:id="@+id/tvAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="10dp"
+                android:autofillHints=""
+                android:background="@drawable/bg_et"
+                android:hint="@string/PrfHaveNot"
+                android:padding="0dp"
+                android:paddingEnd="10dp"
+                android:textColor="@color/colorTextDefault"
+                android:textSize="15sp"
+                tools:ignore="LabelFor,RtlSymmetry" />
+        </HorizontalScrollView>
+
 
         <ImageView
             android:id="@+id/ivEditAddress"
@@ -357,16 +415,22 @@
             android:textSize="15sp"
             tools:ignore="RelativeOverlap" />
 
-        <TextView
-            android:id="@+id/tvPwd"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/etPwd"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="10dp"
+            android:layout_marginEnd="40dp"
             android:layout_toEndOf="@+id/flPwd"
-            android:text="@string/PrfPwd"
+            android:autofillHints=""
+            android:background="@drawable/bg_et"
+            android:enabled="false"
+            android:inputType="textPassword"
+            android:padding="0dp"
             android:textColor="@color/colorTextDefault"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            tools:ignore="LabelFor" />
 
         <ImageView
             android:id="@+id/ivEditPwd"

@@ -24,10 +24,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:rb_color="#7A1F7CC6"
-            app:rb_duration="2500"
-            app:rb_radius="20dp"
+            app:rb_duration="2000"
+            app:rb_radius="17dp"
             app:rb_rippleAmount="4"
-            app:rb_scale="6">
+            app:rb_scale="5">
 
             <ImageView
                 android:layout_width="48dp"

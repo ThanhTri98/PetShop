@@ -86,7 +86,7 @@
         app:layout_constraintTop_toBottomOf="@+id/frameLayout2">
 
         <ImageView
-            android:id="@+id/imgClose"
+            android:id="@+id/ivClose"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/AppName"
@@ -98,7 +98,7 @@
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/imgClose"
+            android:layout_below="@+id/ivClose"
             android:layout_marginTop="40dp"
             android:layout_marginBottom="20dp"
             android:fontFamily="@font/muli_black"
@@ -203,6 +203,7 @@
         </RelativeLayout>
 
         <Button
+            android:id="@+id/btnLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvFp"
@@ -253,20 +254,22 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
         <ImageView
-            android:id="@+id/imgGG"
+            android:id="@+id/ivGG"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
             android:contentDescription="@string/AppName"
+            android:onClick="callLogin"
             android:padding="5dp"
             android:src="@drawable/ic_login_gg" />
 
 
         <ImageView
-            android:id="@+id/imgFB"
+            android:id="@+id/ivFB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/AppName"
+            android:onClick="callLogin"
             android:padding="5dp"
             android:src="@drawable/ic_login_fb" />
     </LinearLayout>
@@ -293,7 +296,7 @@
             android:layout_width="140dp"
             android:layout_height="35dp"
             android:background="@color/colorBlack"
-            android:onClick="callRegisterLG"
+            android:onClick="callRegister"
             android:text="@string/LGNow"
             android:textColor="@color/colorWhite"
             android:textStyle="bold" />

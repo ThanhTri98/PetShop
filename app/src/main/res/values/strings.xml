@@ -16,7 +16,6 @@
     <string name="RGPwd">Mật khẩu*</string>
     <string name="RGUid">Tài khoản*</string>
     <string name="RGFullName">Họ tên*</string>
-    <string name="RGStep1">1|2</string>
     <string name="RGPhoneNumber">Số điện thoại*</string>
     <string name="RGGender">Giới tính:</string>
     <string name="RGMale">Nam</string>
@@ -24,7 +23,6 @@
     <string name="RGOther">Khác</string>
     <string name="RGDob">Ngày sinh:</string>
     <string name="RGResend">Gửi lại</string>
-    <string name="RGCode">C O D E</string>
     //Login
     <string name="LG">Đăng nhập</string>
     <string name="LGHello">xin chào!</string>
@@ -111,7 +109,7 @@
     <string name="LGUid">Tài khoản</string>
     <string name="LGPwd">Mật khẩu</string>
     <string name="RGStep2">2|2</string>
-    <string name="RGCodeInvalid">Mã kích hoạt không hợp lệ!</string>
+    <string name="RGCodeInvalid">Mã xác thực không hợp lệ!</string>
     <string name="MAction">Đăng nhập/Đăng ký</string>
     <string name="MoViewProfile">Xem trang cá nhân của bạn</string>
     <string name="MoCoins">Điểm Tốt của tôi</string>
@@ -145,5 +143,7 @@
     <string name="MapBack">Trở về</string>
     // Keys
     <string name="api_key">AIzaSyDim8ZTsjRMFKrrvmZsJpAEV4TvRcQn3ww</string>
+    <string name="co_nde">Co\nde</string>
+    <string name="verify">Xác thực</string>
 
 </resources>

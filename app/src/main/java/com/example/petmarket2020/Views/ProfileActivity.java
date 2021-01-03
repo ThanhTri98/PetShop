@@ -26,34 +26,29 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
+import com.example.petmarket2020.Controllers.ProfileController;
 import com.example.petmarket2020.HelperClass.NodeRootDB;
-import com.example.petmarket2020.Models.SessionManager;
-import com.example.petmarket2020.Models.Users;
+import com.example.petmarket2020.Models.UsersModel;
 import com.example.petmarket2020.R;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.io.ByteArrayOutputStream;
-import java.util.Random;
 
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
-    private RelativeLayout rlImgProfile, rlBar;
+    private static final String PWD_SPECIAL = "***";
+    private RelativeLayout rlIvProfile, rlBar, rlPwd;
     private static final int REQUEST_IMAGE = 1;
     private static final int REQUEST_MAP = 2;
-    private EditText etEmail, etFullName, etAddress;
-    private TextView tvPhoneNumber, tvGender, tvDob;
-    private ImageView imgBack, imgAvatar, ivEditAddress, ivEditName, ivEditEmail, ivEditPwd, ivEditGender, ivEditDob;
-    private Button btnVerify, btnUpdate;
-    private View vMailStatus;
-    private SessionManager sessionManager;
-    private String uId;
-    private Users users;
+    private static final int REQUEST_VERIFY = 3;
+    private EditText etEmail, etFullName, etPwd, etPhoneNumber;
+    private TextView tvGender, tvDob, tvAddress;
+    private ImageView ivBack, ivAvatar, ivEditAddress, ivEditName, ivEditEmail, ivEditPwd, ivEditGender, ivEditDob, ivEditPhone;
+    private Button btnVerifyEmail, btnVerifyPhone, btnUpdate;
+    private View vMailStatusEmail, vMailStatusPhone;
+    private UsersModel usersModel;
+    private ProfileController profileController;
 
-    //FireBase
-    private DatabaseReference mDBRef;
-    private StorageReference mStorageRef;
+    public static int isLoadAvatar = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,81 +56,102 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_profile);
         getWidget();
         setListener();
-        users = (Users) getIntent().getSerializableExtra(NodeRootDB.USERS);
-        uId = users.getUid();
-        sessionManager = new SessionManager(this);
-        mDBRef = FirebaseDatabase.getInstance().getReference(NodeRootDB.USERS);
-        mStorageRef = FirebaseStorage.getInstance().getReference();
-        updateUI(users);
+        usersModel = (UsersModel) getIntent().getSerializableExtra(NodeRootDB.USERS);
+        profileController = new ProfileController(this);
     }
 
-    private void updateUI(Users users) {
-        etFullName.setText(users.getFullName());
-        Log.d("EMAIL", users.getEmail());
-        if (!TextUtils.isEmpty(users.getEmail())) {
-            etEmail.setText(users.getEmail());
+    @Override
+    protected void onStart() {
+        super.onStart();
+        updateUI();
+    }
+
+    @SuppressLint("ResourceAsColor")
+    private void updateUI() {
+        etFullName.setText(usersModel.getFullName());
+        Log.d("EMAIL", usersModel.getEmail() + "nul??");
+        if (usersModel.getEmail() != null) {
+            etEmail.setText(usersModel.getEmail());
         } else {
-            etEmail.setText(getString(R.string.PrfHaveNot));
-            btnVerify.setVisibility(View.INVISIBLE);
+            btnVerifyEmail.setVisibility(View.INVISIBLE);
+            vMailStatusEmail.setVisibility(View.INVISIBLE);
         }
-        if (!TextUtils.isEmpty(users.getAddress())) {
-            etAddress.setText(users.getAddress());
-        } else {
-            etAddress.setText(getString(R.string.PrfHaveNot));
+        if (!TextUtils.isEmpty(usersModel.getAddress())) {
+            tvAddress.setText(usersModel.getAddress());
         }
-        tvPhoneNumber.setText(users.getPhoneNumber());
-        tvGender.setText(users.getGender());
-        tvDob.setText(users.getDateOfBirth());
-        if (users.getAvatar() == null) {
-            imgAvatar.setImageResource(R.drawable.ic_login_user);
+        etPhoneNumber.setText(usersModel.getPhoneNumber());
+        tvGender.setText(usersModel.getGender());
+        tvDob.setText(usersModel.getDateOfBirth());
+        if (usersModel.getAvatar() == null) {
+            ivAvatar.setImageResource(R.drawable.ic_login_user);
         } else {
-            Glide.with(ProfileActivity.this).load(mStorageRef.child(users.getAvatar())).into(imgAvatar);
+            Glide.with(ProfileActivity.this)
+                    .load(FirebaseStorage.getInstance()
+                            .getReference().child(usersModel.getAvatar())).into(ivAvatar);
+        }
+        if (usersModel.getPwd().equals(PWD_SPECIAL)) {
+            ivEditEmail.setVisibility(View.INVISIBLE);
+            btnVerifyEmail.setVisibility(View.INVISIBLE);
+            vMailStatusEmail.setBackgroundResource(R.drawable.ic_verified_blue);
+            rlPwd.setVisibility(View.GONE);
+        } else {
+            rlPwd.setVisibility(View.VISIBLE);
         }
     }
 
     private void setListener() {
-        imgBack.setOnClickListener(this);
-        rlImgProfile.setOnClickListener(this);
+        ivBack.setOnClickListener(this);
+        rlIvProfile.setOnClickListener(this);
         btnUpdate.setOnClickListener(this);
         ivEditAddress.setOnClickListener(this);
         ivEditName.setOnClickListener(this);
         ivEditEmail.setOnClickListener(this);
+        ivEditPhone.setOnClickListener(this);
+
+        btnVerifyPhone.setOnClickListener(this);
     }
 
     private void getWidget() {
-        rlImgProfile = findViewById(R.id.rlImgProfile);
-        rlBar = findViewById(R.id.rlBar);
+        vMailStatusEmail = findViewById(R.id.vMailStatusEmail);
+        vMailStatusPhone = findViewById(R.id.vMailStatusPhone);
 
-        btnVerify = findViewById(R.id.btnVerify);
+        rlIvProfile = findViewById(R.id.rlIvProfile);
+        rlBar = findViewById(R.id.rlBar);
+        rlPwd = findViewById(R.id.rlPwd);
+
+        btnVerifyEmail = findViewById(R.id.btnVerifyEmail);
+        btnVerifyPhone = findViewById(R.id.btnVerifyPhone);
         btnUpdate = findViewById(R.id.btnUpdate);
 
         etEmail = findViewById(R.id.etEmail);
         etFullName = findViewById(R.id.etFullName);
-        etAddress = findViewById(R.id.etAddress);
+        tvAddress = findViewById(R.id.tvAddress);
+        etPwd = findViewById(R.id.etPwd);
+        etPhoneNumber = findViewById(R.id.etPhoneNumber);
 
-        tvPhoneNumber = findViewById(R.id.tvPhoneNumber);
+
         tvGender = findViewById(R.id.tvGender);
         tvDob = findViewById(R.id.tvDob);
 
-        imgBack = findViewById(R.id.imgBack);
-
+        ivBack = findViewById(R.id.ivBack);
         ivEditAddress = findViewById(R.id.ivEditAddress);
         ivEditName = findViewById(R.id.ivEditName);
         ivEditEmail = findViewById(R.id.ivEditEmail);
         ivEditPwd = findViewById(R.id.ivEditPwd);
         ivEditGender = findViewById(R.id.ivEditGender);
         ivEditDob = findViewById(R.id.ivEditDob);
-        imgAvatar = findViewById(R.id.imgAvatar);
+        ivAvatar = findViewById(R.id.ivAvatar);
+        ivEditPhone = findViewById(R.id.ivEditPhone);
     }
 
     @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.imgBack:
+            case R.id.ivBack:
                 finish();
                 break;
-            case R.id.rlImgProfile:
+            case R.id.rlIvProfile:
                 showImagePickerOptions();
                 break;
             case R.id.btnUpdate:
@@ -154,9 +170,16 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.ivEditEmail:
                 etEmail.setEnabled(true);
-                if (users.getEmail().equals(""))
-                    etEmail.setText("");
                 etEmail.requestFocus();
+                break;
+            case R.id.ivEditPhone:
+                etPhoneNumber.setEnabled(true);
+                etPhoneNumber.requestFocus();
+                break;
+            case R.id.btnVerifyPhone:
+                Intent intent = new Intent(this, VerifyCodeActivity.class);
+                intent.putExtra("phoneNumber", "+84337631761");
+                startActivityForResult(intent, REQUEST_VERIFY);
                 break;
         }
     }
@@ -181,32 +204,26 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             Toast.makeText(this, "Email không đúng định dạng!", Toast.LENGTH_SHORT).show();
             return;
         }
-        String address = etAddress.getText().toString();
-        if (fullName.equals(users.getFullName())
-                && email.equals(users.getEmail())
-                && address.equals(users.getAddress())) {
+        String address = tvAddress.getText().toString();
+        Log.d("aaaaaaLoad", isLoadAvatar + "");
+        if (fullName.equals(usersModel.getFullName())
+                && isLoadAvatar == 0
+                && address.equals(usersModel.getAddress())) {
             Toast.makeText(ProfileActivity.this, "Không có gì để cập nhật", Toast.LENGTH_LONG).show();
             return;
         }
-        users.setFullName(fullName);
-        users.setEmail(email);
-        users.setAddress(address);
+        usersModel.setFullName(fullName);
+        usersModel.setEmail(email);
+        usersModel.setAddress(address);
         // avatar
-        String node = NodeRootDB.STORAGE_PROFILE;
-        String photoName = uId + new Random().nextInt(44) + ".jpg";
-        Bitmap bitmap = ((BitmapDrawable) imgAvatar.getDrawable()).getBitmap();
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        mStorageRef.child(users.getAvatar()).delete().addOnCompleteListener(task -> {
-            mStorageRef.child(node + "/" + photoName).putBytes(baos.toByteArray());
-        });
-        users.setAvatar(node + "/" + photoName);
-        rlBar.setVisibility(View.VISIBLE);
-        mDBRef.child(uId).setValue(users).addOnSuccessListener(aVoid -> {
-            sessionManager.setInfo(fullName, email, address, node + "/" + photoName);
-            rlBar.setVisibility(View.INVISIBLE);
-            Toast.makeText(ProfileActivity.this, "Cập nhật thành công", Toast.LENGTH_LONG).show();
-        });
+        ByteArrayOutputStream baos = null;
+        if (isLoadAvatar != 0) {
+            Log.d("isLoadAvatar", isLoadAvatar + " hhe");
+            Bitmap bitmap = ((BitmapDrawable) ivAvatar.getDrawable()).getBitmap();
+            baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        }
+        profileController.updateUserInfo(usersModel, baos != null ? baos.toByteArray() : null, rlBar);
 
     }
 
@@ -224,8 +241,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         });
     }
 
-    public void launchCamera() {
-        Intent intent = new Intent(ProfileActivity.this, ImagePickerActivity.class);
+    private void launchCamera() {
+        Intent intent = new Intent(this, ImagePickerActivity.class);
         intent.putExtra(ImagePickerActivity.REQUEST_CODE_TYPE, ImagePickerActivity.REQUEST_IMAGE_CAPTURE);
 
         // Gán tỉ lệ khóa là 1x1
@@ -236,8 +253,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         startActivityForResult(intent, REQUEST_IMAGE);
     }
 
-    public void launchGallery() {
-        Intent intent = new Intent(ProfileActivity.this, ImagePickerActivity.class);
+    private void launchGallery() {
+        Intent intent = new Intent(this, ImagePickerActivity.class);
         intent.putExtra(ImagePickerActivity.REQUEST_CODE_TYPE, ImagePickerActivity.REQUEST_IMAGE_GALLERY);
 
         // Gán kích thước tối đa cho ảnh
@@ -248,29 +265,34 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         startActivityForResult(intent, REQUEST_IMAGE);
     }
 
-    public void loadImageProfile(String url) {
+    private void loadImageProfile(String url) {
+        isLoadAvatar = 1;
         Glide.with(this).load(url)
-                .into(imgAvatar);
-        imgAvatar.setColorFilter(ContextCompat.getColor(this, android.R.color.transparent));
+                .into(ivAvatar);
+        ivAvatar.setColorFilter(ContextCompat.getColor(this, android.R.color.transparent));
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE) {
-            if (resultCode == RESULT_OK) {
+            if (resultCode == RESULT_OK && data != null) {
                 Uri uri = data.getParcelableExtra("path");
                 loadImageProfile(uri.toString());
             }
         } else if (requestCode == REQUEST_MAP) {
-            if (resultCode == RESULT_OK) {
+            if (resultCode == RESULT_OK && data != null) {
                 double latitude = data.getDoubleExtra(MapActivity.KEY_LATITUDE, 0);
                 double longitude = data.getDoubleExtra(MapActivity.KEY_LONGITUDE, 0);
                 String address = data.getStringExtra(MapActivity.KEY_ADDRESS);
-                users.setLatitude(latitude);
-                users.setLongitude(longitude);
+                usersModel.setLatitude(latitude);
+                usersModel.setLongitude(longitude);
                 int index = address.lastIndexOf(",");
-                etAddress.setText(address.substring(0, index));
+                tvAddress.setText(address.substring(0, index));
+            }
+        } else if (requestCode == REQUEST_VERIFY) {
+            if (resultCode == RESULT_OK && data != null) {
+                usersModel = (UsersModel) data.getSerializableExtra(NodeRootDB.USERS);
             }
         }
     }

@@ -1130,6 +1130,7 @@ color colorPrimaryDark
 color colorPrimaryLight
 color colorRedDark
 color colorTextDefault
+color colorVerify
 color colorWhite
 color common_google_signin_btn_text_dark
 color common_google_signin_btn_text_dark_default
@@ -2396,6 +2397,7 @@ drawable ic_search_back
 drawable ic_suggestion
 drawable ic_tym_white
 drawable ic_verified
+drawable ic_verified_blue
 drawable loading
 drawable material_cursor_drawable
 drawable material_ic_calendar_black_24dp
@@ -2569,7 +2571,8 @@ id btnRegister
 id btnResend
 id btnSave
 id btnUpdate
-id btnVerify
+id btnVerifyEmail
+id btnVerifyPhone
 id btn_find
 id buttonPanel
 id cache_measures
@@ -2644,7 +2647,6 @@ id endToStart
 id end_padder
 id enterAlways
 id enterAlwaysCollapsed
-id etAddress
 id etCode1
 id etCode2
 id etCode3
@@ -2717,9 +2719,7 @@ id image_view_state_scale
 id imgAvatar
 id imgBack
 id imgClose
-id imgFB
 id imgFav
-id imgGG
 id imgSlider
 id info
 id inputContainer
@@ -2727,6 +2727,7 @@ id invisible
 id inward
 id italic
 id item_touch_helper_previous_elevation
+id ivAvatar
 id ivBack
 id ivClose
 id ivEditAddress
@@ -2734,7 +2735,10 @@ id ivEditDob
 id ivEditEmail
 id ivEditGender
 id ivEditName
+id ivEditPhone
 id ivEditPwd
+id ivFB
+id ivGG
 id ivPet
 id iv_delete
 id jumpToEnd
@@ -2939,7 +2943,7 @@ id rlBar
 id rlEvent
 id rlGender
 id rlHealthy
-id rlImgProfile
+id rlIvProfile
 id rlPwd
 id rlStatus
 id root
@@ -3086,6 +3090,7 @@ id triangle
 id tvAction
 id tvAddress
 id tvBab
+id tvCode
 id tvDate
 id tvDob
 id tvEmail
@@ -3100,10 +3105,8 @@ id tvNoti
 id tvPet
 id tvPhoneNumber
 id tvPrice
-id tvPwd
 id tvSeconds
 id tvStartDate
-id tvStep
 id tvTimeEnd
 id tvTitle
 id tvViewProfile
@@ -3115,7 +3118,8 @@ id uniform
 id unlabeled
 id up
 id useLogo
-id vMailStatus
+id vMailStatusEmail
+id vMailStatusPhone
 id view
 id view1
 id view3
@@ -3209,8 +3213,8 @@ layout activity_map
 layout activity_post
 layout activity_profile
 layout activity_register
-layout activity_register2nd
 layout activity_successfully
+layout activity_verify_code
 layout custom_dialog
 layout design_bottom_navigation_item
 layout design_bottom_sheet_dialog
@@ -3425,7 +3429,6 @@ string PrfTitle
 string PrfUpdate
 string PrfVerify
 string Pwd
-string RGCode
 string RGCodeInvalid
 string RGDob
 string RGDupUid
@@ -3440,7 +3443,6 @@ string RGOther
 string RGPhoneNumber
 string RGPwd
 string RGResend
-string RGStep1
 string RGStep2
 string RGUid
 string SuComplete
@@ -3505,6 +3507,7 @@ string character_counter_overflowed_content_description
 string character_counter_pattern
 string chip_text
 string clear_text_end_icon_content_description
+string co_nde
 string common_google_play_services_enable_button
 string common_google_play_services_enable_text
 string common_google_play_services_enable_title
@@ -3616,6 +3619,7 @@ string ucrop_label_edit_photo
 string ucrop_label_original
 string ucrop_menu_crop
 string ucrop_mutate_exception_hint
+string verify
 style AlertDialog_AppCompat
 style AlertDialog_AppCompat_Light
 style AndroidThemeColorAccentYellow

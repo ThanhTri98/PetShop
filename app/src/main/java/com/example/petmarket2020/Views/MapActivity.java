@@ -60,6 +60,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
+    private static final int REQ_CODE_MAP = 11;
     public static final String KEY_LATITUDE = "latitude";
     public static final String KEY_LONGITUDE = "longitude";
     public static final String KEY_ADDRESS = "address";
@@ -275,7 +276,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             if (e instanceof ResolvableApiException) {
                 ResolvableApiException resolvable = (ResolvableApiException) e;
                 try {
-                    resolvable.startResolutionForResult(MapActivity.this, 51);
+                    resolvable.startResolutionForResult(MapActivity.this, REQ_CODE_MAP);
                 } catch (IntentSender.SendIntentException e1) {
                     e1.printStackTrace();
                 }
@@ -294,7 +295,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 51) {
+        if (requestCode == REQ_CODE_MAP) {
             if (resultCode == RESULT_OK) {
                 getDeviceLocation();
             }

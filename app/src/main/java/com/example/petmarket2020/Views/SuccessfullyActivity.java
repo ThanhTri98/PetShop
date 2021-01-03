@@ -13,7 +13,6 @@ public class SuccessfullyActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        RegisterActivity.activity.finish();
         setContentView(R.layout.activity_successfully);
     }
 

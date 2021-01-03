@@ -268,6 +268,10 @@
         "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\drawable\\ic_register_person.xml"
     },
     {
+        "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_verified_blue.xml.flat",
+        "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\drawable\\ic_verified_blue.xml"
+    },
+    {
         "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_login_user.xml.flat",
         "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\drawable\\ic_login_user.xml"
     },
@@ -294,10 +298,6 @@
     {
         "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi_ic_pet_shop.png.flat",
         "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\mipmap-hdpi\\ic_pet_shop.png"
-    },
-    {
-        "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_register2nd.xml.flat",
-        "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\layout\\activity_register2nd.xml"
     },
     {
         "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_nav_me_checked.xml.flat",
@@ -546,6 +546,10 @@
     {
         "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_details_chat.xml.flat",
         "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\drawable\\ic_details_chat.xml"
+    },
+    {
+        "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_verify_code.xml.flat",
+        "source": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\src\\main\\res\\layout\\activity_verify_code.xml"
     },
     {
         "merged": "C:\\Users\\ThanhTri98\\AndroidStudioProjects\\PetMarket2020\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_phone.xml.flat",

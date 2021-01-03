@@ -25,7 +25,9 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/api_key" />
 
-        <activity android:name=".Views.MapActivity" />
+        <activity
+            android:name=".Views.MapActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".Views.ImagePickerActivity" />
         <activity
             android:name=".Views.ProfileActivity"
@@ -34,7 +36,7 @@
         <activity
             android:name=".Views.RegisterActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".Views.Register2ndActivity" />
+        <activity android:name=".Views.VerifyCodeActivity" />
         <activity android:name=".Views.SuccessfullyActivity" />
         <activity
             android:name=".Views.PostActivity"

@@ -3,8 +3,8 @@
   <component name="AndroidLayouts">
     <shared>
       <config>
-        <device id="pixel" />
         <device id="pixel_4" />
+        <device id="pixel" />
       </config>
     </shared>
   </component>
@@ -59,10 +59,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="layoutResourceFile" />
         <option value="layoutResourceFile_vertical" />
         <option value="resourceFile" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -224,18 +224,26 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
+    <state x="309" y="42" key="#Inspections" timestamp="1609666925440">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="309" y="42" key="#Inspections/0.0.1366.728@0.0.1366.728" timestamp="1609666925440" />
     <state x="200" y="110" key="#PSD" timestamp="1609307334244">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="200" y="110" key="#PSD/0.0.1366.728@0.0.1366.728" timestamp="1609307334244" />
-    <state x="488" y="70" key="#com.intellij.ide.util.MemberChooser" timestamp="1609427872933">
+    <state x="488" y="70" key="#com.intellij.ide.util.MemberChooser" timestamp="1609700526007">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="488" y="70" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728@0.0.1366.728" timestamp="1609427872933" />
+    <state x="488" y="70" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728@0.0.1366.728" timestamp="1609700526007" />
     <state x="466" y="232" width="433" height="269" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1608663049494">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="466" y="232" width="433" height="269" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1366.728@0.0.1366.728" timestamp="1608663049494" />
+    <state x="483" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1609672378410">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="483" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1366.728@0.0.1366.728" timestamp="1609672378410" />
     <state x="413" y="110" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1608610645216">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -248,10 +256,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="337" y="124" key="AndroidCreateResourceFileDialog/0.0.1366.728@0.0.1366.728" timestamp="1609229015931" />
-    <state x="516" y="149" key="AndroidCreateXmlResourceDialog" timestamp="1609315451434">
+    <state x="516" y="149" key="AndroidCreateXmlResourceDialog" timestamp="1609685436952">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="516" y="149" key="AndroidCreateXmlResourceDialog/0.0.1366.728@0.0.1366.728" timestamp="1609315451434" />
+    <state x="516" y="149" key="AndroidCreateXmlResourceDialog/0.0.1366.728@0.0.1366.728" timestamp="1609685436952" />
     <state x="363" y="118" key="Downloadable.Font.Dialog.Size" timestamp="1608470840203">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -260,22 +268,22 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1608517977656" />
-    <state width="1323" height="275" key="GridCell.Tab.0.bottom" timestamp="1609446905326">
+    <state width="1323" height="163" key="GridCell.Tab.0.bottom" timestamp="1609705802387">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="275" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1609446905326" />
-    <state width="1323" height="275" key="GridCell.Tab.0.center" timestamp="1609446905325">
+    <state width="1323" height="163" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1609705802387" />
+    <state width="1323" height="163" key="GridCell.Tab.0.center" timestamp="1609705802386">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="275" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1609446905325" />
-    <state width="1323" height="275" key="GridCell.Tab.0.left" timestamp="1609446905325">
+    <state width="1323" height="163" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1609705802386" />
+    <state width="1323" height="163" key="GridCell.Tab.0.left" timestamp="1609705802386">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="275" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1609446905325" />
-    <state width="1323" height="275" key="GridCell.Tab.0.right" timestamp="1609446905325">
+    <state width="1323" height="163" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1609705802386" />
+    <state width="1323" height="163" key="GridCell.Tab.0.right" timestamp="1609705802387">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="275" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1609446905325" />
+    <state width="1323" height="163" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1609705802387" />
     <state x="191" y="3" key="SettingsEditor" timestamp="1609306799161">
       <screen x="0" y="0" width="1366" height="728" />
     </state>

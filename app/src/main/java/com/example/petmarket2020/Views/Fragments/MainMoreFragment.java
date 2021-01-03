@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,30 +16,27 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.example.petmarket2020.Controllers.MainMoreController;
 import com.example.petmarket2020.HelperClass.NodeRootDB;
-import com.example.petmarket2020.Models.SessionManager;
-import com.example.petmarket2020.Models.Users;
+import com.example.petmarket2020.Models.UsersModel;
 import com.example.petmarket2020.R;
 import com.example.petmarket2020.Views.LoginActivity;
 import com.example.petmarket2020.Views.ProfileActivity;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.firebase.storage.FirebaseStorage;
 
-import java.util.Objects;
-
 public class MainMoreFragment extends Fragment implements View.OnClickListener {
     private ShimmerFrameLayout sflName, sflAvatar;
     private TextView tvAction, tvViewProfile, tvMyCoins;
     private ImageView imgAvatar;
     private LinearLayout llProfile, llCoins, llLogout;
-    private SessionManager sessionManager;
-
-    private static Users users;
+    private static UsersModel usersModel;
+    private MainMoreController mainMoreController;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        sessionManager = new SessionManager(Objects.requireNonNull(getActivity()));
+        mainMoreController = new MainMoreController(getActivity());
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -54,9 +50,9 @@ public class MainMoreFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onStart() {
         super.onStart();
-        if (sessionManager.isLogin()) {
-                updateUI(true);
-                new MyAsyncTask().execute();
+        if (mainMoreController.checkLogin()) {
+            updateUI(true);
+            new MyAsyncTask().execute();
         }
     }
 
@@ -100,9 +96,9 @@ public class MainMoreFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.llProfile:
-                if (users != null) {
+                if (usersModel != null) {
                     Intent intent = new Intent(getActivity(), ProfileActivity.class);
-                    intent.putExtra(NodeRootDB.USERS, users);
+                    intent.putExtra(NodeRootDB.USERS, usersModel);
                     startActivity(intent);
                 } else {
                     startActivity(new Intent(getActivity(), LoginActivity.class));
@@ -110,8 +106,8 @@ public class MainMoreFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.llLogout:
                 updateUI(false);
-                users = null;
-                sessionManager.logOut();
+                usersModel = null;
+                mainMoreController.logout();
                 break;
         }
     }
@@ -132,8 +128,8 @@ public class MainMoreFragment extends Fragment implements View.OnClickListener {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            users = sessionManager.getUserDetail();
-            publishProgress(users.getFullName(), users.getAvatar());
+            usersModel = mainMoreController.getUserDetail();
+            publishProgress(usersModel.getFullName(), usersModel.getAvatar());
             return null;
         }
 
@@ -159,7 +155,6 @@ public class MainMoreFragment extends Fragment implements View.OnClickListener {
             sflName.setVisibility(View.GONE);
             tvAction.setVisibility(View.VISIBLE);
             llLogout.setVisibility(View.VISIBLE);
-
         }
     }
 }

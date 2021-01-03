@@ -39,7 +39,9 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/api_key" />
 
-        <activity android:name="com.example.petmarket2020.Views.MapActivity" />
+        <activity
+            android:name="com.example.petmarket2020.Views.MapActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name="com.example.petmarket2020.Views.ImagePickerActivity" />
         <activity
             android:name="com.example.petmarket2020.Views.ProfileActivity"
@@ -48,7 +50,7 @@
         <activity
             android:name="com.example.petmarket2020.Views.RegisterActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name="com.example.petmarket2020.Views.Register2ndActivity" />
+        <activity android:name="com.example.petmarket2020.Views.VerifyCodeActivity" />
         <activity android:name="com.example.petmarket2020.Views.SuccessfullyActivity" />
         <activity
             android:name="com.example.petmarket2020.Views.PostActivity"

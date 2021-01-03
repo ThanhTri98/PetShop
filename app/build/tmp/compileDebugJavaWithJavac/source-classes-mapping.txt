@@ -1,3 +1,5 @@
+com/example/petmarket2020/Interfaces/IUsers.java
+ com.example.petmarket2020.Interfaces.IUsers
 com/example/petmarket2020/Views/ImagePickerActivity.java
  com.example.petmarket2020.Views.ImagePickerActivity
  com.example.petmarket2020.Views.ImagePickerActivity$1
@@ -29,6 +31,8 @@ com/example/petmarket2020/Views/Fragments/BreedsFragment.java
 com/example/petmarket2020/Views/Fragments/ContactFragment.java
  com.example.petmarket2020.Views.Fragments.ContactFragment
  com.example.petmarket2020.Views.Fragments.ContactFragment$1
+com/example/petmarket2020/Controllers/ProfileController.java
+ com.example.petmarket2020.Controllers.ProfileController
 com/example/petmarket2020/Views/ProfileActivity.java
  com.example.petmarket2020.Views.ProfileActivity
  com.example.petmarket2020.Views.ProfileActivity$1
@@ -40,43 +44,50 @@ com/example/petmarket2020/Adapters/VP_PostAdapter.java
  com.example.petmarket2020.Adapters.VP_PostAdapter
 com/example/petmarket2020/Views/HomeActivity.java
  com.example.petmarket2020.Views.HomeActivity
-com/example/petmarket2020/Views/Register2ndActivity.java
- com.example.petmarket2020.Views.Register2ndActivity
- com.example.petmarket2020.Views.Register2ndActivity$1
- com.example.petmarket2020.Views.Register2ndActivity$2
- com.example.petmarket2020.Views.Register2ndActivity$MyAsyncTask
+com/example/petmarket2020/Views/VerifyCodeActivity.java
+ com.example.petmarket2020.Views.VerifyCodeActivity
+ com.example.petmarket2020.Views.VerifyCodeActivity$1
+ com.example.petmarket2020.Views.VerifyCodeActivity$MyAsyncTask
 com/example/petmarket2020/Views/Fragments/MainHomeFragment.java
  com.example.petmarket2020.Views.Fragments.MainHomeFragment
 com/example/petmarket2020/HelperClass/Utils.java
  com.example.petmarket2020.HelperClass.Utils
 com/example/petmarket2020/BuildConfig.java
  com.example.petmarket2020.BuildConfig
+com/example/petmarket2020/Models/UsersModel.java
+ com.example.petmarket2020.Models.UsersModel
 com/example/petmarket2020/HelperClass/MyViewPager.java
  com.example.petmarket2020.HelperClass.MyViewPager
 com/example/petmarket2020/Views/Fragments/ViewPostFragment.java
  com.example.petmarket2020.Views.Fragments.ViewPostFragment
-com/example/petmarket2020/Controllers/UsersController.java
- com.example.petmarket2020.Controllers.UsersController
+com/example/petmarket2020/Controllers/RegisterController.java
+ com.example.petmarket2020.Controllers.RegisterController
 com/example/petmarket2020/Adapters/RV_LocationAdapter.java
  com.example.petmarket2020.Adapters.RV_LocationAdapter
  com.example.petmarket2020.Adapters.RV_LocationAdapter$MyViewHolder
+com/example/petmarket2020/Controllers/LoginController.java
+ com.example.petmarket2020.Controllers.LoginController
 com/example/petmarket2020/Models/SessionManager.java
  com.example.petmarket2020.Models.SessionManager
+com/example/petmarket2020/Controllers/MainMoreController.java
+ com.example.petmarket2020.Controllers.MainMoreController
 com/example/petmarket2020/Views/Fragments/DurationDateFragment.java
  com.example.petmarket2020.Views.Fragments.DurationDateFragment
+com/example/petmarket2020/DAL/UsersDAL.java
+ com.example.petmarket2020.DAL.UsersDAL
+ com.example.petmarket2020.DAL.UsersDAL$1
+ com.example.petmarket2020.DAL.UsersDAL$2
+ com.example.petmarket2020.DAL.UsersDAL$3
+ com.example.petmarket2020.DAL.UsersDAL$4
 com/example/petmarket2020/Views/LocationActivity.java
  com.example.petmarket2020.Views.LocationActivity
  com.example.petmarket2020.Views.LocationActivity$1
-com/example/petmarket2020/Controllers/IUsers.java
- com.example.petmarket2020.Controllers.IUsers
 com/example/petmarket2020/Adapters/items/PetCategoryItem.java
  com.example.petmarket2020.Adapters.items.PetCategoryItem
 com/example/petmarket2020/Adapters/VP_MainAdapter.java
  com.example.petmarket2020.Adapters.VP_MainAdapter
 com/example/petmarket2020/Views/LoginActivity.java
  com.example.petmarket2020.Views.LoginActivity
- com.example.petmarket2020.Views.LoginActivity$1
- com.example.petmarket2020.Views.LoginActivity$2
 com/example/petmarket2020/Views/Fragments/PostTypeFragment.java
  com.example.petmarket2020.Views.Fragments.PostTypeFragment
  com.example.petmarket2020.Views.Fragments.PostTypeFragment$1
@@ -93,10 +104,6 @@ com/example/petmarket2020/Views/SuccessfullyActivity.java
  com.example.petmarket2020.Views.SuccessfullyActivity
 com/example/petmarket2020/Views/RegisterActivity.java
  com.example.petmarket2020.Views.RegisterActivity
- com.example.petmarket2020.Views.RegisterActivity$1
- com.example.petmarket2020.Views.RegisterActivity$2
-com/example/petmarket2020/Models/Users.java
- com.example.petmarket2020.Models.Users
 com/example/petmarket2020/Views/Fragments/TitleFragment.java
  com.example.petmarket2020.Views.Fragments.TitleFragment
  com.example.petmarket2020.Views.Fragments.TitleFragment$1

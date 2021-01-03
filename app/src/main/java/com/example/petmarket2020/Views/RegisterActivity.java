@@ -2,51 +2,34 @@ package com.example.petmarket2020.Views;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.ActivityOptions;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.example.petmarket2020.Models.Users;
-import com.example.petmarket2020.R;
+import com.example.petmarket2020.Controllers.RegisterController;
 import com.example.petmarket2020.HelperClass.Utils;
+import com.example.petmarket2020.Models.UsersModel;
+import com.example.petmarket2020.R;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.FirebaseException;
-import com.google.firebase.auth.PhoneAuthCredential;
-import com.google.firebase.auth.PhoneAuthProvider;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
-    @SuppressLint("StaticFieldLeak")
-    public static Activity activity;
-    private static final String REF = "Users";
     private static final String PHONE_PATTERN = "^[+]84[3-9][0-9]{8}$";
     private static final String UID_PATTERN = "^[a-z0-9]+$";
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.KOREA);
@@ -57,17 +40,15 @@ public class RegisterActivity extends AppCompatActivity {
     private DatePicker dpDoB;
 
     private String defaultGender = "Nam";
-    private String currentUid = "";
-    // FireBase
-    private DatabaseReference mRef;
+    public static String currentUid = "";
+    private RegisterController registerController;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        activity = this;
+        registerController = new RegisterController(this);
         getWidget();
-        mRef = FirebaseDatabase.getInstance().getReference(REF);
         setListener();
         per();
     }
@@ -116,7 +97,7 @@ public class RegisterActivity extends AppCompatActivity {
         finish();
     }
 
-    private Users checkFieldValid() {
+    private UsersModel checkFieldValid() {
         // Start: Kiểm tra giá trị người dùng nhập
         String fullName = Objects.requireNonNull(tilFullName.getEditText()).getText().toString().trim();
         if (TextUtils.isEmpty(fullName)) {
@@ -215,69 +196,14 @@ public class RegisterActivity extends AppCompatActivity {
         }
         String dateOfBirth = (day - 1) + "/" + month + "/" + year;
         // End: Kiểm tra ngày sinh
-        return new Users(uId, pwd, fullName, defaultGender, dateOfBirth, phone);
+        return new UsersModel(uId, pwd, fullName, defaultGender, dateOfBirth, phone);
     }
 
-    public void callNextStep(View view) {
-        Users users = checkFieldValid();
-        if (users != null) {
-            rlBar.setVisibility(View.VISIBLE);
-            mRef.child(users.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.exists()) {
-                        currentUid = users.getUid();
-                        tilUid.setErrorEnabled(true);
-                        tilUid.setError(getString(R.string.RGDupUid));
-                        tilUid.requestFocus();
-                        rlBar.setVisibility(View.INVISIBLE);
-                    } else {
-                        tilUid.setErrorEnabled(false);
-                        sendCodeOTP(users.getPhoneNumber());
-                        Intent intent = new Intent(getApplicationContext(), Register2ndActivity.class);
-                        intent.putExtra("Users", users);
-                        // Add transition
-                        ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(RegisterActivity.this, view, "transition_rg2");
-                        rlBar.setVisibility(View.GONE);
-                        startActivity(intent, activityOptions.toBundle());
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(RegisterActivity.this, "Kết nối internet có vấn đề!", Toast.LENGTH_LONG).show();
-                }
-            });
+    public void callRegister(View view) {
+        UsersModel usersModel = checkFieldValid();
+        if (usersModel != null) {
+            registerController.registerUser(usersModel, view, rlBar, tilUid);
         }
     }
 
-    private void sendCodeOTP(String phone) {
-        // Tạo mã OTP
-        PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                phone,
-                60L,
-                TimeUnit.SECONDS,
-                this,
-                new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-                    @Override
-                    public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-                        String code = phoneAuthCredential.getSmsCode();
-                        Log.d("CODE", code);
-                        if (code != null) {
-                            Register2ndActivity.codeResponse = code;
-                        }
-                    }
-
-                    @Override
-                    public void onVerificationFailed(@NonNull FirebaseException e) {
-                        Log.d("CODE", "Error ne");
-                    }
-
-                    @Override
-                    public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-                        Log.d("CODE", "Error ne--"+s);
-                    }
-                }
-        );
-    }
 }
