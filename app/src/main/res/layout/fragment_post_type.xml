@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".Views.Fragments.PostTypeFragment">
+
+    <RadioGroup
+        android:id="@+id/rdGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="UselessParent">
+
+        <RadioButton
+            android:id="@+id/rdbtnSell"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_rd_selector"
+            android:button="@android:color/transparent"
+            android:drawableEnd="@drawable/bg_rd_ic_end_selector"
+            android:onClick="callNextPage"
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="8dp"
+            android:text="@string/PoTSell"
+            android:textColor="@drawable/bg_rd_text_color_selector"
+            android:textSize="15sp" />
+
+        <RadioButton
+            android:id="@+id/rdbtnBuy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_rd_selector"
+            android:button="@android:color/transparent"
+            android:drawableEnd="@drawable/bg_rd_ic_end_selector"
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="8dp"
+            android:text="@string/PoTBuy"
+            android:textColor="@drawable/bg_rd_text_color_selector"
+            android:textSize="15sp" />
+    </RadioGroup>
+
+</LinearLayout>

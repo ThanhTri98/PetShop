@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical"
+    android:padding="30dp"
+    tools:context=".Views.VerifyCodeActivity">
+
+    <ImageView
+        android:id="@+id/imgBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/AppName"
+        android:onClick="callFinish"
+        android:padding="5dp"
+        android:src="@drawable/ic_arrow_back" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/brandon_grotesque_black"
+            android:includeFontPadding="false"
+            android:text="CO"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/colorBlack"
+            android:textSize="100sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="-40dp"
+            android:fontFamily="@font/brandon_grotesque_black"
+            android:includeFontPadding="false"
+            android:text="DE"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/colorBlack"
+            android:textSize="100sp" />
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-15dp"
+        android:fontFamily="@font/muli_black"
+        android:gravity="center_horizontal"
+        android:text="Xác minh số điện thoại"
+        android:textAllCaps="true"
+        android:textColor="@color/colorBlack"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Mã xác thực đã được gửi đến số:"
+            android:textColor="@color/colorBlack"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tvPhoneNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/brandon_grotesque_black"
+            android:textColor="@color/colorBlack"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_centerInParent="true"
+                    android:background="@color/colorBlack" />
+
+                <TextView
+                    android:id="@+id/tvError"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@color/colorWhite"
+                    android:paddingHorizontal="5dp"
+                    android:text="@string/RGCodeInvalid"
+                    android:textColor="@color/colorRedDark"
+                    android:visibility="invisible" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/llCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center_horizontal">
+
+                <EditText
+                    android:id="@+id/etCode1"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:autofillHints=""
+                    android:background="@drawable/bg_otp"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:textColor="@color/colorBlack"
+                    tools:ignore="LabelFor" />
+
+                <EditText
+                    android:id="@+id/etCode2"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginHorizontal="5dp"
+                    android:autofillHints=""
+                    android:background="@drawable/bg_otp"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:textColor="@color/colorBlack"
+                    tools:ignore="LabelFor" />
+
+                <EditText
+                    android:id="@+id/etCode3"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:autofillHints=""
+                    android:background="@drawable/bg_otp"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:textColor="@color/colorBlack"
+                    tools:ignore="LabelFor" />
+
+                <EditText
+                    android:id="@+id/etCode4"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginHorizontal="5dp"
+                    android:autofillHints=""
+                    android:background="@drawable/bg_otp"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:textColor="@color/colorBlack"
+                    tools:ignore="LabelFor" />
+
+                <EditText
+                    android:id="@+id/etCode5"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:autofillHints=""
+                    android:background="@drawable/bg_otp"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:textColor="@color/colorBlack"
+                    tools:ignore="LabelFor" />
+
+                <EditText
+                    android:id="@+id/etCode6"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="5dp"
+                    android:autofillHints=""
+                    android:background="@drawable/bg_otp"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:textColor="@color/colorBlack"
+                    tools:ignore="LabelFor" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llHidden"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/tvTimeEnd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:textColor="@color/grey_font"
+                    android:textStyle="italic" />
+
+                <TextView
+                    android:id="@+id/tvSeconds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="5dp"
+                    android:textColor="@color/colorGrayLight"
+                    android:textStyle="italic|bold" />
+
+                <Button
+                    android:id="@+id/btnResend"
+                    android:layout_width="70dp"
+                    android:layout_height="30dp"
+                    android:background="@color/colorBlack"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:onClick="callResendCode"
+                    android:text="@string/RGResend"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="15sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/bg_pbar"
+            android:elevation="8dp"
+            android:padding="15dp"
+            android:visibility="invisible">
+
+            <ProgressBar
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btnConfirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:background="@color/colorPrimaryLight"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/muli_black"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:onClick="callVerify"
+        android:text="@string/verify"
+        android:textColor="@color/colorBlack"
+        android:textSize="15sp" />
+
+</LinearLayout>

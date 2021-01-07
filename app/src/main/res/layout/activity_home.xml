@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cdl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Views.HomeActivity">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.example.petmarket2020.HelperClass.MyViewPager
+            android:id="@+id/vpg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/bottomAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            app:fabCradleMargin="5dp"
+            app:fabCradleRoundedCornerRadius="10dp"
+            tools:ignore="BottomAppBar">
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/botNav"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="16dp"
+                android:background="@android:color/transparent"
+                app:menu="@menu/bottom_nav_menu" />
+        </com.google.android.material.bottomappbar.BottomAppBar>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabPost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/AppName"
+            android:src="@drawable/ic_nav_post"
+            app:backgroundTint="@color/colorPrimary"
+            app:borderWidth="0dp"
+            app:layout_anchor="@id/bottomAppBar"
+            app:rippleColor="@color/colorWhite" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <View
+        android:visibility="invisible"
+        android:id="@+id/vTmp"
+        android:layout_marginBottom="90dp"
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>
