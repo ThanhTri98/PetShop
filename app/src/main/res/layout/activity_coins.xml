@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/idTopLayoutCoins"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvRemains"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Số dư:"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tvRemainsValues"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:text="0"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/imgCoins"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="14dp"
+                android:layout_toRightOf="@id/tvRemainsValues"
+                android:background="@drawable/ic_coin" />
+
+        </RelativeLayout>
+
+        <Button
+            style="Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="250dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_border_button"
+            android:text="Xem lịch sử giao dịch >>"
+            android:textAllCaps="false"
+            android:textColor="#0691CF" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#E6E6E6"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="Các gói nạp"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <RelativeLayout
+        android:id="@+id/idContentLayout1.5M"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="@drawable/bg_border_stroke_gray"
+        android:onClick="onClick"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/tvCharge1.5M"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nạp 1.500.000"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvPrice1.5M"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvCharge1.5M"
+            android:text="Giá 1.500.000 đ"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/imgCoins1.5M"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="14dp"
+            android:layout_toRightOf="@id/tvCharge1.5M"
+            android:background="@drawable/ic_coin" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/ic_next_black" />
+    </RelativeLayout>
+    //1.5m
+
+    <RelativeLayout
+        android:id="@+id/idContentLayout1M"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="@drawable/bg_border_stroke_gray"
+        android:onClick="onClick"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/tvCharge1M"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nạp 1.000.000"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvPrice1M"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvCharge1M"
+            android:text="Giá 1.000.000 đ"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/imgCoins1M"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="14dp"
+            android:layout_toRightOf="@id/tvCharge1M"
+            android:background="@drawable/ic_coin" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/ic_next_black" />
+    </RelativeLayout>
+    //1M
+
+    <RelativeLayout
+        android:id="@+id/idContentLayout500"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="@drawable/bg_border_stroke_gray"
+        android:onClick="onClick"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/tvCharge500"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nạp 500.000"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvPrice500"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvCharge500"
+            android:text="Giá 500.000 đ"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/imgCoins500"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="14dp"
+            android:layout_toRightOf="@id/tvCharge500"
+            android:background="@drawable/ic_coin" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/ic_next_black" />
+    </RelativeLayout>
+    //500
+
+    <RelativeLayout
+        android:id="@+id/idContentLayout100"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="@drawable/bg_border_stroke_gray"
+        android:onClick="onClick"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/tvCharge100"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nạp 100.000"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvPrice100"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvCharge100"
+            android:text="Giá 100.000 đ"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/imgCoins100"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="14dp"
+            android:layout_toRightOf="@id/tvCharge100"
+            android:background="@drawable/ic_coin" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/ic_next_black" />
+    </RelativeLayout>
+    //100
+
+    <RelativeLayout
+        android:id="@+id/idContentLayout50"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="@drawable/bg_border_stroke_gray"
+        android:onClick="onClick"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/tvCharge50"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nạp 50.000"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvPrice50"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvCharge50"
+            android:text="Giá 50.000 đ"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/imgCoins50"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="14dp"
+            android:layout_toRightOf="@id/tvCharge50"
+            android:background="@drawable/ic_coin" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/ic_next_black" />
+    </RelativeLayout>
+    //50
+
+    <RelativeLayout
+        android:id="@+id/idContentLayout20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="@drawable/bg_border_stroke_gray"
+        android:onClick="onClick"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/tvCharge20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nạp 20.000"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvPrice20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvCharge20"
+            android:text="Giá 20.000 đ"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/imgCoins20"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="14dp"
+            android:layout_toRightOf="@id/tvCharge20"
+            android:background="@drawable/ic_coin" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/ic_next_black" />
+    </RelativeLayout>
+    //20
+
+</LinearLayout>
