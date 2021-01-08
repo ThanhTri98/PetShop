@@ -21,7 +21,7 @@ import com.example.petmarket2020.Views.PostActivity;
 import java.util.Objects;
 
 public class AdditionalInfoFragment extends Fragment {
-    private static final String DELIM = "|";
+    private static final String DELIM = "@";
     private AutoCompleteTextView actv;
     private String[] option;
     private TextView tvTitle;

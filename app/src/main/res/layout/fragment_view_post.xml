@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,11 +17,23 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <ImageView
+            <com.smarteist.autoimageslider.SliderView
+                android:id="@+id/imageSlider"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/cat1" />
+                app:sliderAnimationDuration="600"
+                app:sliderAutoCycleDirection="back_and_forth"
+                app:sliderAutoCycleEnabled="true"
+                app:sliderIndicatorAnimationDuration="600"
+                app:sliderIndicatorGravity="center_horizontal|bottom"
+                app:sliderIndicatorMargin="15dp"
+                app:sliderIndicatorOrientation="horizontal"
+                app:sliderIndicatorPadding="3dp"
+                app:sliderIndicatorRadius="2dp"
+                app:sliderIndicatorSelectedColor="#5A5A5A"
+                app:sliderIndicatorUnselectedColor="#FFF"
+                app:sliderScrollTimeInSec="1"
+                app:sliderStartAutoCycle="true" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -33,28 +46,29 @@
                     android:layout_height="wrap_content">
 
                     <TextView
+                        android:id="@+id/tvPostType"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="[BÁN]"
+                        android:textAllCaps="true"
                         android:textColor="@color/colorTextDefault"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tvTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
-                        android:text="Mèo Anh lông ngắn 5 tháng tuổi"
                         android:textColor="@color/colorTextDefault"
                         android:textSize="15sp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/tvPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="5.555 đ"
                     android:textColor="@color/colorPrimary"
                     android:textSize="15sp"
                     android:textStyle="bold" />
@@ -76,7 +90,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:text="@string/VPInfor"
-                    android:textColor="@color/colorTextDefault"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
@@ -97,7 +111,7 @@
                             android:textSize="15sp" />
 
                         <TextView
-                            android:text="Chó Pug"
+                            android:id="@+id/tvBreed"
                             android:textSize="15sp" />
                     </TableRow>
 
@@ -109,7 +123,7 @@
                             android:textSize="15sp" />
 
                         <TextView
-                            android:text="Đực"
+                            android:id="@+id/tvGender"
                             android:textSize="15sp" />
                     </TableRow>
 
@@ -121,7 +135,7 @@
                             android:textSize="15sp" />
 
                         <TextView
-                            android:text="Dưới 60 ngày"
+                            android:id="@+id/tvAge"
                             android:textSize="15sp" />
                     </TableRow>
 
@@ -133,7 +147,19 @@
                             android:textSize="15sp" />
 
                         <TextView
-                            android:text="Không"
+                            android:id="@+id/tvInject"
+                            android:textSize="15sp" />
+                    </TableRow>
+
+                    <TableRow android:paddingVertical="3dp">
+
+                        <TextView
+                            style="@style/TextAppearance.AppCompat.SearchResult.Title"
+                            android:text="@string/VPHealthy"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/tvHealthy"
                             android:textSize="15sp" />
                     </TableRow>
                 </TableLayout>
@@ -150,7 +176,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:text="@string/VPContact"
-                    android:textColor="@color/colorTextDefault"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
@@ -160,7 +186,8 @@
                     android:layout_marginTop="5dp"
                     android:background="@drawable/bg_border_horizontal"
                     android:paddingStart="10dp"
-                    android:stretchColumns="*">
+                    android:stretchColumns="*"
+                    tools:ignore="RtlSymmetry">
 
                     <TableRow android:paddingVertical="3dp">
 
@@ -170,7 +197,7 @@
                             android:textSize="15sp" />
 
                         <TextView
-                            android:text="0336655665"
+                            android:id="@+id/tvPhoneNumber"
                             android:textColor="@color/colorPrimary"
                             android:textSize="15sp" />
                     </TableRow>
@@ -183,7 +210,7 @@
                             android:textSize="15sp" />
 
                         <TextView
-                            android:text="Toàn Quốc"
+                            android:id="@+id/tvArea"
                             android:textSize="15sp" />
                     </TableRow>
                 </TableLayout>
@@ -220,4 +247,20 @@
             android:textSize="18sp"
             android:textStyle="bold" />
     </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="-52dp"
+        android:background="@drawable/bg_pbar"
+        android:elevation="8dp"
+        android:padding="17dp"
+        android:visibility="invisible">
+
+        <ProgressBar
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
+    </RelativeLayout>
 </RelativeLayout>

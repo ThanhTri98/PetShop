@@ -32,7 +32,6 @@
         <activity
             android:name=".Views.ProfileActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".Views.LocationActivity" />
         <activity
             android:name=".Views.RegisterActivity"
             android:windowSoftInputMode="adjustPan" />

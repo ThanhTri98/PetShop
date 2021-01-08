@@ -28,7 +28,7 @@ public class ProfileController {
 
     public void updateUserInfo(UsersModel usersModel, HashMap<String, Object> dataUpdate, RelativeLayout rlBar) {
         rlBar.setVisibility(View.VISIBLE);
-        String newAvatar = "";
+        String newAvatar;
         if (dataUpdate.containsKey(SessionManager.KEY_AVATAR)) {
             String photoName = usersModel.getUid() + new Random().nextInt(44) + ".jpg";
             newAvatar = NodeRootDB.STORAGE_PROFILE + "/" + photoName;
@@ -50,8 +50,8 @@ public class ProfileController {
         usersDAL.updateUserInfo(usersModel, dataUpdate, iUsers);
     }
 
-    public void updateVerifyInfo(int type) {
-        usersDAL.updateVerifyInfo(type);
+    public void updateVerifyInfo(int type,String uid) {
+        usersDAL.updateVerifyInfo(type,uid);
     }
 
     public void verifyPhone(String phoneNumber) {

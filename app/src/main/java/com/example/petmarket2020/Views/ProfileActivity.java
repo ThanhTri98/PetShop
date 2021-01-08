@@ -28,6 +28,7 @@ import androidx.core.content.ContextCompat;
 import com.bumptech.glide.Glide;
 import com.example.petmarket2020.Controllers.ProfileController;
 import com.example.petmarket2020.HelperClass.NodeRootDB;
+import com.example.petmarket2020.HelperClass.ShowImagePicker;
 import com.example.petmarket2020.Models.SessionManager;
 import com.example.petmarket2020.Models.UsersModel;
 import com.example.petmarket2020.R;
@@ -52,6 +53,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private UsersModel usersModel;
     private ProfileController profileController;
 
+    private ShowImagePicker showImagePicker;
+
     public static int isLoadAvatar = 0;
 
     @Override
@@ -62,6 +65,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         setListener();
         usersModel = (UsersModel) getIntent().getSerializableExtra(NodeRootDB.USERS);
         profileController = new ProfileController(this);
+        showImagePicker = new ShowImagePicker(this, REQUEST_IMAGE);
         updateUI();
     }
 
@@ -164,17 +168,13 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 finish();
                 break;
             case R.id.rlIvProfile:
-                showImagePickerOptions();
+                showImagePicker.showImagePickerOptions();
                 break;
             case R.id.btnUpdate:
                 updateInfo();
                 break;
             case R.id.ivEditAddress:
-                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                    startActivityForResult(new Intent(ProfileActivity.this, MapActivity.class), REQUEST_MAP);
-                } else {
-                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
-                }
+                startActivityForResult(new Intent(ProfileActivity.this, MapActivity.class), REQUEST_MAP);
                 break;
             case R.id.ivEditName:
                 etFullName.setEnabled(true);
@@ -192,17 +192,9 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 String phoneNumber = etPhoneNumber.getText().toString();
                 Intent intent = new Intent(this, VerifyCodeActivity.class);
                 intent.putExtra("phoneNumber", phoneNumber);
+                intent.putExtra("uid", usersModel.getUid());
                 startActivityForResult(intent, REQUEST_VERIFY);
                 break;
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == REQUEST_MAP) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-                startActivityForResult(new Intent(ProfileActivity.this, MapActivity.class), REQUEST_MAP);
-            }
         }
     }
 
@@ -213,7 +205,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             return;
         }
         HashMap<String, Object> hashMap = new HashMap<>();
-        Log.d("KAYY", "size: " + hashMap.size());
         if (!fullName.equals(usersModel.getFullName())) {
             hashMap.put(SessionManager.KEY_FULLNAME, fullName);
         }
@@ -248,16 +239,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             hashMap.put(SessionManager.KEY_LATITUDE, usersModel.getLatitude());
             hashMap.put(SessionManager.KEY_LONGITUDE, usersModel.getLongitude());
         }
-//        if (fullName.equals(usersModel.getFullName())
-//                && isLoadAvatar == 0
-//                && address.equals(usersModel.getAddress())) {
-//            Toast.makeText(ProfileActivity.this, "Không có gì để cập nhật", Toast.LENGTH_LONG).show();
-//            return;
-//        }
-//        usersModel.setFullName(fullName);
-//        usersModel.setEmail(email);
-//        usersModel.setAddress(address);
-        // avatar
         if (isLoadAvatar != 0) {
             Bitmap bitmap = ((BitmapDrawable) ivAvatar.getDrawable()).getBitmap();
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -270,44 +251,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         }
         profileController.updateUserInfo(usersModel, hashMap, rlBar);
 
-    }
-
-    private void showImagePickerOptions() {
-        ImagePickerActivity.showImagePickerOptions(this, new ImagePickerActivity.PickerOptionListener() {
-            @Override
-            public void onCameraSelected() {
-                launchCamera();
-            }
-
-            @Override
-            public void onGallerySelected() {
-                launchGallery();
-            }
-        });
-    }
-
-    private void launchCamera() {
-        Intent intent = new Intent(this, ImagePickerActivity.class);
-        intent.putExtra(ImagePickerActivity.REQUEST_CODE_TYPE, ImagePickerActivity.REQUEST_IMAGE_CAPTURE);
-
-        // Gán tỉ lệ khóa là 1x1
-        intent.putExtra(ImagePickerActivity.EXTRA_LOCK_ASPECT_RATIO, true);
-        intent.putExtra(ImagePickerActivity.EXTRA_ASPECT_RATIO_X, 1);
-        intent.putExtra(ImagePickerActivity.EXTRA_ASPECT_RATIO_Y, 1);
-
-        startActivityForResult(intent, REQUEST_IMAGE);
-    }
-
-    private void launchGallery() {
-        Intent intent = new Intent(this, ImagePickerActivity.class);
-        intent.putExtra(ImagePickerActivity.REQUEST_CODE_TYPE, ImagePickerActivity.REQUEST_IMAGE_GALLERY);
-
-        // Gán kích thước tối đa cho ảnh
-        intent.putExtra(ImagePickerActivity.EXTRA_SET_BITMAP_MAX_WIDTH_HEIGHT, true);
-        intent.putExtra(ImagePickerActivity.EXTRA_BITMAP_MAX_WIDTH, 480);
-        intent.putExtra(ImagePickerActivity.EXTRA_BITMAP_MAX_HEIGHT, 640);
-
-        startActivityForResult(intent, REQUEST_IMAGE);
     }
 
     private void loadImageProfile(String url) {

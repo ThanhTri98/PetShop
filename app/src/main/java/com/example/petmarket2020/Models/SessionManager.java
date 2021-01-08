@@ -68,14 +68,6 @@ public class SessionManager {
         editor.apply();
     }
 
-//    public void setInfo(String fullName, String email, String address, String avatar) {
-//        editor.putString(KEY_FULLNAME, fullName);
-//        editor.putString(KEY_EMAIL, email);
-//        editor.putString(KEY_ADDRESS, address);
-//        editor.putString(KEY_AVATAR, avatar);
-//        editor.apply();
-//    }
-
     public void updateSessionInfo(@NonNull HashMap<String, Object> values) {
         for (Map.Entry<String, Object> val : values.entrySet()) {
             if (val.getValue() instanceof String) {
@@ -89,8 +81,8 @@ public class SessionManager {
         editor.apply();
     }
 
-    public String getUid() {
-        return usersSession.getString(KEY_UID, null);
+    public Object getInfo(String key) {
+        return usersSession.getString(key, null);
     }
 
     public UsersModel getUserDetail() {

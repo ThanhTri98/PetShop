@@ -39,6 +39,7 @@
                     tools:ignore="UselessParent">
 
                     <ImageView
+                        android:id="@+id/iv123"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:background="@drawable/ic_post_add"

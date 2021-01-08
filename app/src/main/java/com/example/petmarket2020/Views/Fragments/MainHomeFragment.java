@@ -26,6 +26,7 @@ import com.example.petmarket2020.HelperClass.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class MainHomeFragment extends Fragment {
     private Context context;
@@ -73,7 +74,7 @@ public class MainHomeFragment extends Fragment {
         svHome.setOnQueryTextFocusChangeListener((v, hasFocus) -> ivBack.setVisibility(View.VISIBLE));
         ivBack.setOnClickListener(v -> {
             svHome.clearFocus();
-            Utils.hiddenKeyboard(getActivity());
+            Utils.hiddenKeyboard(Objects.requireNonNull(getActivity()));
             v.setVisibility(View.GONE);
         });
         //  ++ Slider
@@ -88,6 +89,7 @@ public class MainHomeFragment extends Fragment {
         //  +++ Search
 
         //  +++ Slider
+
         List<SlideModel> slideModels = new ArrayList<>();
         slideModels.add(new SlideModel(R.drawable.banner1, ScaleTypes.CENTER_CROP));
         slideModels.add(new SlideModel(R.drawable.banner2, ScaleTypes.CENTER_CROP));

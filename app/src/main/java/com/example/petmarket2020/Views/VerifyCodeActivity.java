@@ -34,7 +34,7 @@ public class VerifyCodeActivity extends AppCompatActivity {
     private final EditText[] codes = new EditText[6];
     private ProfileController profileController;
     public static String codeResponse = "";
-    private String phoneNumber = "";
+    private String phoneNumber = "",uid="";
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +42,7 @@ public class VerifyCodeActivity extends AppCompatActivity {
         getWidget();
         profileController = new ProfileController(this);
         phoneNumber = getIntent().getStringExtra("phoneNumber");
+        uid = getIntent().getStringExtra("uid");
         tvPhoneNumber.setText(phoneNumber);
         profileController.verifyPhone(phoneNumber);
         myAsyncTask = new MyAsyncTask();
@@ -71,7 +72,6 @@ public class VerifyCodeActivity extends AppCompatActivity {
     }
 
     public void callFinish(View view) {
-//        supportFinishAfterTransition();
         finish();
     }
 
@@ -80,7 +80,7 @@ public class VerifyCodeActivity extends AppCompatActivity {
         tvError.setVisibility(View.GONE);
         rlBar.setVisibility(View.VISIBLE);
         if (verifyCode(codeResponse)) {
-            profileController.updateVerifyInfo(1);
+            profileController.updateVerifyInfo(1,uid);
             Intent intent = new Intent();
             intent.putExtra(NodeRootDB.USERS, profileController.getUserDetail());
             setResult(RESULT_OK, intent);
@@ -104,7 +104,6 @@ public class VerifyCodeActivity extends AppCompatActivity {
 
     // Xác thực code người dùng
     private boolean verifyCode(String code) {
-        Toast.makeText(this, code, Toast.LENGTH_LONG).show();
         StringBuilder usrInputCode = new StringBuilder();
         for (EditText editText : codes) {
             usrInputCode.append(editText.getText().toString());

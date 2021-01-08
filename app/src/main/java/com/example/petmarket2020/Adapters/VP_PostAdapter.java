@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import com.example.petmarket2020.Views.Fragments.AddImageFragment;
 import com.example.petmarket2020.Views.Fragments.AdditionalInfoFragment;
 import com.example.petmarket2020.Views.Fragments.BreedsFragment;
-import com.example.petmarket2020.Views.Fragments.ContactFragment;
+import com.example.petmarket2020.Views.Fragments.CompleteFragment;
 import com.example.petmarket2020.Views.Fragments.DurationDateFragment;
 import com.example.petmarket2020.Views.Fragments.PetTypeFragment;
 import com.example.petmarket2020.Views.Fragments.PostTypeFragment;
@@ -40,9 +40,9 @@ public class VP_PostAdapter extends FragmentStatePagerAdapter {
             case 6:
                 return new AddImageFragment();
             case 7:
-                return new ContactFragment();
-            default:
                 return new ViewPostFragment();
+            default:
+                return new CompleteFragment();
         }
     }
 

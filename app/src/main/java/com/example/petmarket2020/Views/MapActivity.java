@@ -1,8 +1,10 @@
 package com.example.petmarket2020.Views;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -21,6 +23,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.example.petmarket2020.R;
 import com.google.android.gms.common.api.ApiException;
@@ -195,9 +198,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             rippleBg.startRippleAnimation();
             materialSearchBar.enableSearch();
             materialSearchBar.setText(getAddress(mMap.getCameraPosition().target));
-            new Handler().postDelayed(() -> {
-                rippleBg.stopRippleAnimation();
-            }, 2500);
+            new Handler().postDelayed(() -> rippleBg.stopRippleAnimation(), 2500);
 
         });
         btnSave.setOnClickListener(v -> {
@@ -233,8 +234,17 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            letGo();
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 69);
+        }
+    }
+
+    private void letGo() {
         getWidget();
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        assert mapFragment != null;
         mapFragment.getMapAsync(this);
         mapView = mapFragment.getView();
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(MapActivity.this);
@@ -298,6 +308,17 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         if (requestCode == REQ_CODE_MAP) {
             if (resultCode == RESULT_OK) {
                 getDeviceLocation();
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == 69) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                letGo();
+            } else {
+                finish();
             }
         }
     }

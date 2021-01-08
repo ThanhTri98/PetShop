@@ -77,9 +77,8 @@ public class UsersDAL {
         );
     }
 
-    public void updateVerifyInfo(int type) {
+    public void updateVerifyInfo(int type,String uid) {
 //    type == 1 (phone); type == 2 (email)
-        String uid = sessionManager.getUid();
         if (uid != null) {
             if (type == 1) {
                 mRef.child(uid).child("phoneVerified").setValue(true);

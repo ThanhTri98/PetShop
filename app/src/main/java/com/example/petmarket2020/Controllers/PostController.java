@@ -27,6 +27,10 @@ public class PostController {
         this.activity = activity;
     }
 
+    public void setNode(String node) {
+        postDAL.setRef(node);
+    }
+
     public void getPetBreeds(String type, RadioGroup radioGroup, MyViewPager vpg, TextView tvTitle) {
         if (!PostActivity.isLoaded()) {
             radioGroup.removeAllViews();
@@ -91,7 +95,6 @@ public class PostController {
             tvTitle.setText(PostActivity.getTitle(currentIndex + 1));
         });
     }
-
 
 
 }
