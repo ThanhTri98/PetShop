@@ -21,4 +21,10 @@ public class CompleteFragment extends Fragment {
         view.findViewById(R.id.bab).setOnClickListener(v -> Objects.requireNonNull(getActivity()).finish());
         return view;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Objects.requireNonNull(getActivity()).findViewById(R.id.ivBack).setVisibility(View.GONE);
+    }
 }

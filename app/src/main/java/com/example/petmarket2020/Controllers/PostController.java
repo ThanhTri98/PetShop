@@ -3,17 +3,29 @@ package com.example.petmarket2020.Controllers;
 import android.app.Activity;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.petmarket2020.Adapters.RV_PosterAdapter;
+import com.example.petmarket2020.Adapters.items.PosterItem;
 import com.example.petmarket2020.DAL.PostDAL;
 import com.example.petmarket2020.HelperClass.MyViewPager;
 import com.example.petmarket2020.Interfaces.IPost;
+import com.example.petmarket2020.Models.PostModel;
 import com.example.petmarket2020.R;
 import com.example.petmarket2020.Views.PostActivity;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -96,5 +108,39 @@ public class PostController {
         });
     }
 
+    public void postUpload(PostModel postModel, HashMap<String, byte[]> mapImage, RelativeLayout rlBar, MyViewPager vpg, TextView tvTitles) {
+        rlBar.setVisibility(View.VISIBLE);
+        postDAL.postUpload(postModel, mapImage, new IPost() {
+            @Override
+            public void isSuccessful(boolean isSu) {
+                if (isSu) {
+                    int nextIndex = vpg.getCurrentItem() + 1;
+                    vpg.setCurrentItem(nextIndex);
+                    tvTitles.setText(PostActivity.getTitle(nextIndex));
+                } else {
+                    Toast.makeText(activity, "Đã xảy ra lỗi, vui lòng thử lại.", Toast.LENGTH_SHORT).show();
+                }
+                rlBar.setVisibility(View.INVISIBLE);
+            }
+        });
+    }
 
+    public void postDownload(RecyclerView rvPoster, RelativeLayout rlBar, RecyclerView rvHot, RelativeLayout rlBarHot) {
+        rlBar.setVisibility(View.VISIBLE);
+        rlBarHot.setVisibility(View.VISIBLE);
+        rvPoster.setLayoutManager(new GridLayoutManager(activity, 2));
+        rvHot.setLayoutManager(new LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false));
+        rvPoster.setHasFixedSize(true);
+        postDAL.postDownload(new IPost() {
+            @Override
+            public void sendData(Object objData) {
+                List<PosterItem> posterItems = (List<PosterItem>) objData;
+                RV_PosterAdapter homeRVPosterAdapter = new RV_PosterAdapter(activity, posterItems);
+                rvPoster.setAdapter(homeRVPosterAdapter);
+                rvHot.setAdapter(homeRVPosterAdapter);
+                rlBar.setVisibility(View.GONE);
+                rlBarHot.setVisibility(View.GONE);
+            }
+        });
+    }
 }

@@ -99,19 +99,23 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/bg_border_horizontal"
-                    android:paddingStart="10dp"
-                    android:stretchColumns="*"
+                    android:paddingHorizontal="10dp"
                     tools:ignore="RtlSymmetry">
 
-                    <TableRow android:paddingVertical="3dp">
+                    <TableRow
+                        android:gravity="center_horizontal"
+                        android:paddingVertical="3dp">
 
                         <TextView
                             style="@style/TextAppearance.AppCompat.SearchResult.Title"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
                             android:text="@string/VPBreed"
                             android:textSize="15sp" />
 
                         <TextView
                             android:id="@+id/tvBreed"
+                            android:layout_weight="1"
                             android:textSize="15sp" />
                     </TableRow>
 
@@ -119,11 +123,14 @@
 
                         <TextView
                             style="@style/TextAppearance.AppCompat.SearchResult.Title"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
                             android:text="@string/VPGender"
                             android:textSize="15sp" />
 
                         <TextView
                             android:id="@+id/tvGender"
+                            android:layout_weight="1"
                             android:textSize="15sp" />
                     </TableRow>
 
@@ -131,11 +138,14 @@
 
                         <TextView
                             style="@style/TextAppearance.AppCompat.SearchResult.Title"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
                             android:text="@string/VPYear"
                             android:textSize="15sp" />
 
                         <TextView
                             android:id="@+id/tvAge"
+                            android:layout_weight="1"
                             android:textSize="15sp" />
                     </TableRow>
 
@@ -143,11 +153,14 @@
 
                         <TextView
                             style="@style/TextAppearance.AppCompat.SearchResult.Title"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
                             android:text="@string/VPTiemNgua"
                             android:textSize="15sp" />
 
                         <TextView
                             android:id="@+id/tvInject"
+                            android:layout_weight="1"
                             android:textSize="15sp" />
                     </TableRow>
 
@@ -155,11 +168,14 @@
 
                         <TextView
                             style="@style/TextAppearance.AppCompat.SearchResult.Title"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
                             android:text="@string/VPHealthy"
                             android:textSize="15sp" />
 
                         <TextView
                             android:id="@+id/tvHealthy"
+                            android:layout_weight="1"
                             android:textSize="15sp" />
                     </TableRow>
                 </TableLayout>
@@ -186,18 +202,20 @@
                     android:layout_marginTop="5dp"
                     android:background="@drawable/bg_border_horizontal"
                     android:paddingStart="10dp"
-                    android:stretchColumns="*"
                     tools:ignore="RtlSymmetry">
 
                     <TableRow android:paddingVertical="3dp">
 
                         <TextView
                             style="@style/TextAppearance.AppCompat.SearchResult.Title"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
                             android:text="@string/PhoneNumber"
                             android:textSize="15sp" />
 
                         <TextView
                             android:id="@+id/tvPhoneNumber"
+                            android:layout_weight="1"
                             android:textColor="@color/colorPrimary"
                             android:textSize="15sp" />
                     </TableRow>
@@ -206,11 +224,14 @@
 
                         <TextView
                             style="@style/TextAppearance.AppCompat.SearchResult.Title"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
                             android:text="@string/VPArea"
                             android:textSize="15sp" />
 
                         <TextView
                             android:id="@+id/tvArea"
+                            android:layout_weight="1"
                             android:textSize="15sp" />
                     </TableRow>
                 </TableLayout>

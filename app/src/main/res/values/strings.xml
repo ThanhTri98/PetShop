@@ -32,7 +32,7 @@
     <string name="LGText1">Bạn chưa có tài khoản?</string>
     <string name="LGNow">Đăng ký ngay</string>
     //Home
-    <string name="HSearch">Tìm kiếm trên PetMarket</string>
+    <string name="HSearch">Tìm kiếm trên PetShop</string>
     <string name="HTitle1">Khám phá danh mục thú cưng</string>
     <string name="HTitle2">Tin đăng dành cho bạn</string>
     //Location
@@ -157,5 +157,6 @@
     <string name="chucmungdangtinthanhcong">Chúc mừng bạn đã đăng tin thành công.</string>
     <string name="tindanthanhcongluuy">Lưu ý: Tin rao của bạn đang được xét duyệt, để kiểm tra trạng thái tin rao trong mục Tin của tôi ở giao diện trang chủ.</string>
     <string name="xincamon">Xin cảm ơn!</string>
+    <string name="tin_hot">Tin HOT</string>
 
 </resources>

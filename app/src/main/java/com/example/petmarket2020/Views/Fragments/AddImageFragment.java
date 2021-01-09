@@ -88,9 +88,6 @@ public class AddImageFragment extends Fragment {
     }
 
     private void processDataImages(Bitmap imageView, String key) {
-//        Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
-//        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         PostActivity.addImage(key, imageView);
     }
 

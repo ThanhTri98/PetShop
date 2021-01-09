@@ -6,13 +6,14 @@ public class PostModel {
     private String postId;
     private String area;
     private boolean isActive;
+    private boolean isHidden;
     private double latitude;
     private double longitude;
-    private String peAge;
     private long limitDay;
-    private String peType;
     private long price;
-    private long breed;
+    private String breed;
+    private String peAge;
+    private String peType;
     private String poType;
     private String poster;
     private String gender;
@@ -24,6 +25,14 @@ public class PostModel {
     private List<String> images;
 
     public PostModel() {
+    }
+
+    public boolean isHidden() {
+        return isHidden;
+    }
+
+    public void setHidden(boolean hidden) {
+        isHidden = hidden;
     }
 
     public String getPostId() {
@@ -98,11 +107,11 @@ public class PostModel {
         this.price = price;
     }
 
-    public long getBreed() {
+    public String getBreed() {
         return breed;
     }
 
-    public void setBreed(long breed) {
+    public void setBreed(String breed) {
         this.breed = breed;
     }
 

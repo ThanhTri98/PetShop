@@ -1,6 +1,6 @@
 package com.example.petmarket2020.Adapters;
 
-import android.content.Context;
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,42 +11,51 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.petmarket2020.Adapters.items.PosterItem;
 import com.example.petmarket2020.HelperClass.Utils;
 import com.example.petmarket2020.R;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
+import java.util.Random;
 
 public class RV_PosterAdapter extends RecyclerView.Adapter<RV_PosterAdapter.MyViewHolder> {
-    private final Context context;
     private final List<PosterItem> listItems;
+    private final Activity activity;
+    private final StorageReference storageReference;
 
-    public RV_PosterAdapter(Context context, List<PosterItem> listItems) {
-        this.context = context;
+    public RV_PosterAdapter(Activity activity, List<PosterItem> listItems) {
         this.listItems = listItems;
+        this.activity = activity;
+        storageReference = FirebaseStorage.getInstance().getReference();
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
-        LayoutInflater layoutInflater = LayoutInflater.from(context);
+        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         view = layoutInflater.inflate(R.layout.item_home_poster, parent, false);
         return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        int image = listItems.get(position).getImage();
-        String title = listItems.get(position).getTitle();
+        List<String> images = listItems.get(position).getImages();
+        String imageUrl = images.get(new Random().nextInt(images.size()));
+        Glide.with(activity).load(storageReference.child(imageUrl)).into(holder.imageView);
+        String poType = listItems.get(position).getPoType().contains("bán") ? "[BÁN] " : "[MUA] ";
+        String title = poType + listItems.get(position).getTitle();
         long price = listItems.get(position).getPrice();
-        String address = listItems.get(position).getAddress();
-        String date = listItems.get(position).getDate();
-        holder.imageView.setImageResource(image);
+        String are = listItems.get(position).getArea();
+        String city = are.contains("Hồ Chí Minh") ? "TP.Hồ Chí Minh" : are;
+        String timeStart = listItems.get(position).getTimeStart();
         holder.tvTitle.setText(title);
         holder.tvPrice.setText(Utils.formatCurrencyVN(price));
-        holder.tvAddress.setText(address);
-        holder.tvDate.setText(date);
+        holder.tvAddress.setText(city);
+        holder.tvDate.setText(timeStart);
 
     }
 

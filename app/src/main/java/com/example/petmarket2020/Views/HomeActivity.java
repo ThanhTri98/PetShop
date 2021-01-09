@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -40,6 +39,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private void setUpViewPager() {
         VP_MainAdapter vp_mainAdapter = new VP_MainAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        vpg.setOffscreenPageLimit(3);
         vpg.setAdapter(vp_mainAdapter);
     }
 

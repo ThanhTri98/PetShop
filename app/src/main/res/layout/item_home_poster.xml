@@ -3,8 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="175dp"
     android:layout_height="wrap_content"
+    android:layout_marginEnd="10dp"
     android:layout_marginBottom="10dp"
     android:background="@drawable/shadow"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
     android:padding="4dp">
 
 
@@ -17,16 +21,24 @@
         android:src="@drawable/cat1" />
 
     <ImageView
-        android:tag="1"
+        android:layout_width="30dp"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="1dp"
+        android:contentDescription="@string/AppName"
+        android:src="@drawable/logo_hot_item" />
+
+    <ImageView
         android:id="@+id/imgFav"
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:layout_marginEnd="5dp"
         android:contentDescription="@string/AppName"
         android:padding="5dp"
-        android:src="@drawable/ic_item_tym" />
+        android:layout_marginEnd="-3dp"
+        android:src="@drawable/ic_item_tym"
+        android:tag="1" />
 
     <TextView
         android:id="@+id/tvTitle"
@@ -38,26 +50,43 @@
         android:textSize="12sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/tvPrice"
+    <LinearLayout
+        android:id="@+id/llPrice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvTitle"
         android:layout_marginVertical="3dp"
-        android:textColor="@color/colorPrimary"
-        android:textStyle="bold" />
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:text="3.3 km"
+            android:textColor="@color/colorTextDefault"
+            android:textAlignment="textEnd"
+            android:textSize="13sp" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvPrice"
+        android:layout_below="@+id/llPrice"
         android:gravity="center_vertical"
         android:paddingVertical="3dp">
 
         <ImageView
             android:layout_width="18dp"
             android:layout_height="18dp"
-            android:layout_marginEnd="3dp"
+            android:layout_marginEnd="2dp"
             android:contentDescription="@string/app_name"
             android:src="@drawable/ic_item_location" />
 
@@ -72,6 +101,7 @@
             android:id="@+id/tvDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
             android:textAlignment="textEnd"
             android:textSize="9sp"
             tools:ignore="SmallSp" />
