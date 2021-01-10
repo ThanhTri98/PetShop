@@ -2,6 +2,7 @@ package com.example.petmarket2020.Controllers;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -26,13 +27,16 @@ public class LoginController {
 
     public void firebaseAuthWithGoogle(String idToken, RelativeLayout rlBar) {
         rlBar.setVisibility(View.VISIBLE);
-        IUsers iUsers = isSu -> {
-            rlBar.setVisibility(View.INVISIBLE);
-            if (isSu) {
-                activity.finish();
-                Toast.makeText(activity, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(activity, "Đăng nhập thất bại", Toast.LENGTH_SHORT).show();
+        IUsers iUsers = new IUsers() {
+            @Override
+            public void isSuccessful(boolean isSu) {
+                rlBar.setVisibility(View.INVISIBLE);
+                if (isSu) {
+                    activity.finish();
+                    Toast.makeText(activity, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(activity, "Đăng nhập thất bại", Toast.LENGTH_SHORT).show();
+                }
             }
         };
         usersDAL.firebaseAuthWithGoogle(idToken, iUsers);
@@ -44,15 +48,18 @@ public class LoginController {
             return;
         }
         rlBar.setVisibility(View.VISIBLE);
-        IUsers iUsers = isSu -> {
-            rlBar.setVisibility(View.INVISIBLE);
-            if (isSu) {
-                activity.finish();
-                Toast.makeText(activity, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                tvError.setVisibility(View.INVISIBLE);
-            } else {
-                Toast.makeText(activity, "Đăng nhập thất bại", Toast.LENGTH_SHORT).show();
-                tvError.setVisibility(View.VISIBLE);
+        IUsers iUsers = new IUsers() {
+            @Override
+            public void isSuccessful(boolean isSu) {
+                rlBar.setVisibility(View.INVISIBLE);
+                if (isSu) {
+                    activity.finish();
+                    Toast.makeText(activity, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+                    tvError.setVisibility(View.INVISIBLE);
+                } else {
+                    Toast.makeText(activity, "Đăng nhập thất bại", Toast.LENGTH_SHORT).show();
+                    tvError.setVisibility(View.VISIBLE);
+                }
             }
         };
         usersDAL.loginWithUidPwd(uid, pwd, iUsers);

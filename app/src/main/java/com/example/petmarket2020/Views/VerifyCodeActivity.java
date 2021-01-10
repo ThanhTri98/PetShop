@@ -34,7 +34,7 @@ public class VerifyCodeActivity extends AppCompatActivity {
     private final EditText[] codes = new EditText[6];
     private ProfileController profileController;
     public static String codeResponse = "";
-    private String phoneNumber = "";
+    private String phoneNumber = "",uid="";
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +42,7 @@ public class VerifyCodeActivity extends AppCompatActivity {
         getWidget();
         profileController = new ProfileController(this);
         phoneNumber = getIntent().getStringExtra("phoneNumber");
+        uid = getIntent().getStringExtra("uid");
         tvPhoneNumber.setText(phoneNumber);
         profileController.verifyPhone(phoneNumber);
         myAsyncTask = new MyAsyncTask();
@@ -71,7 +72,6 @@ public class VerifyCodeActivity extends AppCompatActivity {
     }
 
     public void callFinish(View view) {
-//        supportFinishAfterTransition();
         finish();
     }
 
@@ -80,13 +80,16 @@ public class VerifyCodeActivity extends AppCompatActivity {
         tvError.setVisibility(View.GONE);
         rlBar.setVisibility(View.VISIBLE);
         if (verifyCode(codeResponse)) {
-            Toast.makeText(this, "Xác thực thành công", Toast.LENGTH_SHORT).show();
-            profileController.updateVerifyInfo(1);
+            profileController.updateVerifyInfo(1,uid);
             Intent intent = new Intent();
             intent.putExtra(NodeRootDB.USERS, profileController.getUserDetail());
             setResult(RESULT_OK, intent);
-            rlBar.setVisibility(View.INVISIBLE);
-            finish();
+            new Handler().postDelayed(() -> {
+                rlBar.setVisibility(View.INVISIBLE);
+                Toast.makeText(VerifyCodeActivity.this, "Xác thực thành công", Toast.LENGTH_SHORT).show();
+                finish();
+            }, 500);
+
         } else {
             new Handler().postDelayed(() -> {
                 btnResend.setVisibility(View.VISIBLE);
@@ -101,13 +104,12 @@ public class VerifyCodeActivity extends AppCompatActivity {
 
     // Xác thực code người dùng
     private boolean verifyCode(String code) {
-//        Toast.makeText(this,code,Toast.LENGTH_LONG).show();
         StringBuilder usrInputCode = new StringBuilder();
         for (EditText editText : codes) {
             usrInputCode.append(editText.getText().toString());
         }
         if (usrInputCode.length() != codes.length) return false;
-        if (!code.equals("") && usrInputCode.length() == codes.length) return true;
+//        if (!code.equals("") && usrInputCode.length() == codes.length) return true;
         return usrInputCode.toString().equals(code);
     }
 
@@ -178,13 +180,12 @@ public class VerifyCodeActivity extends AppCompatActivity {
     // Cập nhật giao diện đếm ngược 60s
     @SuppressLint("StaticFieldLeak")
     private class MyAsyncTask extends AsyncTask<Void, Integer, Void> {
-        @SuppressLint("SetTextI18n")
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             tvSeconds.setVisibility(View.VISIBLE);
             tvTimeEnd.setVisibility(View.VISIBLE);
-            tvTimeEnd.setText("Mã xác thực còn hiệu lực:");
+            tvTimeEnd.setText(getString(R.string.verifyNoti));
             btnResend.setVisibility(View.GONE);
         }
 
@@ -211,13 +212,12 @@ public class VerifyCodeActivity extends AppCompatActivity {
             tvSeconds.setText(values[0] + "s");
         }
 
-        @SuppressLint("SetTextI18n")
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             codeResponse = "";
             tvSeconds.setVisibility(View.GONE);
-            tvTimeEnd.setText("Mã kích hoạt hết hiệu lực");
+            tvTimeEnd.setText(getString(R.string.verifyTimeEnd));
             btnResend.setVisibility(View.VISIBLE);
         }
     }

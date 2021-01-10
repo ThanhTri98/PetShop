@@ -17,8 +17,8 @@ import com.example.petmarket2020.R;
 import java.util.List;
 
 public class RV_PetCategoryAdapter extends RecyclerView.Adapter<RV_PetCategoryAdapter.MyViewHolder> {
-    private Context context;
-    private List<PetCategoryItem> listItems;
+    private final Context context;
+    private final List<PetCategoryItem> listItems;
 
     public RV_PetCategoryAdapter(Context context, List<PetCategoryItem> listItems) {
         this.context = context;

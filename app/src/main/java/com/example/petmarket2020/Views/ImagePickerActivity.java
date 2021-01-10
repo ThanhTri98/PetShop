@@ -135,6 +135,7 @@ public class ImagePickerActivity extends AppCompatActivity {
             }
             case REQUEST_IMAGE_GALLERY: {
                 if (resultCode == RESULT_OK) {
+                    assert data != null;
                     Uri imageUri = data.getData();
                     cropImage(imageUri);
                 } else {
@@ -151,6 +152,7 @@ public class ImagePickerActivity extends AppCompatActivity {
                 break;
             }
             case UCrop.RESULT_ERROR: {
+                assert data != null;
                 final Throwable error = UCrop.getError(data);
                 Log.e("ImagePicker", "Crop error " + error);
                 setResultCancelled();

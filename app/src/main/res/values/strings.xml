@@ -2,6 +2,7 @@
     //Commons
     <string name="AppName">Pet Shop</string>
     <string name="Confirm">Xác nhận</string>
+    <string name="Complete">Hoàn tất</string>
     <string name="Continue">Tiếp tục</string>
     <string name="Email">Email</string>
     <string name="Pwd">Mật khẩu</string>
@@ -31,7 +32,7 @@
     <string name="LGText1">Bạn chưa có tài khoản?</string>
     <string name="LGNow">Đăng ký ngay</string>
     //Home
-    <string name="HSearch">Tìm kiếm trên PetMarket</string>
+    <string name="HSearch">Tìm kiếm trên PetShop</string>
     <string name="HTitle1">Khám phá danh mục thú cưng</string>
     <string name="HTitle2">Tin đăng dành cho bạn</string>
     //Location
@@ -41,6 +42,7 @@
     // Add Image
     <string name="AIText1">Thêm hình ảnh để tin đăng thêm thu hút</string>
     <string name="AIText2">Vui lòng chọn ít nhất 1 hình ảnh</string>
+    <string name="AIText02">Bạn chỉ được chọn tối đa 5 ảnh</string>
     <string name="AIText3">Tối đa</string>
     <string name="AIText4">* Ảnh: 5 ảnh</string>
     <string name="AIText5">Để tin đăng thu hút hơn nên đăng kèm hình ảnh</string>
@@ -80,6 +82,8 @@
     //Title
     <string name="TT">Tiêu đề</string>
     <string name="TTHint">Nhập tiêu đề</string>
+    <string name="TT10Char">Tiêu đề > 10 kí tự</string>
+    <string name="TTPleaseType">Vui lòng nhập tiêu đề!</string>
     <string name="TTText1">Ví dụ</string>
     <string name="TTText2">Nên viết tiếng việt có dấu</string>
     <string name="TTText3">* Giống thú cưng</string>
@@ -98,6 +102,7 @@
     <string name="VPTiemNgua">Tiêm ngừa</string>
     <string name="VPContact">Thông tin liên hệ</string>
     <string name="VPArea">Khu vực</string>
+    <string name="VPHealthy">Bảo hành sức khỏe</string>
 
 
     // Menu
@@ -143,7 +148,15 @@
     <string name="MapBack">Trở về</string>
     // Keys
     <string name="api_key">AIzaSyDim8ZTsjRMFKrrvmZsJpAEV4TvRcQn3ww</string>
+
     <string name="co_nde">Co\nde</string>
     <string name="verify">Xác thực</string>
+    <string name="verifyNoti">Mã xác thực còn hiệu lực:</string>
+    <string name="verifyTimeEnd">Mã xác nhận đã hết hiệu lực</string>
+    <string name="dangtinthanhcong">Đăng tin thành công</string>
+    <string name="chucmungdangtinthanhcong">Chúc mừng bạn đã đăng tin thành công.</string>
+    <string name="tindanthanhcongluuy">Lưu ý: Tin rao của bạn đang được xét duyệt, để kiểm tra trạng thái tin rao trong mục Tin của tôi ở giao diện trang chủ.</string>
+    <string name="xincamon">Xin cảm ơn!</string>
+    <string name="tin_hot">Tin HOT</string>
 
 </resources>

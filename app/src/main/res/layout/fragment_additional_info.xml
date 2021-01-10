@@ -3,16 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/colorWhite"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite">
 
     <RelativeLayout
-        android:paddingVertical="8dp"
         android:id="@+id/rlGender"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_border_bottom"
-        android:paddingHorizontal="10dp">
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="8dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -24,6 +24,7 @@
             android:textSize="16sp" />
 
         <RadioGroup
+            android:id="@+id/rgGender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -56,13 +57,13 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:paddingVertical="8dp"
         android:id="@+id/rlStatus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rlGender"
         android:background="@drawable/bg_border_bottom"
-        android:paddingHorizontal="10dp">
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="8dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -74,6 +75,7 @@
             android:textSize="16sp" />
 
         <RadioGroup
+            android:id="@+id/rgInject"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -100,13 +102,13 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:paddingVertical="8dp"
         android:id="@+id/rlHealthy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rlStatus"
         android:background="@drawable/bg_border_bottom"
-        android:paddingHorizontal="10dp">
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="8dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -119,6 +121,7 @@
             tools:ignore="RelativeOverlap" />
 
         <RadioGroup
+            android:id="@+id/rgHealthy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -166,15 +169,15 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:gravity="center_vertical"
             android:layout_alignParentEnd="true"
+            android:gravity="center_vertical"
             app:endIconDrawable="@drawable/ic_dropdown"
             app:hintEnabled="false"
             tools:ignore="RelativeOverlap">
 
             <AutoCompleteTextView
                 android:id="@+id/actv"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:background="@color/colorWhite"
                 android:focusable="false"
@@ -185,4 +188,34 @@
                 tools:ignore="LabelFor" />
         </com.google.android.material.textfield.TextInputLayout>
     </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/bab"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary"
+        android:backgroundTint="@color/colorPrimary"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_pet_white"
+            android:contentDescription="@string/AppName"
+            android:padding="18dp" />
+
+        <TextView
+            android:id="@+id/tvBab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@string/Confirm"
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 </RelativeLayout>

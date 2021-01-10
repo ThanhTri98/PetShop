@@ -1,7 +1,6 @@
 package com.example.petmarket2020.DAL;
 
 import android.app.Activity;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -39,8 +38,8 @@ public class UsersDAL {
     private static final long LIMIT_TIME_PHONE_OTP = 60L;
     private final SessionManager sessionManager;
     private final DatabaseReference mRef;
-    private final FirebaseAuth mAuth;
     private final StorageReference mStorageRef;
+    private final FirebaseAuth mAuth;
     private final Activity activity;
 
     public UsersDAL(Activity activity) {
@@ -69,20 +68,17 @@ public class UsersDAL {
 
                     @Override
                     public void onVerificationFailed(@NonNull FirebaseException e) {
-                        Log.d("CODE5464456", "Error ne");
                     }
 
                     @Override
                     public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-                        Log.d("CODE5464456", "Error ne--" + s);
                     }
                 }
         );
     }
 
-    public void updateVerifyInfo(int type) {
+    public void updateVerifyInfo(int type,String uid) {
 //    type == 1 (phone); type == 2 (email)
-        String uid = sessionManager.getUid();
         if (uid != null) {
             if (type == 1) {
                 mRef.child(uid).child("phoneVerified").setValue(true);
@@ -91,6 +87,9 @@ public class UsersDAL {
                 sessionManager.updateSessionInfo(hMap);
             } else {
                 mRef.child(uid).child("emailVerified").setValue(true);
+                HashMap<String, Object> hMap = new HashMap<>();
+                hMap.put(SessionManager.KEY_EMAIL, true);
+                sessionManager.updateSessionInfo(hMap);
             }
         }
     }
@@ -206,10 +205,12 @@ public class UsersDAL {
     }
 
     public void loginWithUidPwd(String uId, String pwd, IUsers iUsers) {
+//        Log.e("loginWithUidPwd",uId);
         mRef.child(uId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 UsersModel usersModel = snapshot.getValue(UsersModel.class);
+//                Log.e("loginWithUidPwd","loginWithUidPwd2");
                 if (usersModel != null) {
                     String pwd1 = Objects.requireNonNull(snapshot.child("pwd").getValue()).toString();
                     if (!BCrypt.checkpw(pwd, pwd1)) {
@@ -226,32 +227,47 @@ public class UsersDAL {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
     }
 
-    public void updateUserInfo(UsersModel usersModel, byte[] avatar, String newName, IUsers iUsers) {
-        if (avatar != null) {
+    public void updateUserInfo(UsersModel usersModel, HashMap<String, Object> dataUpdate, IUsers iUsers) {
+        if (dataUpdate.containsKey(SessionManager.KEY_FULLNAME))
+            usersModel.setFullName((String) dataUpdate.get(SessionManager.KEY_FULLNAME));
+        if (dataUpdate.containsKey(SessionManager.KEY_PHONE))
+            usersModel.setPhoneNumber((String) dataUpdate.get(SessionManager.KEY_PHONE));
+        if (dataUpdate.containsKey(SessionManager.KEY_EMAIL))
+            usersModel.setEmail((String) dataUpdate.get(SessionManager.KEY_EMAIL));
+        if (dataUpdate.containsKey(SessionManager.KEY_ADDRESS))
+            usersModel.setAddress((String) dataUpdate.get(SessionManager.KEY_ADDRESS));
+        if (dataUpdate.containsKey(SessionManager.KEY_AVATAR)) {
             String oldAvatar = usersModel.getAvatar();
-            usersModel.setAvatar(newName);
+            String newAvatar = (String) dataUpdate.remove("newAvatar");
+            usersModel.setAvatar(newAvatar);
             mRef.child(usersModel.getUid()).setValue(usersModel).addOnCompleteListener(user -> {
                 if (user.isSuccessful()) {
-                    mStorageRef.child(oldAvatar).delete().addOnCompleteListener(img -> {
-                        if (img.isSuccessful()) {
-                            iUsers.isSuccessful(true);
-                            sessionManager.setInfo(usersModel.getFullName(), usersModel.getEmail(), usersModel.getAddress(), newName);
-                            mStorageRef.child(newName).putBytes(avatar);
-                        } else {
-                            iUsers.isSuccessful(false);
-                        }
-                    });
+                    byte[] avatarByte = (byte[]) Objects.requireNonNull(dataUpdate.remove(SessionManager.KEY_AVATAR));
+                    assert newAvatar != null;
+                    mStorageRef.child(newAvatar).putBytes(avatarByte);
+                    dataUpdate.put(SessionManager.KEY_AVATAR, newAvatar);
+                    sessionManager.updateSessionInfo(dataUpdate);
+                    iUsers.isSuccessful(true);
+                    if (oldAvatar != null) {
+                        mStorageRef.child(oldAvatar).delete();
+                    }
                 } else {
                     iUsers.isSuccessful(false);
                 }
             });
         } else {
-            mRef.child(usersModel.getUid()).setValue(usersModel).addOnCompleteListener(user -> iUsers.isSuccessful(user.isSuccessful()));
+            mRef.child(usersModel.getUid()).setValue(usersModel).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    iUsers.isSuccessful(true);
+                    sessionManager.updateSessionInfo(dataUpdate);
+                } else {
+                    iUsers.isSuccessful(false);
+                }
+            });
         }
     }
 

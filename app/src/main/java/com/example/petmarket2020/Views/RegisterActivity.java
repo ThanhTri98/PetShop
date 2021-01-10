@@ -30,7 +30,7 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
-    private static final String PHONE_PATTERN = "^[+]84[3-9][0-9]{8}$";
+    private static final String PHONE_PATTERN = "^0[3-9][0-9]{8}$";
     private static final String UID_PATTERN = "^[a-z0-9]+$";
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.KOREA);
     private TextInputLayout tilFullName, tilUid, tilPhoneNumber, tilPwd;
@@ -108,8 +108,7 @@ public class RegisterActivity extends AppCompatActivity {
         } else {
             tilFullName.setErrorEnabled(false);
         }
-        String phoneTmp = Objects.requireNonNull(tilPhoneNumber.getEditText()).getText().toString().trim();
-        String phone = phoneTmp.length() > 0 && phoneTmp.charAt(0) == '0' ? "+84" + phoneTmp.substring(1) : "+84" + phoneTmp;
+        String phone = Objects.requireNonNull(tilPhoneNumber.getEditText()).getText().toString().trim();
         if (TextUtils.isEmpty(phone)) {
             tilPhoneNumber.setErrorEnabled(true);
             tilPhoneNumber.setError(getString(R.string.RGNonNull));

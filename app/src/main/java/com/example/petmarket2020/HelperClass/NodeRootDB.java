@@ -5,4 +5,5 @@ public class NodeRootDB {
     public static String POST = "Post";
     public static String PET_TYPE = "PetType";
     public static String STORAGE_PROFILE = "profile";
+    public static String STORAGE_IMAGES = "images";
 }

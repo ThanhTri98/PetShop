@@ -9,9 +9,12 @@ import com.example.petmarket2020.DAL.UsersDAL;
 import com.example.petmarket2020.HelperClass.NodeRootDB;
 import com.example.petmarket2020.HelperClass.Utils;
 import com.example.petmarket2020.Interfaces.IUsers;
+import com.example.petmarket2020.Models.SessionManager;
 import com.example.petmarket2020.Models.UsersModel;
 import com.example.petmarket2020.Views.ProfileActivity;
+import com.example.petmarket2020.Views.VerifyCodeActivity;
 
+import java.util.HashMap;
 import java.util.Random;
 
 public class ProfileController {
@@ -23,34 +26,45 @@ public class ProfileController {
         usersDAL = new UsersDAL(activity);
     }
 
-    public void updateUserInfo(UsersModel usersModel, byte[] avatar, RelativeLayout rlBar) {
+    public void updateUserInfo(UsersModel usersModel, HashMap<String, Object> dataUpdate, RelativeLayout rlBar) {
         rlBar.setVisibility(View.VISIBLE);
-        String newName = "";
-        if (avatar != null) {
+        String newAvatar;
+        if (dataUpdate.containsKey(SessionManager.KEY_AVATAR)) {
             String photoName = usersModel.getUid() + new Random().nextInt(44) + ".jpg";
-            newName = NodeRootDB.STORAGE_PROFILE + "/" + photoName;
+            newAvatar = NodeRootDB.STORAGE_PROFILE + "/" + photoName;
+            dataUpdate.put("newAvatar", newAvatar);
         }
-        IUsers iUsers = isSu -> {
-            if (isSu) {
-                ProfileActivity.isLoadAvatar = 0;
-                Toast.makeText(activity, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
-                Utils.hiddenKeyboard(activity);
-            } else {
-                Toast.makeText(activity, "Đã xảy ra lỗi, vui lòng kiểm tra lại", Toast.LENGTH_SHORT).show();
+        IUsers iUsers = new IUsers() {
+            @Override
+            public void isSuccessful(boolean isSu) {
+                if (isSu) {
+                    ProfileActivity.isLoadAvatar = 0;
+                    Toast.makeText(activity, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                    Utils.hiddenKeyboard(activity);
+                } else {
+                    Toast.makeText(activity, "Đã xảy ra lỗi, vui lòng kiểm tra lại", Toast.LENGTH_SHORT).show();
+                }
+                rlBar.setVisibility(View.INVISIBLE);
             }
-            rlBar.setVisibility(View.INVISIBLE);
         };
-        usersDAL.updateUserInfo(usersModel, avatar, newName, iUsers);
+        usersDAL.updateUserInfo(usersModel, dataUpdate, iUsers);
     }
 
-    public void updateVerifyInfo(int type) {
-        usersDAL.updateVerifyInfo(type);
+    public void updateVerifyInfo(int type,String uid) {
+        usersDAL.updateVerifyInfo(type,uid);
     }
 
     public void verifyPhone(String phoneNumber) {
-        usersDAL.verifyPhone(phoneNumber);
+        phoneNumber="+84"+phoneNumber.substring(1);
+        usersDAL.verifyPhone(phoneNumber, new IUsers() {
+            @Override
+            public void responseData(Object data) {
+                VerifyCodeActivity.codeResponse = (String) data;
+            }
+        });
     }
-    public UsersModel getUserDetail(){
+
+    public UsersModel getUserDetail() {
         return usersDAL.getUserDetail();
     }
 }

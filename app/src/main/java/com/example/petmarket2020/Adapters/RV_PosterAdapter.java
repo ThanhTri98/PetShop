@@ -1,7 +1,5 @@
 package com.example.petmarket2020.Adapters;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,58 +8,70 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.petmarket2020.Adapters.items.PosterItem;
+import com.example.petmarket2020.HelperClass.DiffUtilCallbackPosterItem;
+import com.example.petmarket2020.HelperClass.Utils;
 import com.example.petmarket2020.R;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
-import java.text.NumberFormat;
 import java.util.List;
-import java.util.Locale;
+import java.util.Random;
 
 public class RV_PosterAdapter extends RecyclerView.Adapter<RV_PosterAdapter.MyViewHolder> {
-    private static final Locale localeVN = new Locale("vi", "VN");
-    private static final NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
-    private Context context;
-    private List<PosterItem> listItems;
+    private final List<PosterItem> listItems;
+    private final StorageReference storageReference;
 
-    public RV_PosterAdapter(Context context, List<PosterItem> listItems) {
-        this.context = context;
+    public RV_PosterAdapter(List<PosterItem> listItems) {
+        super();
         this.listItems = listItems;
+        storageReference = FirebaseStorage.getInstance().getReference();
+    }
+
+    public void updateData(List<PosterItem> posterItems) {
+        final DiffUtilCallbackPosterItem diffUtilCallbackPosterItem = new DiffUtilCallbackPosterItem(this.listItems, posterItems);
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffUtilCallbackPosterItem);
+        this.listItems.clear();
+        this.listItems.addAll(posterItems);
+        diffResult.dispatchUpdatesTo(this);
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view;
-        LayoutInflater layoutInflater = LayoutInflater.from(context);
-        view = layoutInflater.inflate(R.layout.item_home_poster, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home_poster, parent, false);
         return new MyViewHolder(view);
     }
 
-    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        int image = listItems.get(position).getImage();
-        String title = listItems.get(position).getTitle();
-        long price = listItems.get(position).getPrice();
-        String address = listItems.get(position).getAddress();
-        String date = listItems.get(position).getDate();
-        holder.imageView.setImageResource(image);
+        PosterItem posterItem = listItems.get(position);
+        List<String> images = posterItem.getImages();
+        String imageUrl = images.get(new Random().nextInt(images.size()));
+        Glide.with(holder.tvAddress.getContext()).load(storageReference.child(imageUrl)).diskCacheStrategy(DiskCacheStrategy.ALL).into(holder.imageView);
+        String poType = posterItem.getPoType().contains("bán") ? "[BÁN] " : "[MUA] ";
+        String title = poType + posterItem.getTitle();
+        long price = posterItem.getPrice();
+        String are = posterItem.getArea();
+        String city = are.contains("Hồ Chí Minh") ? "TP.Hồ Chí Minh" : are;
+        String timeStart = posterItem.getTimeStart();
         holder.tvTitle.setText(title);
-        holder.tvPrice.setText(formatCurrency(price));
-        holder.tvAddress.setText(address);
-        holder.tvDate.setText(date);
-
+        holder.tvPrice.setText(Utils.formatCurrencyVN(price));
+        holder.tvAddress.setText(city);
+        holder.tvDate.setText(timeStart);
     }
 
-    private String formatCurrency(long price) {
-        return currencyVN.format(price) + " đ";
-    }
 
     @Override
     public int getItemCount() {
-        return listItems.size();
+        if (listItems != null)
+            return listItems.size();
+        return 0;
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {

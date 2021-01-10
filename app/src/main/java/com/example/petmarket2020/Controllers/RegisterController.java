@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.example.petmarket2020.DAL.UsersDAL;
+import com.example.petmarket2020.Interfaces.IUsers;
 import com.example.petmarket2020.Models.UsersModel;
 import com.example.petmarket2020.R;
 import com.example.petmarket2020.Views.RegisterActivity;
@@ -25,18 +26,21 @@ public class RegisterController {
     public void registerUser(UsersModel usersModel, View viewTrans, RelativeLayout rlBar, TextInputLayout tilUid) {
         tilUid.setErrorEnabled(false);
         rlBar.setVisibility(View.VISIBLE);
-        this.usersDAL.registerUser(usersModel, isSu -> {
-            if (isSu) {
-                ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(activity, viewTrans, "transition_next");
-                activity.startActivity(new Intent(activity, SuccessfullyActivity.class), activityOptions.toBundle());
-                activity.finish();
-            } else {
-                tilUid.setErrorEnabled(true);
-                tilUid.setError(activity.getString(R.string.RGDupUid));
-                tilUid.requestFocus();
-                RegisterActivity.currentUid = usersModel.getUid();
+        this.usersDAL.registerUser(usersModel, new IUsers() {
+            @Override
+            public void isSuccessful(boolean isSu) {
+                if (isSu) {
+                    ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(activity, viewTrans, "transition_next");
+                    activity.startActivity(new Intent(activity, SuccessfullyActivity.class), activityOptions.toBundle());
+                    activity.finish();
+                } else {
+                    tilUid.setErrorEnabled(true);
+                    tilUid.setError(activity.getString(R.string.RGDupUid));
+                    tilUid.requestFocus();
+                    RegisterActivity.currentUid = usersModel.getUid();
+                }
+                rlBar.setVisibility(View.INVISIBLE);
             }
-            rlBar.setVisibility(View.INVISIBLE);
         });
     }
 }

@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -66,28 +68,21 @@ public class SessionManager {
         editor.apply();
     }
 
-    public void setInfo(String fullName, String email, String address, String avatar) {
-        editor.putString(KEY_FULLNAME, fullName);
-        editor.putString(KEY_EMAIL, email);
-        editor.putString(KEY_ADDRESS, address);
-        editor.putString(KEY_AVATAR, avatar);
-        editor.apply();
-    }
-
-    public void updateSessionInfo(HashMap<String, Object> values) {
+    public void updateSessionInfo(@NonNull HashMap<String, Object> values) {
         for (Map.Entry<String, Object> val : values.entrySet()) {
             if (val.getValue() instanceof String) {
                 Log.d("SESSION80", "String ne");
                 editor.putString(val.getKey(), (String) val.getValue());
             } else if (val.getValue() instanceof Boolean) {
-                Log.d("SESSION83", "boolean ne");
+                Log.d("SESSION85", "boolean ne");
                 editor.putBoolean(val.getKey(), (boolean) val.getValue());
             }
         }
+        editor.apply();
     }
 
-    public String getUid() {
-        return usersSession.getString(KEY_UID, null);
+    public Object getInfo(String key) {
+        return usersSession.getString(key, null);
     }
 
     public UsersModel getUserDetail() {
