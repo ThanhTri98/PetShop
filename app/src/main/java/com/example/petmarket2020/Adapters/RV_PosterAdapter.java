@@ -1,6 +1,5 @@
 package com.example.petmarket2020.Adapters;
 
-import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,10 +8,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.petmarket2020.Adapters.items.PosterItem;
+import com.example.petmarket2020.HelperClass.DiffUtilCallbackPosterItem;
 import com.example.petmarket2020.HelperClass.Utils;
 import com.example.petmarket2020.R;
 import com.google.firebase.storage.FirebaseStorage;
@@ -23,45 +25,53 @@ import java.util.Random;
 
 public class RV_PosterAdapter extends RecyclerView.Adapter<RV_PosterAdapter.MyViewHolder> {
     private final List<PosterItem> listItems;
-    private final Activity activity;
     private final StorageReference storageReference;
 
-    public RV_PosterAdapter(Activity activity, List<PosterItem> listItems) {
+    public RV_PosterAdapter(List<PosterItem> listItems) {
+        super();
         this.listItems = listItems;
-        this.activity = activity;
         storageReference = FirebaseStorage.getInstance().getReference();
+    }
+
+    public void updateData(List<PosterItem> posterItems) {
+        final DiffUtilCallbackPosterItem diffUtilCallbackPosterItem = new DiffUtilCallbackPosterItem(this.listItems, posterItems);
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffUtilCallbackPosterItem);
+        this.listItems.clear();
+        this.listItems.addAll(posterItems);
+        diffResult.dispatchUpdatesTo(this);
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view;
-        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        view = layoutInflater.inflate(R.layout.item_home_poster, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home_poster, parent, false);
         return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        List<String> images = listItems.get(position).getImages();
+        PosterItem posterItem = listItems.get(position);
+        List<String> images = posterItem.getImages();
         String imageUrl = images.get(new Random().nextInt(images.size()));
-        Glide.with(activity).load(storageReference.child(imageUrl)).into(holder.imageView);
-        String poType = listItems.get(position).getPoType().contains("bán") ? "[BÁN] " : "[MUA] ";
-        String title = poType + listItems.get(position).getTitle();
-        long price = listItems.get(position).getPrice();
-        String are = listItems.get(position).getArea();
+        Glide.with(holder.tvAddress.getContext()).load(storageReference.child(imageUrl)).diskCacheStrategy(DiskCacheStrategy.ALL).into(holder.imageView);
+        String poType = posterItem.getPoType().contains("bán") ? "[BÁN] " : "[MUA] ";
+        String title = poType + posterItem.getTitle();
+        long price = posterItem.getPrice();
+        String are = posterItem.getArea();
         String city = are.contains("Hồ Chí Minh") ? "TP.Hồ Chí Minh" : are;
-        String timeStart = listItems.get(position).getTimeStart();
+        String timeStart = posterItem.getTimeStart();
         holder.tvTitle.setText(title);
         holder.tvPrice.setText(Utils.formatCurrencyVN(price));
         holder.tvAddress.setText(city);
         holder.tvDate.setText(timeStart);
-
     }
+
 
     @Override
     public int getItemCount() {
-        return listItems.size();
+        if (listItems != null)
+            return listItems.size();
+        return 0;
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {

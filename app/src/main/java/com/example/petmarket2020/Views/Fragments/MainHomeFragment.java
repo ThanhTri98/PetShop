@@ -1,7 +1,7 @@
 package com.example.petmarket2020.Views.Fragments;
 
-import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +11,10 @@ import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.denzcoskun.imageslider.ImageSlider;
 import com.example.petmarket2020.Controllers.PostController;
@@ -23,7 +25,6 @@ import com.example.petmarket2020.R;
 import java.util.Objects;
 
 public class MainHomeFragment extends Fragment {
-    private Context context;
     //-- Top
     //  ++ Search
     SearchView svHome;
@@ -41,29 +42,24 @@ public class MainHomeFragment extends Fragment {
     private RelativeLayout rlBar;
     private RelativeLayout rlBarHot;
     private PostController postController;
+    private NestedScrollView nsv;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         postController = new PostController(getActivity());
+        postController.setNode(NodeRootDB.POST);
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        context = view.getContext();
         getWidget(view);
         setListener();
-        postController.setNode(NodeRootDB.POST);
-        postController.postDownload(rvPoster, rlBar,rvHot,rlBarHot);
+        postController.postDownload(rvPoster, rlBar, nsv, rvHot, rlBarHot);
 //        initData();
         return view;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
     }
 
     private void getWidget(View v) {
@@ -82,12 +78,22 @@ public class MainHomeFragment extends Fragment {
         rvHot = v.findViewById(R.id.rvHot);
         rlBar = v.findViewById(R.id.rlBar);
         rlBarHot = v.findViewById(R.id.rlBarHot);
+        nsv = v.findViewById(R.id.nsv);
+        swipeRefreshLayout = v.findViewById(R.id.refreshLayout);
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
+
 
     }
 
     private void setListener() {
         //-- Top
         //  ++ Search
+        swipeRefreshLayout.setOnRefreshListener(() -> new Handler().postDelayed(() -> {
+            swipeRefreshLayout.setRefreshing(false);
+            postController = new PostController(getActivity());
+            postController.setNode(NodeRootDB.POST);
+            postController.postDownload(rvPoster, rlBar, nsv, rvHot, rlBarHot);
+        }, 2000));
         svHome.setOnQueryTextFocusChangeListener((v, hasFocus) -> ivBack.setVisibility(View.VISIBLE));
         ivBack.setOnClickListener(v -> {
             svHome.clearFocus();

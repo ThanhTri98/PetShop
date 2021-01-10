@@ -3,6 +3,7 @@ package com.example.petmarket2020.Controllers;
 import android.app.Activity;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
@@ -11,8 +12,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.petmarket2020.Adapters.RV_PosterAdapter;
@@ -24,6 +25,7 @@ import com.example.petmarket2020.Models.PostModel;
 import com.example.petmarket2020.R;
 import com.example.petmarket2020.Views.PostActivity;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -125,21 +127,48 @@ public class PostController {
         });
     }
 
-    public void postDownload(RecyclerView rvPoster, RelativeLayout rlBar, RecyclerView rvHot, RelativeLayout rlBarHot) {
+    private RV_PosterAdapter homeRVPosterAdapter;
+    private boolean isLoading = true;
+
+    public void postDownload(RecyclerView rvPoster, RelativeLayout rlBar, NestedScrollView nestedScrollView, RecyclerView rvHot, RelativeLayout rlBarHot) {
         rlBar.setVisibility(View.VISIBLE);
-        rlBarHot.setVisibility(View.VISIBLE);
+        List<PosterItem> posterItemList = new ArrayList<>();
+//        rlBarHot.setVisibility(View.VISIBLE);
         rvPoster.setLayoutManager(new GridLayoutManager(activity, 2));
-        rvHot.setLayoutManager(new LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false));
-        rvPoster.setHasFixedSize(true);
+//        rvHot.setLayoutManager(new LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false));
         postDAL.postDownload(new IPost() {
             @Override
             public void sendData(Object objData) {
                 List<PosterItem> posterItems = (List<PosterItem>) objData;
-                RV_PosterAdapter homeRVPosterAdapter = new RV_PosterAdapter(activity, posterItems);
+                posterItemList.addAll(posterItems);
+                homeRVPosterAdapter = new RV_PosterAdapter(posterItems);
                 rvPoster.setAdapter(homeRVPosterAdapter);
-                rvHot.setAdapter(homeRVPosterAdapter);
+//                rvHot.setAdapter(homeRVPosterAdapter);
                 rlBar.setVisibility(View.GONE);
-                rlBarHot.setVisibility(View.GONE);
+                isLoading = false;
+            }
+        });
+        nestedScrollView.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+            if (scrollY >= (v.getChildAt(v.getChildCount() - 1).getMeasuredHeight() - v.getMeasuredHeight())) {
+                if (!isLoading) {
+                    rlBar.setVisibility(View.VISIBLE);
+                    isLoading = true;
+                    postDAL.postDownload(new IPost() {
+                        @Override
+                        public void sendData(Object objData) {
+                            List<PosterItem> posterItems = (List<PosterItem>) objData;
+                            posterItemList.addAll(posterItems);
+                            new Handler().postDelayed(() -> {
+                                        if (!posterItems.isEmpty()) {
+                                            homeRVPosterAdapter.updateData(posterItemList);
+                                            isLoading = false;
+                                        }
+                                        rlBar.setVisibility(View.GONE);
+                                    }, 500
+                            );
+                        }
+                    });
+                }
             }
         });
     }

@@ -1,6 +1,7 @@
 package com.example.petmarket2020.Adapters.items;
 
 import java.util.List;
+import java.util.Objects;
 
 public class PosterItem {
     private String postId;
@@ -86,5 +87,25 @@ public class PosterItem {
 
     public void setTimeStart(String timeStart) {
         this.timeStart = timeStart;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PosterItem that = (PosterItem) o;
+        return Double.compare(that.latitude, latitude) == 0 &&
+                Double.compare(that.longitude, longitude) == 0 &&
+                price == that.price &&
+                postId.equals(that.postId) &&
+                area.equals(that.area) &&
+                poType.equals(that.poType) &&
+                title.equals(that.title) &&
+                timeStart.equals(that.timeStart);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(postId, area, latitude, longitude, price, poType, title, timeStart);
     }
 }

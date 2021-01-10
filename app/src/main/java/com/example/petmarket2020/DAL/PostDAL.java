@@ -1,6 +1,5 @@
 package com.example.petmarket2020.DAL;
 
-import android.provider.ContactsContract;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -27,6 +26,8 @@ import java.util.Objects;
 public class PostDAL {
     private DatabaseReference mRef;
     private StorageReference mStorageRef;
+
+    private Iterable<DataSnapshot> mSnapshots;
 
     public void setRef(String node) {
         mRef = FirebaseDatabase.getInstance().getReference(node);
@@ -69,21 +70,35 @@ public class PostDAL {
     }
 
     public void postDownload(IPost iPost) {
-        mRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Iterable<DataSnapshot> snapshots = snapshot.getChildren();
-                List<PosterItem> posterItems = new ArrayList<>();
-                for (DataSnapshot ds : snapshots) {
-                    posterItems.add(ds.getValue(PosterItem.class));
+        if (mSnapshots != null) {
+            processPostDownload(iPost, mSnapshots);
+        } else {
+            mRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    mSnapshots = snapshot.getChildren();
+                    processPostDownload(iPost, mSnapshots);
                 }
-                iPost.sendData(posterItems);
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
+                }
+            });
+        }
+    }
+
+    private void processPostDownload(IPost iPost, Iterable<DataSnapshot> dataSnapshots) {
+        int i = 0;
+        List<PosterItem> posterItems = new ArrayList<>();
+        for (DataSnapshot ds : dataSnapshots) {
+            PosterItem posterItem = ds.getValue(PosterItem.class);
+            // ds.getValue sẽ xóa item đã get ra khỏi Iterable<DataSnapshot>
+            assert posterItem != null;
+            posterItems.add(posterItem);
+            i++;
+            if (i == 4) break;
+        }
+        iPost.sendData(posterItems);
     }
 }
