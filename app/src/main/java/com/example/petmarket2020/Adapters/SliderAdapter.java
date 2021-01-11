@@ -6,16 +6,30 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.petmarket2020.R;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.smarteist.autoimageslider.SliderViewAdapter;
 
 import java.util.List;
 
 public class SliderAdapter extends SliderViewAdapter<SliderAdapter.MyViewHolder> {
-    private final List<Bitmap> bitmapList;
+    private List<Bitmap> bitmapList;
+    private List<String> stringList;
+    private StorageReference storageReference;
 
-    public SliderAdapter(List<Bitmap> bitmapList) {
+    public SliderAdapter() {
+    }
+
+    public void setBitmapList(List<Bitmap> bitmapList) {
         this.bitmapList = bitmapList;
+    }
+
+    public void setStringList(List<String> stringList) {
+        this.stringList = stringList;
+        storageReference = FirebaseStorage.getInstance().getReference();
     }
 
     @Override
@@ -27,13 +41,21 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.MyViewHolder>
 
     @Override
     public void onBindViewHolder(MyViewHolder viewHolder, int position) {
-        viewHolder.ivImage.setImageBitmap(bitmapList.get(position));
+        if (bitmapList != null)
+            viewHolder.ivImage.setImageBitmap(bitmapList.get(position));
+        else
+            Glide.with(viewHolder.ivImage.getContext())
+                    .load(storageReference.child(stringList.get(position)))
+                    .placeholder(R.drawable.progress_animation)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL).into(viewHolder.ivImage);
+
 
     }
 
     @Override
     public int getCount() {
-        return bitmapList.size();
+        if (bitmapList != null) return bitmapList.size();
+        else return stringList.size();
     }
 
     public static class MyViewHolder extends SliderViewAdapter.ViewHolder {

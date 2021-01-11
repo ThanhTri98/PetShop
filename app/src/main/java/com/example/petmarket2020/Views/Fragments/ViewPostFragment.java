@@ -146,7 +146,8 @@ public class ViewPostFragment extends Fragment {
 
         });
         postModel.setImages(images);
-        SliderAdapter sliderAdapter = new SliderAdapter(bitmaps);
+        SliderAdapter sliderAdapter = new SliderAdapter();
+        sliderAdapter.setBitmapList(bitmaps);
         sliderView.setSliderAdapter(sliderAdapter);
         sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM);
         sliderView.setSliderTransformAnimation(SliderAnimations.DEPTHTRANSFORMATION);

@@ -1,7 +1,5 @@
 package com.example.petmarket2020.DAL;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 
 import com.example.petmarket2020.Adapters.items.PosterItem;
@@ -100,5 +98,40 @@ public class PostDAL {
             if (i == 4) break;
         }
         iPost.sendData(posterItems);
+    }
+
+    public void postDetail(String postId, IPost iPost) {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        reference.child(NodeRootDB.POST).child(postId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    List<Object> dataResult = new ArrayList<>();
+                    PostModel postModel = snapshot.getValue(PostModel.class);
+                    if (postModel != null) {
+                        dataResult.add(postModel);
+                        String poster = postModel.getPoster();
+                        reference.child(NodeRootDB.USERS).child(poster).child("phoneNumber").addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.exists())
+                                    dataResult.add(snapshot.getValue());
+                                iPost.sendData(dataResult);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

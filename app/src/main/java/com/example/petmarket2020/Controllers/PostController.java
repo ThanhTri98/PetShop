@@ -1,6 +1,7 @@
 package com.example.petmarket2020.Controllers;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Handler;
@@ -17,13 +18,19 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.petmarket2020.Adapters.RV_PosterAdapter;
+import com.example.petmarket2020.Adapters.SliderAdapter;
 import com.example.petmarket2020.Adapters.items.PosterItem;
 import com.example.petmarket2020.DAL.PostDAL;
 import com.example.petmarket2020.HelperClass.MyViewPager;
+import com.example.petmarket2020.HelperClass.Utils;
 import com.example.petmarket2020.Interfaces.IPost;
 import com.example.petmarket2020.Models.PostModel;
 import com.example.petmarket2020.R;
 import com.example.petmarket2020.Views.PostActivity;
+import com.example.petmarket2020.Views.PostDetailActivity;
+import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
+import com.smarteist.autoimageslider.SliderAnimations;
+import com.smarteist.autoimageslider.SliderView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -136,12 +143,20 @@ public class PostController {
 //        rlBarHot.setVisibility(View.VISIBLE);
         rvPoster.setLayoutManager(new GridLayoutManager(activity, 2));
 //        rvHot.setLayoutManager(new LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false));
+        RV_PosterAdapter.IOnItemClick iOnItemClick = new RV_PosterAdapter.IOnItemClick() {
+            @Override
+            public void sendId(String postId) {
+                Intent intent = new Intent(activity, PostDetailActivity.class);
+                intent.putExtra("postId", postId);
+                activity.startActivity(intent);
+            }
+        };
         postDAL.postDownload(new IPost() {
             @Override
             public void sendData(Object objData) {
                 List<PosterItem> posterItems = (List<PosterItem>) objData;
                 posterItemList.addAll(posterItems);
-                homeRVPosterAdapter = new RV_PosterAdapter(posterItems);
+                homeRVPosterAdapter = new RV_PosterAdapter(posterItems, iOnItemClick);
                 rvPoster.setAdapter(homeRVPosterAdapter);
 //                rvHot.setAdapter(homeRVPosterAdapter);
                 rlBar.setVisibility(View.GONE);
@@ -172,4 +187,49 @@ public class PostController {
             }
         });
     }
+
+    public void postDetail(String postId, SliderView imageSlider, TextView[] textViews) {
+        /*
+        textViews:
+        0: title
+        1: price
+        2: breed
+        3: gender
+        4: age
+        5: inject
+        6: healthy
+        7: phone
+        8: are
+         */
+        postDAL.postDetail(postId, new IPost() {
+            @Override
+            public void sendData(Object objData) {
+                List<Object> list = (List<Object>) objData;
+                // 0: PostModel 1: phoneNumber
+                PostModel postModel = (PostModel) list.get(0);
+                String phoneNumber = list.get(1).toString();
+                String poType = postModel.getPoType().contains("bán") ? "[BÁN] " : "[MUA] ";
+                String title = poType + postModel.getTitle();
+                textViews[0].setText(title);
+                textViews[1].setText(Utils.formatCurrencyVN(postModel.getPrice()));
+                textViews[2].setText(postModel.getBreed());
+                textViews[3].setText(postModel.getGender());
+                textViews[4].setText(postModel.getPeAge());
+                textViews[5].setText(postModel.getInjectStatus());
+                textViews[6].setText(postModel.getHealthGuarantee());
+                textViews[7].setText(phoneNumber);
+                textViews[8].setText(postModel.getArea());
+                List<String> images = postModel.getImages();
+                SliderAdapter sliderAdapter = new SliderAdapter();
+                sliderAdapter.setStringList(images);
+                imageSlider.setSliderAdapter(sliderAdapter);
+                imageSlider.setIndicatorAnimation(IndicatorAnimationType.WORM);
+                imageSlider.setSliderTransformAnimation(SliderAnimations.DEPTHTRANSFORMATION);
+                imageSlider.setScrollTimeInSec(3);
+                imageSlider.startAutoCycle();
+            }
+        });
+
+    }
+
 }

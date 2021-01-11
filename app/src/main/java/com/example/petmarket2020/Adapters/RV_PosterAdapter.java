@@ -27,8 +27,11 @@ public class RV_PosterAdapter extends RecyclerView.Adapter<RV_PosterAdapter.MyVi
     private final List<PosterItem> listItems;
     private final StorageReference storageReference;
 
-    public RV_PosterAdapter(List<PosterItem> listItems) {
+    private IOnItemClick iOnItemClick;
+
+    public RV_PosterAdapter(List<PosterItem> listItems, IOnItemClick iOnItemClick) {
         super();
+        this.iOnItemClick = iOnItemClick;
         this.listItems = listItems;
         storageReference = FirebaseStorage.getInstance().getReference();
     }
@@ -64,6 +67,9 @@ public class RV_PosterAdapter extends RecyclerView.Adapter<RV_PosterAdapter.MyVi
         holder.tvPrice.setText(Utils.formatCurrencyVN(price));
         holder.tvAddress.setText(city);
         holder.tvDate.setText(timeStart);
+        holder.itemView.setOnClickListener(v -> {
+            iOnItemClick.sendId(posterItem.getPostId());
+        });
     }
 
 
@@ -86,6 +92,7 @@ public class RV_PosterAdapter extends RecyclerView.Adapter<RV_PosterAdapter.MyVi
             tvPrice = itemView.findViewById(R.id.tvPrice);
             tvAddress = itemView.findViewById(R.id.tvAddress);
             tvDate = itemView.findViewById(R.id.tvDate);
+
             imgFav.setOnClickListener(v -> {
                 if (imgFav.getTag().toString().equals("1")) {
                     imgFav.setTag("2");
@@ -97,5 +104,9 @@ public class RV_PosterAdapter extends RecyclerView.Adapter<RV_PosterAdapter.MyVi
                 }
             });
         }
+    }
+
+    public static interface IOnItemClick {
+        public void sendId(String postId);
     }
 }

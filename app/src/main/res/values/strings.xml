@@ -158,5 +158,13 @@
     <string name="tindanthanhcongluuy">Lưu ý: Tin rao của bạn đang được xét duyệt, để kiểm tra trạng thái tin rao trong mục Tin của tôi ở giao diện trang chủ.</string>
     <string name="xincamon">Xin cảm ơn!</string>
     <string name="tin_hot">Tin HOT</string>
+    <string name="cmt_reate"><![CDATA[Bình luận & Đánh giá]]></string>
+    <string name="tindangtuongtu">Tin đăng tương tự</string>
+    <string name="gui_sms">Gửi SMS</string>
+    <string name="goi_dien">Gọi điện</string>
+    <string name="gui_danh_gia">Gửi đánh giá</string>
+    <string name="noi_dung">Nội dung:</string>
+    <string name="danh_gia">Đánh giá:</string>
+    <string name="bao_cao_tin">Báo cáo tin không hợp lệ</string>
 
 </resources>
