@@ -47,8 +47,8 @@ public class PostActivity extends AppCompatActivity {
         postController = new PostController(this);
     }
 
-    public static PostController getPostController(String node) {
-        postController.setNode(node);
+    public static PostController getPostController() {
+//        postController.setNode(node);
         return postController;
     }
 

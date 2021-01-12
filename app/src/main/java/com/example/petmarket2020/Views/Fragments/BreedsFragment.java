@@ -11,7 +11,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.petmarket2020.HelperClass.MyViewPager;
-import com.example.petmarket2020.HelperClass.NodeRootDB;
 import com.example.petmarket2020.HelperClass.Utils;
 import com.example.petmarket2020.R;
 import com.example.petmarket2020.Views.PostActivity;
@@ -19,7 +18,6 @@ import com.example.petmarket2020.Views.PostActivity;
 import java.util.Objects;
 
 public class BreedsFragment extends Fragment {
-    private static final String TAG = "BreedsFragment";
     private RadioGroup radioGroup;
 
     private TextView tvTitle;
@@ -46,7 +44,7 @@ public class BreedsFragment extends Fragment {
         Utils.hiddenKeyboard(Objects.requireNonNull(getActivity()));
         if (PostActivity.getData(PostActivity.KEY_PET_TYPE) != null) {
             String petType = (String) PostActivity.getData(PostActivity.KEY_PET_TYPE);
-            PostActivity.getPostController(NodeRootDB.PET_TYPE).getPetBreeds(petType, radioGroup, vpg, tvTitle);
+            PostActivity.getPostController().getPetBreeds(petType, radioGroup, vpg, tvTitle);
         }
     }
 

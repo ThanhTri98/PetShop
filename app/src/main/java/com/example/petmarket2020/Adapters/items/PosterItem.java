@@ -11,10 +11,28 @@ public class PosterItem {
     private double longitude;
     private long price;
     private String poType;
+    private String peType;
     private String title;
     private String timeStart;
+    private boolean isHot;
 
     public PosterItem() {
+    }
+
+    public boolean isHot() {
+        return isHot;
+    }
+
+    public void setHot(boolean hot) {
+        isHot = hot;
+    }
+
+    public String getPeType() {
+        return peType;
+    }
+
+    public void setPeType(String peType) {
+        this.peType = peType;
     }
 
     public String getPostId() {

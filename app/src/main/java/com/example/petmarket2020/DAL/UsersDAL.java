@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -77,7 +78,7 @@ public class UsersDAL {
         );
     }
 
-    public void updateVerifyInfo(int type,String uid) {
+    public void updateVerifyInfo(int type, String uid) {
 //    type == 1 (phone); type == 2 (email)
         if (uid != null) {
             if (type == 1) {
@@ -231,6 +232,7 @@ public class UsersDAL {
         });
     }
 
+    // update info
     public void updateUserInfo(UsersModel usersModel, HashMap<String, Object> dataUpdate, IUsers iUsers) {
         if (dataUpdate.containsKey(SessionManager.KEY_FULLNAME))
             usersModel.setFullName((String) dataUpdate.get(SessionManager.KEY_FULLNAME));
@@ -271,6 +273,15 @@ public class UsersDAL {
         }
     }
 
+    public void setFavorite(String uid, List<String> favorites, IUsers iUsers) {
+        mRef.child(uid).child("favorites").setValue(favorites).addOnCompleteListener(task -> {
+            iUsers.isSuccessful(task.isSuccessful());
+            HashMap<String, Object> values = new HashMap<>();
+            values.put(SessionManager.KEY_FAVORITES, favorites);
+            sessionManager.updateSessionInfo(values);
+        });
+    }
+
     //    sessionManager
     public boolean checkLogin() {
         return sessionManager.isLogin();
@@ -282,5 +293,9 @@ public class UsersDAL {
 
     public UsersModel getUserDetail() {
         return sessionManager.getUserDetail();
+    }
+
+    public Object getInfo(String key,boolean isHashSet) {
+        return sessionManager.getInfo(key,isHashSet);
     }
 }

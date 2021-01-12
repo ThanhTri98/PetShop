@@ -3,13 +3,13 @@ package com.example.petmarket2020.Models;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 
 
@@ -71,18 +71,23 @@ public class SessionManager {
     public void updateSessionInfo(@NonNull HashMap<String, Object> values) {
         for (Map.Entry<String, Object> val : values.entrySet()) {
             if (val.getValue() instanceof String) {
-                Log.d("SESSION80", "String ne");
+//                Log.d("SESSION80", "String ne");
                 editor.putString(val.getKey(), (String) val.getValue());
             } else if (val.getValue() instanceof Boolean) {
-                Log.d("SESSION85", "boolean ne");
+//                Log.d("SESSION85", "boolean ne");
                 editor.putBoolean(val.getKey(), (boolean) val.getValue());
+            } else {
+                List<String> favorites = (List<String>) val.getValue();
+                editor.putStringSet(KEY_FAVORITES, new HashSet<>(favorites));
             }
         }
         editor.apply();
     }
 
-    public Object getInfo(String key) {
-        return usersSession.getString(key, null);
+    public Object getInfo(String key, boolean isHashSet) {
+        if (!isHashSet)
+            return usersSession.getString(key, null);
+        return usersSession.getStringSet(key, null);
     }
 
     public UsersModel getUserDetail() {

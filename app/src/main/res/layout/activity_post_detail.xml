@@ -70,8 +70,8 @@
                 app:sliderIndicatorOrientation="horizontal"
                 app:sliderIndicatorPadding="3dp"
                 app:sliderIndicatorRadius="2dp"
-                app:sliderIndicatorSelectedColor="#5A5A5A"
-                app:sliderIndicatorUnselectedColor="#FFF"
+                app:sliderIndicatorSelectedColor="@color/colorPrimary"
+                app:sliderIndicatorUnselectedColor="@color/colorGrayLight"
                 app:sliderScrollTimeInSec="1"
                 app:sliderStartAutoCycle="true" />
 
@@ -98,6 +98,7 @@
                         android:id="@+id/tvPrice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:textColor="@color/colorPrimary"
                         android:textSize="15sp"
                         android:textStyle="bold" />
@@ -108,20 +109,43 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
+                        android:layout_centerVertical="true"
                         android:isIndicator="true"
+                        android:progressTint="@color/colorPrimary"
                         android:rating="4.2"
+                        android:secondaryProgressTint="@color/colorLoading"
                         android:stepSize="0.1" />
 
                     <TextView
                         android:id="@+id/tvBarTotal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:layout_toEndOf="@+id/ratingBarTotal"
                         android:text="(4.2)"
                         android:textColor="@color/colorTextDefault"
                         android:textSize="15sp" />
-                </RelativeLayout>
 
+                    <ImageView
+                        android:id="@+id/imgFav"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:contentDescription="@string/AppName"
+                        android:padding="5dp"
+                        android:src="@drawable/ic_item_tym" />
+
+                    <ProgressBar
+                        android:id="@+id/pgBar"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="5dp"
+                        android:indeterminateTint="@color/colorRedDark"
+                        android:visibility="invisible" />
+                </RelativeLayout>
             </LinearLayout>
 
             <View
@@ -311,7 +335,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="11dp"
-                        android:text="Tin đăng này đã được kiểm duyệt, Nếu gặp vấn đề, vui lòng báo cáo tin đăng hoặc liên hệ CSKH để được trợ giúp."
+                        android:text="@string/warning_post_detail"
                         android:textColor="@color/colorTextDefault"
                         android:textSize="15sp"
                         android:textStyle="italic" />
@@ -360,8 +384,11 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvRateCmt"
                     android:layout_marginStart="5dp"
+                    android:layout_marginTop="2dp"
                     android:layout_toEndOf="@+id/tvRate"
+                    android:progressTint="@color/colorPrimary"
                     android:rating="4"
+                    android:secondaryProgressTint="@color/colorGrayLight"
                     android:stepSize="1" />
 
                 <TextView
@@ -409,7 +436,6 @@
                 android:orientation="vertical"
                 android:paddingStart="10dp"
                 android:paddingTop="5dp"
-                android:paddingEnd="-10dp"
                 tools:ignore="RtlSymmetry">
 
                 <TextView
@@ -422,25 +448,33 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvSamePost"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-                <RelativeLayout
-                    android:id="@+id/rlBar"
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginVertical="3dp"
-                    android:background="@drawable/bg_pbar"
-                    android:padding="11dp"
-                    android:visibility="gone">
+                    android:orientation="horizontal">
 
-                    <ProgressBar
-                        android:layout_width="25dp"
-                        android:layout_height="25dp" />
-                </RelativeLayout>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvSamePost"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <RelativeLayout
+                        android:id="@+id/rlBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginHorizontal="5dp"
+                        android:background="@drawable/bg_pbar"
+                        android:elevation="4dp"
+                        android:padding="11dp"
+                        android:visibility="gone">
+
+                        <ProgressBar
+                            android:layout_width="19dp"
+                            android:layout_height="18dp" />
+                    </RelativeLayout>
+                </LinearLayout>
+
             </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

@@ -1,4 +1,6 @@
 <resources>
+    <item name="isChecked" type="id" />
+    <item name="postId" type="id" />
     //Commons
     <string name="AppName">Pet Shop</string>
     <string name="Confirm">Xác nhận</string>
@@ -166,5 +168,5 @@
     <string name="noi_dung">Nội dung:</string>
     <string name="danh_gia">Đánh giá:</string>
     <string name="bao_cao_tin">Báo cáo tin không hợp lệ</string>
-
+    <string name="warning_post_detail">Tin đăng này đã được kiểm duyệt, Nếu gặp vấn đề, vui lòng báo cáo tin đăng hoặc liên hệ CSKH để được trợ giúp.</string>
 </resources>

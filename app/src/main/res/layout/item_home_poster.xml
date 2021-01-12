@@ -21,12 +21,14 @@
         android:src="@drawable/cat1" />
 
     <ImageView
+        android:id="@+id/ivHot"
         android:layout_width="30dp"
         android:layout_height="40dp"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="1dp"
         android:contentDescription="@string/AppName"
-        android:src="@drawable/logo_hot_item" />
+        android:src="@drawable/logo_hot_item"
+        android:visibility="invisible" />
 
     <ImageView
         android:id="@+id/imgFav"
@@ -34,11 +36,20 @@
         android:layout_height="35dp"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
+        android:layout_marginEnd="-3dp"
         android:contentDescription="@string/AppName"
         android:padding="5dp"
-        android:layout_marginEnd="-3dp"
-        android:src="@drawable/ic_item_tym"
-        android:tag="1" />
+        android:src="@drawable/ic_item_tym" />
+
+    <ProgressBar
+        android:id="@+id/pgBar"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="5dp"
+        android:indeterminateTint="@color/colorRedDark"
+        android:visibility="invisible" />
 
     <TextView
         android:id="@+id/tvTitle"
@@ -70,8 +81,8 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"
             android:text="3.3 km"
-            android:textColor="@color/colorTextDefault"
             android:textAlignment="textEnd"
+            android:textColor="@color/colorTextDefault"
             android:textSize="13sp" />
 
     </LinearLayout>

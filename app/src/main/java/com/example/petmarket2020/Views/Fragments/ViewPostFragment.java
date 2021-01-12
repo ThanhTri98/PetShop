@@ -66,18 +66,18 @@ public class ViewPostFragment extends Fragment {
         tvAge = view.findViewById(R.id.tvAge);
         TextView tvPhoneNumber = view.findViewById(R.id.tvPhoneNumber);
         TextView tvArea = view.findViewById(R.id.tvArea);
-        tvPhoneNumber.setText((String) sessionManager.getInfo(SessionManager.KEY_PHONE));
+        tvPhoneNumber.setText((String) sessionManager.getInfo(SessionManager.KEY_PHONE,false));
         area = getArea();
         tvArea.setText(area);
         view.findViewById(R.id.bab).setOnClickListener(v -> {
             // Xử lý đăng tin ở đây
-            PostActivity.getPostController(NodeRootDB.POST).postUpload(postModel, mapImage, rlBar, vpg, tvTitles);
+            PostActivity.getPostController().postUpload(postModel, mapImage, rlBar, vpg, tvTitles);
         });
         return view;
     }
 
     private String getArea() {
-        String address = (String) sessionManager.getInfo(SessionManager.KEY_ADDRESS);
+        String address = (String) sessionManager.getInfo(SessionManager.KEY_ADDRESS,false);
         int index = address.lastIndexOf(",");
         return address.substring(index + 1).trim();
     }
@@ -88,11 +88,11 @@ public class ViewPostFragment extends Fragment {
         HashMap<String, Object> hashMap = PostActivity.getAllData();
         postModel = new PostModel();
         String postID = "PO" + System.currentTimeMillis();
-        postModel.setPoster((String) sessionManager.getInfo(SessionManager.KEY_UID));
+        postModel.setPoster((String) sessionManager.getInfo(SessionManager.KEY_UID,false));
         postModel.setPostId(postID);
         postModel.setArea(area);
-        postModel.setLatitude(Double.parseDouble((String) sessionManager.getInfo(SessionManager.KEY_LATITUDE)));
-        postModel.setLongitude(Double.parseDouble((String) sessionManager.getInfo(SessionManager.KEY_LONGITUDE)));
+        postModel.setLatitude(Double.parseDouble((String) sessionManager.getInfo(SessionManager.KEY_LATITUDE,false)));
+        postModel.setLongitude(Double.parseDouble((String) sessionManager.getInfo(SessionManager.KEY_LONGITUDE,false)));
         for (Map.Entry<String, Object> data : hashMap.entrySet()) {
             switch (data.getKey()) {
                 case PostActivity.KEY_PET_TYPE:

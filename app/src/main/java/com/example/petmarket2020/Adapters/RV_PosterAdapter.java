@@ -4,8 +4,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.petmarket2020.Adapters.items.PosterItem;
+import com.example.petmarket2020.Controllers.PostController;
 import com.example.petmarket2020.HelperClass.DiffUtilCallbackPosterItem;
 import com.example.petmarket2020.HelperClass.Utils;
 import com.example.petmarket2020.R;
@@ -26,14 +27,19 @@ import java.util.Random;
 public class RV_PosterAdapter extends RecyclerView.Adapter<RV_PosterAdapter.MyViewHolder> {
     private final List<PosterItem> listItems;
     private final StorageReference storageReference;
+    private PostController postController;
 
-    private IOnItemClick iOnItemClick;
+    private final IOnItemClick iOnItemClick;
 
     public RV_PosterAdapter(List<PosterItem> listItems, IOnItemClick iOnItemClick) {
         super();
         this.iOnItemClick = iOnItemClick;
         this.listItems = listItems;
         storageReference = FirebaseStorage.getInstance().getReference();
+    }
+
+    public void setPostController(PostController postController) {
+        this.postController = postController;
     }
 
     public void updateData(List<PosterItem> posterItems) {
@@ -54,6 +60,15 @@ public class RV_PosterAdapter extends RecyclerView.Adapter<RV_PosterAdapter.MyVi
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         PosterItem posterItem = listItems.get(position);
+        if (postController != null) {
+            ImageView imgFav = holder.imgFav;
+            imgFav.setTag(R.id.postId, posterItem.getPostId());
+            postController.isFavorite(posterItem.getPostId(), imgFav);
+            imgFav.setOnClickListener(v -> postController.setFavorite(imgFav, holder.pgBar));
+        }
+        if (posterItem.isHot()) {
+            holder.ivHot.setVisibility(View.VISIBLE);
+        }
         List<String> images = posterItem.getImages();
         String imageUrl = images.get(new Random().nextInt(images.size()));
         Glide.with(holder.tvAddress.getContext()).load(storageReference.child(imageUrl)).diskCacheStrategy(DiskCacheStrategy.ALL).into(holder.imageView);
@@ -67,9 +82,7 @@ public class RV_PosterAdapter extends RecyclerView.Adapter<RV_PosterAdapter.MyVi
         holder.tvPrice.setText(Utils.formatCurrencyVN(price));
         holder.tvAddress.setText(city);
         holder.tvDate.setText(timeStart);
-        holder.itemView.setOnClickListener(v -> {
-            iOnItemClick.sendId(posterItem.getPostId());
-        });
+        holder.itemView.setOnClickListener(v -> iOnItemClick.sendId(posterItem.getPostId(), posterItem.getPeType(), posterItem.getPrice()));
     }
 
 
@@ -81,32 +94,24 @@ public class RV_PosterAdapter extends RecyclerView.Adapter<RV_PosterAdapter.MyVi
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageView, imgFav;
+        ImageView imageView, imgFav, ivHot;
         TextView tvTitle, tvPrice, tvAddress, tvDate;
+        ProgressBar pgBar;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+            pgBar = itemView.findViewById(R.id.pgBar);
             imageView = itemView.findViewById(R.id.imageView);
+            ivHot = itemView.findViewById(R.id.ivHot);
             imgFav = itemView.findViewById(R.id.imgFav);
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvPrice = itemView.findViewById(R.id.tvPrice);
             tvAddress = itemView.findViewById(R.id.tvAddress);
             tvDate = itemView.findViewById(R.id.tvDate);
-
-            imgFav.setOnClickListener(v -> {
-                if (imgFav.getTag().toString().equals("1")) {
-                    imgFav.setTag("2");
-                    imgFav.setImageResource(R.drawable.ic_item_tym_checked);
-                    Toast.makeText(itemView.getContext(), "Đã lưu", Toast.LENGTH_SHORT).show();
-                } else {
-                    imgFav.setTag("1");
-                    imgFav.setImageResource(R.drawable.ic_item_tym);
-                }
-            });
         }
     }
 
-    public static interface IOnItemClick {
-        public void sendId(String postId);
+    public interface IOnItemClick {
+        void sendId(String postId, String peType, long price);
     }
 }
