@@ -21,7 +21,6 @@ import com.example.petmarket2020.Views.PostActivity;
 import java.util.Objects;
 
 public class TitleFragment extends Fragment {
-    //    private static final String TAG = "TitleFragment";
     private TextView tvError;
     private int len = 0;
     private TextView tvTitle;

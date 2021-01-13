@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".Views.PaymentOptionActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbarlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:layout_scrollFlags="exitUntilCollapsed">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="12dp"
+                tools:ignore="UseCompoundDrawables">
+
+                <ImageView
+                    android:id="@+id/ivBack"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/AppName"
+                    android:paddingVertical="13dp"
+                    android:src="@drawable/ic_post_arrow_back" />
+
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="25dp"
+                    android:gravity="center"
+                    android:text="@string/thanh_toan"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/tvPayment"
+        android:layout_below="@+id/appbarlayout"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/muli_black"
+            android:text="@string/dich_vu"
+            android:textColor="@color/colorTextDefault"
+            android:textSize="18sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:background="@drawable/bg_border_horizontal"
+            android:paddingVertical="10dp">
+
+            <FrameLayout
+                android:id="@+id/flCoinsImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/bg_bottom_contact"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="10dp"
+                tools:ignore="UselessParent">
+
+                <View
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:background="@drawable/ic_coins" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tvTitle1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/flCoinsImage"
+                android:text="@string/thanh_tpan_dong_tot"
+                android:textColor="@color/colorTextDefault" />
+
+            <TextView
+                android:id="@+id/tvTitle2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvTitle1"
+                android:layout_toEndOf="@+id/flCoinsImage"
+                android:text="@string/dong_tot_nap_them"
+                android:textColor="@color/colorTextDefault" />
+
+            <TextView
+                android:id="@+id/tvCoins"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/tvTitle2"
+                android:layout_marginStart="2dp"
+                android:layout_toEndOf="@+id/tvTitle2"
+                android:text="1.500.000"
+                android:textColor="@color/colorTextDefault" />
+
+            <View
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignBottom="@+id/tvCoins"
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="2dp"
+                android:layout_toEndOf="@+id/tvCoins"
+                android:background="@drawable/ic_coins" />
+
+            <TextView
+                android:id="@+id/tvTitle3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvCoins"
+                android:layout_marginVertical="3dp"
+                android:layout_toEndOf="@+id/flCoinsImage"
+                android:text="@string/khuyen_mai"
+                android:textColor="@color/colorTextDefault" />
+
+            <TextView
+                android:id="@+id/tvCoinsSale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/tvTitle3"
+                android:layout_toEndOf="@+id/tvTitle3"
+                android:text="0"
+                android:textColor="@color/colorTextDefault" />
+
+            <View
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignBottom="@+id/tvCoinsSale"
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="2dp"
+                android:layout_toEndOf="@+id/tvCoinsSale"
+                android:background="@drawable/ic_coins" />
+
+            <TextView
+                android:id="@+id/tvTitle4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvTitle3"
+                android:layout_marginTop="8dp"
+                android:layout_toEndOf="@+id/flCoinsImage"
+                android:text="@string/so_tien_phai_tra"
+                android:textColor="@color/colorTextDefault" />
+
+            <TextView
+                android:id="@+id/tvRealCoins"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/tvTitle4"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="8dp"
+                android:text="1.500.000 đ"
+                android:textColor="@color/colorRedDark" />
+
+            <ImageView
+                android:id="@+id/ivClose"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="-10dp"
+                android:contentDescription="@string/AppName"
+                android:padding="5dp"
+                android:src="@drawable/ic_close" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_border_bottom"
+            android:paddingBottom="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thành tiền:"
+                android:textColor="@color/colorTextDefault"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tvRealCoins2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:fontFamily="@font/muli_black"
+                android:text="1.500.000 đ"
+                android:textColor="@color/colorRedDark"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/muli_black"
+            android:text="@string/chon_hinh_thuc_thanh_toan"
+            android:textColor="@color/colorTextDefault"
+            android:textSize="18sp" />
+
+        <RadioGroup
+            android:id="@+id/rgOptions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <RadioButton
+                android:id="@+id/rdMomo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_rd_coins_selector"
+                android:button="@android:color/transparent"
+                android:drawableStart="@drawable/logo_momo"
+                android:drawableEnd="@drawable/ic_next_black"
+                android:drawablePadding="10dp"
+                android:padding="10dp"
+                android:text="@string/v_momo"
+                android:textColor="@drawable/bg_rd_text_color_coins_selector"
+                android:textSize="18sp" />
+
+            <RadioButton
+                android:id="@+id/rdVnpay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_rd_coins_selector"
+                android:button="@android:color/transparent"
+                android:drawableStart="@drawable/logo_vnpay"
+                android:drawableEnd="@drawable/ic_next_black"
+                android:drawablePadding="10dp"
+                android:padding="10dp"
+                android:text="@string/v_vnpay"
+                android:textColor="@drawable/bg_rd_text_color_coins_selector"
+                android:textSize="18sp" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvPayment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#CACACA"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/muli_black"
+        android:foreground="?attr/selectableItemBackground"
+        android:gravity="center_horizontal"
+        android:paddingVertical="10dp"
+        android:text="@string/thanh_toan"
+        android:textAllCaps="true"
+        android:textSize="18sp" />
+</RelativeLayout>

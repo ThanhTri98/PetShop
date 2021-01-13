@@ -102,7 +102,7 @@
                     android:visibility="visible" />
 
                 <LinearLayout
-                    android:id="@+id/llCoins"
+                    android:id="@+id/llCoinsPoint"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:visibility="gone">
@@ -164,6 +164,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/llCoins"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_border_bottom"

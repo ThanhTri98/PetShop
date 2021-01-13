@@ -169,4 +169,14 @@
     <string name="danh_gia">Đánh giá:</string>
     <string name="bao_cao_tin">Báo cáo tin không hợp lệ</string>
     <string name="warning_post_detail">Tin đăng này đã được kiểm duyệt, Nếu gặp vấn đề, vui lòng báo cáo tin đăng hoặc liên hệ CSKH để được trợ giúp.</string>
+    <string name="v_vnpay">Ví VNPay</string>
+    <string name="thanh_toan">Thanh Toán</string>
+    <string name="v_momo">Ví Momo</string>
+    <string name="chon_hinh_thuc_thanh_toan">Chọn hình thức thanh toán</string>
+    <string name="so_tien_phai_tra">Số tiền phải trả</string>
+    <string name="khuyen_mai">Khuyến mãi:</string>
+    <string name="dong_tot_nap_them">Đồng Tốt nạp thêm:</string>
+    <string name="thanh_tpan_dong_tot">Thanh Toán Đồng Tốt</string>
+    <string name="dich_vu">Dịch vụ</string>
+    <string name="xem_lich_su_gd"><![CDATA[Xem lịch sử giao dịch >>]]></string>
 </resources>

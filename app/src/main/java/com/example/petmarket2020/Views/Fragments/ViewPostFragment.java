@@ -141,7 +141,7 @@ public class ViewPostFragment extends Fragment {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
             String id = postID + i.getAndIncrement() + ".jpg";
-            images.add(id);
+            images.add("images/"+id);
             mapImage.put(id, baos.toByteArray());
 
         });

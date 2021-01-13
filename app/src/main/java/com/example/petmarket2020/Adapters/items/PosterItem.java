@@ -15,8 +15,17 @@ public class PosterItem {
     private String title;
     private String timeStart;
     private boolean isHot;
+    private long viewCounts;
 
     public PosterItem() {
+    }
+
+    public long getViewCounts() {
+        return viewCounts;
+    }
+
+    public void setViewCounts(long viewCounts) {
+        this.viewCounts = viewCounts;
     }
 
     public boolean isHot() {

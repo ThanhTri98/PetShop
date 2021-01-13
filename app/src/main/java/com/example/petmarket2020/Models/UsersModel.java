@@ -36,7 +36,7 @@ public class UsersModel implements Serializable {
         this.gender = gender;
         this.dateOfBirth = dateOfBirth;
         this.phoneNumber = phoneNumber;
-        this.joinDate = Utils.getCurrentDate();
+        this.joinDate = Utils.getCurrentDate(false);
     }
 
     public String getUid() {

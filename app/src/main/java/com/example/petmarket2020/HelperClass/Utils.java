@@ -17,7 +17,9 @@ public class Utils {
                 .hideSoftInputFromWindow(context.getCurrentFocus().getWindowToken(), 0);
     }
 
-    public static String getCurrentDate() {
+    public static String getCurrentDate(boolean isTimeMil) {
+        if (isTimeMil)
+            return new SimpleDateFormat("dd/MM/yyyy hh:mm", Locale.KOREA).format(new Date());
         return new SimpleDateFormat("dd/MM/yyyy", Locale.KOREA).format(new Date());
     }
 

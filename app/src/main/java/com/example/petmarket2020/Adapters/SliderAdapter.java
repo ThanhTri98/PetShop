@@ -46,7 +46,6 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.MyViewHolder>
         else
             Glide.with(viewHolder.ivImage.getContext())
                     .load(storageReference.child(stringList.get(position)))
-                    .error(R.drawable.progress_animation)
                     .diskCacheStrategy(DiskCacheStrategy.ALL).into(viewHolder.ivImage);
 
 

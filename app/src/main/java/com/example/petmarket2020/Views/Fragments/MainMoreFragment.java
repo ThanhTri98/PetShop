@@ -20,6 +20,7 @@ import com.example.petmarket2020.Controllers.MainMoreController;
 import com.example.petmarket2020.HelperClass.NodeRootDB;
 import com.example.petmarket2020.Models.UsersModel;
 import com.example.petmarket2020.R;
+import com.example.petmarket2020.Views.CoinsActivity;
 import com.example.petmarket2020.Views.LoginActivity;
 import com.example.petmarket2020.Views.ProfileActivity;
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -29,7 +30,7 @@ public class MainMoreFragment extends Fragment implements View.OnClickListener {
     private ShimmerFrameLayout sflName, sflAvatar;
     private TextView tvAction, tvViewProfile, tvMyCoins;
     private ImageView imgAvatar;
-    private LinearLayout llProfile, llCoins, llLogout;
+    private LinearLayout llProfile, llCoinsPoint, llLogout, llCoins;
     private static UsersModel usersModel;
     private MainMoreController mainMoreController;
 
@@ -58,11 +59,11 @@ public class MainMoreFragment extends Fragment implements View.OnClickListener {
 
     private void updateUI(boolean is) {
         if (is) {
-            llCoins.setVisibility(View.VISIBLE);
+            llCoinsPoint.setVisibility(View.VISIBLE);
             tvMyCoins.setVisibility(View.GONE);
             tvViewProfile.setVisibility(View.VISIBLE);
         } else {
-            llCoins.setVisibility(View.GONE);
+            llCoinsPoint.setVisibility(View.GONE);
             llLogout.setVisibility(View.GONE);
             tvMyCoins.setVisibility(View.VISIBLE);
             tvViewProfile.setVisibility(View.GONE);
@@ -81,6 +82,7 @@ public class MainMoreFragment extends Fragment implements View.OnClickListener {
         tvViewProfile = v.findViewById(R.id.tvViewProfile);
         tvMyCoins = v.findViewById(R.id.tvMyCoins);
 
+        llCoinsPoint = v.findViewById(R.id.llCoinsPoint);
         llCoins = v.findViewById(R.id.llCoins);
         llProfile = v.findViewById(R.id.llProfile);
         llLogout = v.findViewById(R.id.llLogout);
@@ -89,6 +91,7 @@ public class MainMoreFragment extends Fragment implements View.OnClickListener {
     private void setListener() {
         llProfile.setOnClickListener(this);
         llLogout.setOnClickListener(this);
+        llCoins.setOnClickListener(this);
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -108,6 +111,9 @@ public class MainMoreFragment extends Fragment implements View.OnClickListener {
                 updateUI(false);
                 usersModel = null;
                 mainMoreController.logout();
+                break;
+            case R.id.llCoins:
+                startActivity(new Intent(getActivity(), CoinsActivity.class));
                 break;
         }
     }

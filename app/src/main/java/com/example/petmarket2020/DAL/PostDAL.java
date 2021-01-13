@@ -4,9 +4,12 @@ import androidx.annotation.NonNull;
 
 import com.example.petmarket2020.Adapters.items.PosterItem;
 import com.example.petmarket2020.HelperClass.NodeRootDB;
+import com.example.petmarket2020.HelperClass.Utils;
+import com.example.petmarket2020.Interfaces.IControlData;
 import com.example.petmarket2020.Interfaces.IPost;
 import com.example.petmarket2020.Models.PetTypeModel;
 import com.example.petmarket2020.Models.PostModel;
+import com.example.petmarket2020.Models.RankingModel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -83,7 +86,7 @@ public class PostDAL {
                     Iterable<DataSnapshot> snapshots = snapshot.getChildren();
                     listNormal = new ArrayList<>();
                     snapshots.forEach(listNormal::add);
-                    Collections.shuffle(listNormal);
+                    Collections.reverse(listNormal);
                     processTypePostList(typeRequest, iPost);
                 }
 
@@ -202,6 +205,11 @@ public class PostDAL {
         });
     }
 
+    public void updateViewsCount(String postId, long views) {
+        mRef.child(NodeRootDB.POST).child(postId).child("viewCounts")
+                .setValue(views);
+    }
+
     private Iterable<DataSnapshot> samePostList;
 
     public void getSamePosts(String peType, long price, IPost iPost) {
@@ -262,8 +270,8 @@ public class PostDAL {
                         dogList.add(petTypeModel);
                     }
                 });
-                catList.remove(catList.size()-1);
-                dogList.remove(dogList.size()-1);
+                catList.remove(catList.size() - 1);
+                dogList.remove(dogList.size() - 1);
                 Object[] objRs = new Object[]{catList, dogList};
                 iPost.sendData(objRs);
             }
@@ -272,6 +280,13 @@ public class PostDAL {
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
+        });
+    }
+
+    public void rankingProcess(String postId, String comment, int rate, String userId, IControlData iControlData) {
+        RankingModel rankingModel = new RankingModel(postId, userId, rate, Utils.getCurrentDate(true), comment);
+        mRef.child(NodeRootDB.RANKINGS).child(postId).child(userId).setValue(rankingModel).addOnCompleteListener(task -> {
+            iControlData.isSuccessful(task.isSuccessful());
         });
     }
 }

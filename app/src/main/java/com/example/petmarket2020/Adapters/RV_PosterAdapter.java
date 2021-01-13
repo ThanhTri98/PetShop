@@ -1,5 +1,6 @@
 package com.example.petmarket2020.Adapters;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class RV_PosterAdapter extends RecyclerView.Adapter<RV_PosterAdapter.MyViewHolder> {
     private final List<PosterItem> listItems;
@@ -75,6 +77,7 @@ public class RV_PosterAdapter extends RecyclerView.Adapter<RV_PosterAdapter.MyVi
         String poType = posterItem.getPoType().contains("bán") ? "[BÁN] " : "[MUA] ";
         String title = poType + posterItem.getTitle();
         long price = posterItem.getPrice();
+        AtomicLong views = new AtomicLong(posterItem.getViewCounts());
         String are = posterItem.getArea();
         String city = are.contains("Hồ Chí Minh") ? "TP.Hồ Chí Minh" : are;
         String timeStart = posterItem.getTimeStart();
@@ -82,7 +85,14 @@ public class RV_PosterAdapter extends RecyclerView.Adapter<RV_PosterAdapter.MyVi
         holder.tvPrice.setText(Utils.formatCurrencyVN(price));
         holder.tvAddress.setText(city);
         holder.tvDate.setText(timeStart);
-        holder.itemView.setOnClickListener(v -> iOnItemClick.sendId(posterItem.getPostId(), posterItem.getPeType(), posterItem.getPrice()));
+        holder.tvViews.setText(String.valueOf(views.get()));
+        holder.itemView.setOnClickListener(v ->
+        {
+            views.addAndGet(1);
+            iOnItemClick.sendId(posterItem.getPostId(), posterItem.getPeType(), posterItem.getPrice(), views.get());
+            new Handler().postDelayed(() -> holder.tvViews.setText(String.valueOf(views.get())), 500);
+        });
+
     }
 
 
@@ -95,7 +105,7 @@ public class RV_PosterAdapter extends RecyclerView.Adapter<RV_PosterAdapter.MyVi
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView, imgFav, ivHot;
-        TextView tvTitle, tvPrice, tvAddress, tvDate;
+        TextView tvTitle, tvPrice, tvAddress, tvDate, tvViews;
         ProgressBar pgBar;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -108,10 +118,12 @@ public class RV_PosterAdapter extends RecyclerView.Adapter<RV_PosterAdapter.MyVi
             tvPrice = itemView.findViewById(R.id.tvPrice);
             tvAddress = itemView.findViewById(R.id.tvAddress);
             tvDate = itemView.findViewById(R.id.tvDate);
+            tvViews = itemView.findViewById(R.id.tvViews);
+
         }
     }
 
     public interface IOnItemClick {
-        void sendId(String postId, String peType, long price);
+        void sendId(String postId, String peType, long price, long views);
     }
 }

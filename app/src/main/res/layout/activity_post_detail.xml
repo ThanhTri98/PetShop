@@ -386,8 +386,9 @@
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="2dp"
                     android:layout_toEndOf="@+id/tvRate"
+                    android:isIndicator="false"
                     android:progressTint="@color/colorPrimary"
-                    android:rating="4"
+                    android:rating="5"
                     android:secondaryProgressTint="@color/colorGrayLight"
                     android:stepSize="1" />
 
@@ -400,20 +401,50 @@
                     android:text="@string/noi_dung"
                     android:textColor="@color/colorTextDefault" />
 
-                <EditText
-                    android:id="@+id/etCmt"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilComment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvCmt"
-                    android:background="@drawable/bg_price"
-                    android:text="Xin chào các bạn xin chào cô chú"
-                    android:textSize="15sp" />
+                    android:background="@color/colorWhite"
+                    app:boxStrokeWidth="0dp"
+                    app:boxStrokeWidthFocused="0dp"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="300"
+                    app:hintEnabled="false"
+                    tools:ignore="RtlSymmetry">
+
+                    <EditText
+                        android:id="@+id/etComment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:height="70dp"
+                        android:autofillHints=""
+                        android:background="@color/colorWhite"
+                        android:gravity="top"
+                        android:hint="Để lại vài lời góp lúa..."
+                        android:inputType="textMultiLine"
+                        android:maxLength="300"
+                        android:padding="0dp"
+                        android:textColor="@color/colorTextDefault"
+                        android:textSize="15sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tvError"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tilComment"
+                    android:layout_marginTop="-17dp"
+                    android:textColor="@color/colorRedDark"
+                    android:textSize="13sp" />
 
                 <Button
+                    android:layout_marginBottom="3dp"
                     android:id="@+id/btnSubmit"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
-                    android:layout_below="@+id/etCmt"
+                    android:layout_below="@+id/tilComment"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/bg_border_circle"
@@ -422,6 +453,16 @@
                     android:text="@string/gui_danh_gia"
                     android:textAllCaps="false"
                     android:textColor="@color/white" />
+
+                <include
+                    android:visibility="invisible"
+                    android:id="@+id/pgBar2"
+                    layout="@layout/progress_bar_custom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tilComment"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="7dp" />
             </RelativeLayout>
 
             <View

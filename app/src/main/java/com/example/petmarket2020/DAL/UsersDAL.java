@@ -144,7 +144,7 @@ public class UsersDAL {
                                         usersModel.setEmail(email);
                                         usersModel.setEmailVerified(true);
                                         usersModel.setPhoneVerified(false);
-                                        usersModel.setJoinDate(Utils.getCurrentDate());
+                                        usersModel.setJoinDate(Utils.getCurrentDate(false));
                                         String urlAvatar = Objects.requireNonNull(userDB.getPhotoUrl()).toString();
                                         uploadAvatar(urlAvatar, usersModel, iUsers);
                                     }

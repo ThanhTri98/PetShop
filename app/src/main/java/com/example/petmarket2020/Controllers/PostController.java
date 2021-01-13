@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
@@ -30,6 +31,7 @@ import com.example.petmarket2020.DAL.UsersDAL;
 import com.example.petmarket2020.HelperClass.MyViewPager;
 import com.example.petmarket2020.HelperClass.PaginationScrollListener;
 import com.example.petmarket2020.HelperClass.Utils;
+import com.example.petmarket2020.Interfaces.IControlData;
 import com.example.petmarket2020.Interfaces.IPost;
 import com.example.petmarket2020.Interfaces.IUsers;
 import com.example.petmarket2020.Models.PetTypeModel;
@@ -191,19 +193,21 @@ public class PostController {
         List<PosterItem> oldListHot = new ArrayList<>();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false);
         rvHot.setLayoutManager(linearLayoutManager);
-        LoadMoreHorizontalAdapter.IOnItemClick iOnItemClickHorizontal = (postId, peType1, price1) -> {
+        LoadMoreHorizontalAdapter.IOnItemClick iOnItemClickHorizontal = (postId, peType1, price1, views) -> {
             Intent intent = new Intent(activity, PostDetailActivity.class);
             intent.putExtra("postId", postId);
             intent.putExtra("peType", peType1);
             intent.putExtra("price", price1);
             activity.startActivity(intent);
+            postDAL.updateViewsCount(postId, views);
         };
-        RV_PosterAdapter.IOnItemClick iOnItemClick = (postId, peType, price) -> {
+        RV_PosterAdapter.IOnItemClick iOnItemClick = (postId, peType, price, views) -> {
             Intent intent = new Intent(activity, PostDetailActivity.class);
             intent.putExtra("postId", postId);
             intent.putExtra("peType", peType);
             intent.putExtra("price", price);
             activity.startActivity(intent);
+            postDAL.updateViewsCount(postId, views);
         };
         /*
         postDAL.getPostHome(int typeRequest,IPost)
@@ -395,13 +399,13 @@ public class PostController {
                 }
             });
         } else {
-            showSBMargin(ivFav);
+            showSBMargin(ivFav, "Đăng nhập để tiếp tục lưu tin");
         }
 
     }
 
-    private void showSBMargin(View v) {
-        Snackbar sb = Snackbar.make(v, "Đăng nhập để tiếp tục lưu tin", Snackbar.LENGTH_LONG)
+    private void showSBMargin(View v, String content) {
+        Snackbar sb = Snackbar.make(v, content, Snackbar.LENGTH_LONG)
                 .setAction("ĐĂNG NHẬP", v1 -> activity.startActivity(new Intent(activity, LoginActivity.class)));
         sb.setActionTextColor(Color.CYAN);
         sb.setAnchorView(activity.findViewById(R.id.vTmp));
@@ -412,13 +416,14 @@ public class PostController {
         List<PosterItem> oldSamePostItemList = new ArrayList<>();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false);
         rvSamePost.setLayoutManager(linearLayoutManager);
-        LoadMoreHorizontalAdapter.IOnItemClick iOnItemClick = (postId, peType1, price1) -> {
+        LoadMoreHorizontalAdapter.IOnItemClick iOnItemClick = (postId, peType1, price1, views) -> {
             Intent intent = new Intent(activity, PostDetailActivity.class);
             intent.putExtra("postId", postId);
             intent.putExtra("peType", peType1);
             intent.putExtra("price", price1);
             activity.startActivity(intent);
             activity.finish();
+            postDAL.updateViewsCount(postId, views);
         };
         postDAL.getSamePosts(peType, price, new IPost() {
             @Override
@@ -483,6 +488,28 @@ public class PostController {
                 return isLastPageHor;
             }
         });
+    }
 
+    public void rankingProcess(String postId, String comment, int rate, View pgBar2, Button btnSubmit) {
+        Object objUID = usersDAL.getInfo(SessionManager.KEY_UID, false);
+        if (objUID != null) {
+            String uId = (String) objUID;
+            btnSubmit.setVisibility(View.INVISIBLE);
+            pgBar2.setVisibility(View.VISIBLE);
+            postDAL.rankingProcess(postId, comment, rate, uId, new IControlData() {
+                @Override
+                public void isSuccessful(boolean isSu) {
+                    if (isSu) {
+                        btnSubmit.setVisibility(View.VISIBLE);
+                        pgBar2.setVisibility(View.INVISIBLE);
+                        Toast.makeText(activity, "Đã gửi đánh giá của bạn", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(activity, "Đã xảy ra lỗi, zui lòng kiểm tra lại", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        } else {
+            showSBMargin(btnSubmit, "Đăng nhập để tiếp tục bình luận & đánh giá");
+        }
     }
 }
