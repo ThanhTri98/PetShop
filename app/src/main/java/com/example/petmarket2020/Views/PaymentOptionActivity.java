@@ -22,6 +22,7 @@ import vn.momo.momo_partner.MoMoParameterNamePayment;
 
 public class PaymentOptionActivity extends AppCompatActivity {
     private int options; //0: no select, 1: Momo, 2: VNPay
+    private long coins;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,7 @@ public class PaymentOptionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_payment_option);
         AppMoMoLib.getInstance().setEnvironment(AppMoMoLib.ENVIRONMENT.DEVELOPMENT);
         long value = getIntent().getLongExtra("value", 0);
+        coins = value;
         String vl1 = Utils.formatCurrencyVN(value);
         String vl2 = vl1.substring(0, vl1.length() - 2);
         TextView tvCoins = findViewById(R.id.tvCoins);
@@ -66,19 +68,23 @@ public class PaymentOptionActivity extends AppCompatActivity {
 
         Map<String, Object> eventValue = new HashMap<>();
         //client Required
-        String merchantName = "Demo SDK";
+        String merchantName = "CGV Cinemas";
+        String merchantCode = "CGV19072017";
+        String merchantNameLabel = "Nhà cung cấp";
+//        String description = "Fast & Furious 8";
+        String amountS = String.valueOf(amount);
         eventValue.put(MoMoParameterNamePayment.MERCHANT_NAME, merchantName);
-        String merchantCode = "SCB01";
         eventValue.put(MoMoParameterNamePayment.MERCHANT_CODE, merchantCode);
-        eventValue.put(MoMoParameterNamePayment.AMOUNT, "10000");
-        String description = "Nạp " + Utils.formatCurrencyVN(amount) + " vào ví";
+        eventValue.put(MoMoParameterNamePayment.AMOUNT, amountS);
+        String ss = Utils.formatCurrencyVN(amount);
+        String description = "Nạp " + ss.substring(0, ss.length() - 2) + " Đồng Tốt vào ví";
         eventValue.put(MoMoParameterNamePayment.DESCRIPTION, description);
         //client Optional
         eventValue.put(MoMoParameterNamePayment.FEE, "0");
-        eventValue.put(MoMoParameterNamePayment.MERCHANT_NAME_LABEL, "Nhà cung cấp");
+        eventValue.put(MoMoParameterNamePayment.MERCHANT_NAME_LABEL, merchantNameLabel);
 
         eventValue.put(MoMoParameterNamePayment.REQUEST_ID, merchantCode + "-" + UUID.randomUUID().toString());
-        eventValue.put(MoMoParameterNamePayment.PARTNER_CODE, "CGV19072017");
+        eventValue.put(MoMoParameterNamePayment.PARTNER_CODE, merchantCode);
 
 //        JSONObject objExtraData = new JSONObject();
 //        try {
@@ -125,7 +131,11 @@ public class PaymentOptionActivity extends AppCompatActivity {
     }
 
     private void setResultMomo(int result) {
-        setResult(result);
+        Intent intent = new Intent();
+        intent.putExtra("value", coins);
+        intent.putExtra("payments", "Momo");
+        intent.putExtra("isSu", result == RESULT_OK);
+        setResult(result, intent);
         finish();
     }
 }

@@ -8,7 +8,7 @@ import android.widget.Toast;
 import com.example.petmarket2020.DAL.UsersDAL;
 import com.example.petmarket2020.HelperClass.NodeRootDB;
 import com.example.petmarket2020.HelperClass.Utils;
-import com.example.petmarket2020.Interfaces.IUsers;
+import com.example.petmarket2020.Interfaces.IControlData;
 import com.example.petmarket2020.Models.SessionManager;
 import com.example.petmarket2020.Models.UsersModel;
 import com.example.petmarket2020.Views.ProfileActivity;
@@ -34,7 +34,7 @@ public class ProfileController {
             newAvatar = NodeRootDB.STORAGE_PROFILE + "/" + photoName;
             dataUpdate.put("newAvatar", newAvatar);
         }
-        IUsers iUsers = new IUsers() {
+        usersDAL.updateUserInfo(usersModel, dataUpdate, new IControlData() {
             @Override
             public void isSuccessful(boolean isSu) {
                 if (isSu) {
@@ -46,17 +46,16 @@ public class ProfileController {
                 }
                 rlBar.setVisibility(View.INVISIBLE);
             }
-        };
-        usersDAL.updateUserInfo(usersModel, dataUpdate, iUsers);
+        });
     }
 
-    public void updateVerifyInfo(int type,String uid) {
-        usersDAL.updateVerifyInfo(type,uid);
+    public void updateVerifyInfo(int type, String uid) {
+        usersDAL.updateVerifyInfo(type, uid);
     }
 
     public void verifyPhone(String phoneNumber) {
-        phoneNumber="+84"+phoneNumber.substring(1);
-        usersDAL.verifyPhone(phoneNumber, new IUsers() {
+        phoneNumber = "+84" + phoneNumber.substring(1);
+        usersDAL.verifyPhone(phoneNumber, new IControlData() {
             @Override
             public void responseData(Object data) {
                 VerifyCodeActivity.codeResponse = (String) data;

@@ -14,7 +14,7 @@ public class UsersModel implements Serializable {
     private String email;
     private String gender;
     private String dateOfBirth;
-    private double coins;
+    private long coins;
     private double latitude;
     private double longitude;
     private String address;
@@ -87,11 +87,11 @@ public class UsersModel implements Serializable {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public double getCoins() {
+    public long getCoins() {
         return coins;
     }
 
-    public void setCoins(double coins) {
+    public void setCoins(long coins) {
         this.coins = coins;
     }
 

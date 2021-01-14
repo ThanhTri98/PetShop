@@ -1,12 +1,13 @@
 package com.example.petmarket2020.DAL;
 
 import android.app.Activity;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
 import com.example.petmarket2020.HelperClass.NodeRootDB;
 import com.example.petmarket2020.HelperClass.Utils;
-import com.example.petmarket2020.Interfaces.IUsers;
+import com.example.petmarket2020.Interfaces.IControlData;
 import com.example.petmarket2020.Models.SessionManager;
 import com.example.petmarket2020.Models.UsersModel;
 import com.google.firebase.FirebaseException;
@@ -52,7 +53,7 @@ public class UsersDAL {
     }
 
     // verify
-    public void verifyPhone(String phoneNumber, IUsers iUsers) {
+    public void verifyPhone(String phoneNumber, IControlData iControlData) {
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 phoneNumber,
                 LIMIT_TIME_PHONE_OTP,
@@ -63,7 +64,7 @@ public class UsersDAL {
                     public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
                         String code = phoneAuthCredential.getSmsCode();
                         if (code != null) {
-                            iUsers.responseData(code);
+                            iControlData.responseData(code);
                         }
                     }
 
@@ -96,15 +97,15 @@ public class UsersDAL {
     }
 
     // Register
-    public void registerUser(UsersModel usersModel, IUsers iUsers) {
+    public void registerUser(UsersModel usersModel, IControlData iControlData) {
         mRef.child(usersModel.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) { // Tài khoản đã tồn tại
-                    iUsers.isSuccessful(false);
+                    iControlData.isSuccessful(false);
                 } else {
                     mRef.child(usersModel.getUid()).setValue(usersModel).addOnSuccessListener
-                            (aVoid -> iUsers.isSuccessful(true));
+                            (aVoid -> iControlData.isSuccessful(true));
                 }
             }
 
@@ -118,7 +119,7 @@ public class UsersDAL {
     }
 
     // Login Google
-    public void firebaseAuthWithGoogle(String idToken, IUsers iUsers) {
+    public void firebaseAuthWithGoogle(String idToken, IControlData iControlData) {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(activity, task -> {
@@ -135,7 +136,7 @@ public class UsersDAL {
                                     UsersModel usersModel = snapshot.getValue(UsersModel.class);
                                     if (usersModel != null) {
                                         sessionManager.createLoginSession(usersModel, 1);
-                                        iUsers.isSuccessful(true);
+                                        iControlData.isSuccessful(true);
                                     } else {
                                         usersModel = new UsersModel();
                                         usersModel.setUid(emailID);
@@ -146,7 +147,7 @@ public class UsersDAL {
                                         usersModel.setPhoneVerified(false);
                                         usersModel.setJoinDate(Utils.getCurrentDate(false));
                                         String urlAvatar = Objects.requireNonNull(userDB.getPhotoUrl()).toString();
-                                        uploadAvatar(urlAvatar, usersModel, iUsers);
+                                        uploadAvatar(urlAvatar, usersModel, iControlData);
                                     }
                                     mAuth.signOut();
                                 }
@@ -158,12 +159,12 @@ public class UsersDAL {
                             });
                         }
                     } else {
-                        iUsers.isSuccessful(false);
+                        iControlData.isSuccessful(false);
                     }
                 });
     }
 
-    private void uploadAvatar(String urlAvatar, UsersModel usersModel, IUsers iUsers) {
+    private void uploadAvatar(String urlAvatar, UsersModel usersModel, IControlData iControlData) {
         new Thread(() -> {
             try {
                 URL url = new URL(urlAvatar);
@@ -184,7 +185,7 @@ public class UsersDAL {
                                     mStorageRef.child(photoName).putBytes(baos.toByteArray()).addOnCompleteListener(task1 -> {
                                         if (task1.isSuccessful()) {
                                             sessionManager.createLoginSession(usersModel, 2);
-                                            iUsers.isSuccessful(true);
+                                            iControlData.isSuccessful(true);
                                         }
                                         try {
                                             is.close();
@@ -205,24 +206,23 @@ public class UsersDAL {
 
     }
 
-    public void loginWithUidPwd(String uId, String pwd, IUsers iUsers) {
-//        Log.e("loginWithUidPwd",uId);
+    public void loginWithUidPwd(String uId, String pwd, IControlData iControlData) {
         mRef.child(uId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 UsersModel usersModel = snapshot.getValue(UsersModel.class);
-//                Log.e("loginWithUidPwd","loginWithUidPwd2");
+                Log.e("COINS",usersModel.getCoins()+"");
                 if (usersModel != null) {
                     String pwd1 = Objects.requireNonNull(snapshot.child("pwd").getValue()).toString();
                     if (!BCrypt.checkpw(pwd, pwd1)) {
-                        iUsers.isSuccessful(false);
+                        iControlData.isSuccessful(false);
                     } else {
 //                       uid,  pwd,  fullName,  email,  gender,  dateOfBirth,  phoneNumber,  avatar
                         sessionManager.createLoginSession(usersModel, 1);
-                        iUsers.isSuccessful(true);
+                        iControlData.isSuccessful(true);
                     }
                 } else {
-                    iUsers.isSuccessful(false);
+                    iControlData.isSuccessful(false);
                 }
             }
 
@@ -233,7 +233,7 @@ public class UsersDAL {
     }
 
     // update info
-    public void updateUserInfo(UsersModel usersModel, HashMap<String, Object> dataUpdate, IUsers iUsers) {
+    public void updateUserInfo(UsersModel usersModel, HashMap<String, Object> dataUpdate, IControlData iControlData) {
         if (dataUpdate.containsKey(SessionManager.KEY_FULLNAME))
             usersModel.setFullName((String) dataUpdate.get(SessionManager.KEY_FULLNAME));
         if (dataUpdate.containsKey(SessionManager.KEY_PHONE))
@@ -253,29 +253,29 @@ public class UsersDAL {
                     mStorageRef.child(newAvatar).putBytes(avatarByte);
                     dataUpdate.put(SessionManager.KEY_AVATAR, newAvatar);
                     sessionManager.updateSessionInfo(dataUpdate);
-                    iUsers.isSuccessful(true);
+                    iControlData.isSuccessful(true);
                     if (oldAvatar != null) {
                         mStorageRef.child(oldAvatar).delete();
                     }
                 } else {
-                    iUsers.isSuccessful(false);
+                    iControlData.isSuccessful(false);
                 }
             });
         } else {
             mRef.child(usersModel.getUid()).setValue(usersModel).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
-                    iUsers.isSuccessful(true);
+                    iControlData.isSuccessful(true);
                     sessionManager.updateSessionInfo(dataUpdate);
                 } else {
-                    iUsers.isSuccessful(false);
+                    iControlData.isSuccessful(false);
                 }
             });
         }
     }
 
-    public void setFavorite(String uid, List<String> favorites, IUsers iUsers) {
+    public void setFavorite(String uid, List<String> favorites, IControlData iControlData) {
         mRef.child(uid).child("favorites").setValue(favorites).addOnCompleteListener(task -> {
-            iUsers.isSuccessful(task.isSuccessful());
+            iControlData.isSuccessful(task.isSuccessful());
             HashMap<String, Object> values = new HashMap<>();
             values.put(SessionManager.KEY_FAVORITES, favorites);
             sessionManager.updateSessionInfo(values);
@@ -295,7 +295,7 @@ public class UsersDAL {
         return sessionManager.getUserDetail();
     }
 
-    public Object getInfo(String key,boolean isHashSet) {
-        return sessionManager.getInfo(key,isHashSet);
+    public Object getInfo(String key, boolean isHashSet) {
+        return sessionManager.getInfo(key, isHashSet);
     }
 }

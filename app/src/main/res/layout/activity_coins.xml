@@ -36,7 +36,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginEnd="25dp"
                     android:gravity="center"
-                    android:text="Đồng Tốt"
+                    android:text="@string/dong_tot"
                     android:textColor="@color/colorWhite"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -59,7 +59,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Số dư:"
+                android:text="@string/so_du"
                 android:layout_centerVertical="true"
                 android:textColor="@color/colorTextDefault"
                 android:textSize="20sp" />
@@ -70,7 +70,6 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_gravity="center"
-                android:text="0"
                 android:textColor="@color/colorTextDefault"
                 android:textSize="20sp" />
 
@@ -80,7 +79,8 @@
                 android:layout_height="30dp"
                 android:layout_marginStart="10dp"
                 android:layout_toEndOf="@id/tvRemainsValues"
-                android:background="@drawable/ic_coins" />
+                android:background="@drawable/ic_coins"
+                android:contentDescription="@string/AppName" />
 
         </RelativeLayout>
 
@@ -104,7 +104,7 @@
         android:background="#E6E6E6"
         android:gravity="center"
         android:padding="10dp"
-        android:text="Các gói nạp"
+        android:text="@string/cac_goi_nap"
         android:textColor="@color/colorTextDefault"
         android:textSize="18sp"
         android:textStyle="bold" />

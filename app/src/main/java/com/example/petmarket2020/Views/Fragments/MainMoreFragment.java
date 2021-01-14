@@ -2,6 +2,7 @@ package com.example.petmarket2020.Views.Fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,13 +26,14 @@ import com.example.petmarket2020.Views.CoinsActivity;
 import com.example.petmarket2020.Views.LoginActivity;
 import com.example.petmarket2020.Views.ProfileActivity;
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.storage.FirebaseStorage;
 
 public class MainMoreFragment extends Fragment implements View.OnClickListener {
     private ShimmerFrameLayout sflName, sflAvatar;
     private TextView tvAction, tvViewProfile, tvMyCoins;
     private ImageView imgAvatar;
-    private LinearLayout llProfile, llCoinsPoint, llLogout, llCoins;
+    private LinearLayout llProfile, llCoinsPoint, llLogout, llCoins, llFavorites, llTransHis, llVoucher;
     private static UsersModel usersModel;
     private MainMoreController mainMoreController;
 
@@ -86,12 +89,18 @@ public class MainMoreFragment extends Fragment implements View.OnClickListener {
         llCoins = v.findViewById(R.id.llCoins);
         llProfile = v.findViewById(R.id.llProfile);
         llLogout = v.findViewById(R.id.llLogout);
+        llFavorites = v.findViewById(R.id.llFavorites);
+        llTransHis = v.findViewById(R.id.llTransHis);
+        llVoucher = v.findViewById(R.id.llVoucher);
     }
 
     private void setListener() {
         llProfile.setOnClickListener(this);
         llLogout.setOnClickListener(this);
         llCoins.setOnClickListener(this);
+        llFavorites.setOnClickListener(this);
+        llTransHis.setOnClickListener(this);
+        llVoucher.setOnClickListener(this);
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -113,9 +122,39 @@ public class MainMoreFragment extends Fragment implements View.OnClickListener {
                 mainMoreController.logout();
                 break;
             case R.id.llCoins:
-                startActivity(new Intent(getActivity(), CoinsActivity.class));
+                if (mainMoreController.checkLogin()) {
+                    Intent intent = new Intent(getActivity(), CoinsActivity.class);
+                    intent.putExtra("uId", usersModel.getUid());
+                    intent.putExtra("coins", usersModel.getCoins());
+                    startActivity(intent);
+                } else showSBMargin(v);
+                break;
+            case R.id.llFavorites:
+                if (mainMoreController.checkLogin())
+                    Toast.makeText(getContext(), "CHUA LAM llFavorites", Toast.LENGTH_LONG).show();
+                else showSBMargin(v);
+                break;
+            case R.id.llTransHis:
+                if (mainMoreController.checkLogin())
+                    Toast.makeText(getContext(), "CHUA LAM llTransHis", Toast.LENGTH_LONG).show();
+                else showSBMargin(v);
+                break;
+            case R.id.llVoucher:
+                if (mainMoreController.checkLogin())
+                    Toast.makeText(getContext(), "CHUA LAM llVoucher", Toast.LENGTH_LONG).show();
+                else showSBMargin(v);
                 break;
         }
+    }
+
+    private void showSBMargin(View v) {
+        Snackbar sb = Snackbar.make(v, "Bạn chưa đăng nhập", Snackbar.LENGTH_LONG)
+                .setAction("ĐĂNG NHẬP", v1 -> {
+                    startActivity(new Intent(getActivity(), LoginActivity.class));
+                });
+        sb.setActionTextColor(Color.CYAN);
+        sb.setAnchorView(getActivity().findViewById(R.id.vTmp));
+        sb.show();
     }
 
     @SuppressLint("StaticFieldLeak")

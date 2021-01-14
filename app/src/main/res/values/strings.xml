@@ -179,4 +179,9 @@
     <string name="thanh_tpan_dong_tot">Thanh Toán Đồng Tốt</string>
     <string name="dich_vu">Dịch vụ</string>
     <string name="xem_lich_su_gd"><![CDATA[Xem lịch sử giao dịch >>]]></string>
+    <string name="ban_da_danh_gia_bv">Bạn đã đánh giá bài viết này</string>
+    <string name="bai_dang">Bài đăng</string>
+    <string name="so_du">Số dư:</string>
+    <string name="cac_goi_nap">Các gói nạp</string>
+    <string name="dong_tot">Đồng Tốt</string>
 </resources>

@@ -8,10 +8,12 @@ import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +26,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.petmarket2020.Adapters.LoadMoreHorizontalAdapter;
 import com.example.petmarket2020.Adapters.RV_PetCategoryAdapter;
 import com.example.petmarket2020.Adapters.RV_PosterAdapter;
+import com.example.petmarket2020.Adapters.RV_RateAdapter;
 import com.example.petmarket2020.Adapters.SliderAdapter;
 import com.example.petmarket2020.Adapters.items.PosterItem;
 import com.example.petmarket2020.DAL.PostDAL;
@@ -32,10 +35,9 @@ import com.example.petmarket2020.HelperClass.MyViewPager;
 import com.example.petmarket2020.HelperClass.PaginationScrollListener;
 import com.example.petmarket2020.HelperClass.Utils;
 import com.example.petmarket2020.Interfaces.IControlData;
-import com.example.petmarket2020.Interfaces.IPost;
-import com.example.petmarket2020.Interfaces.IUsers;
 import com.example.petmarket2020.Models.PetTypeModel;
 import com.example.petmarket2020.Models.PostModel;
+import com.example.petmarket2020.Models.RankingModel;
 import com.example.petmarket2020.Models.SessionManager;
 import com.example.petmarket2020.R;
 import com.example.petmarket2020.Views.LoginActivity;
@@ -93,9 +95,9 @@ public class PostController {
                 initView((Map<Integer, String>) Objects.requireNonNull(PostActivity.getData(type)), radioGroup, tvTitle, vpg);
                 return;
             }
-            postDAL.getPetBreeds(type, new IPost() {
+            postDAL.getPetBreeds(type, new IControlData() {
                 @Override
-                public void sendData(Object objData) {
+                public void responseData(Object objData) {
                     if (objData != null) {
                         Map<Integer, String> dataResp = (Map<Integer, String>) objData;
                         if (type.equals(KEY_DOG) && PostActivity.getData(KEY_DOG) == null) {
@@ -153,7 +155,7 @@ public class PostController {
 
     public void postUpload(PostModel postModel, HashMap<String, byte[]> mapImage, RelativeLayout rlBar, MyViewPager vpg, TextView tvTitles) {
         rlBar.setVisibility(View.VISIBLE);
-        postDAL.postUpload(postModel, mapImage, new IPost() {
+        postDAL.postUpload(postModel, mapImage, new IControlData() {
             @Override
             public void isSuccessful(boolean isSu) {
                 if (isSu) {
@@ -171,9 +173,9 @@ public class PostController {
     public void getPetType(RecyclerView rvCategoryDog, RecyclerView rvCategoryCat) {
         rvCategoryCat.setLayoutManager(new LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false));
         rvCategoryDog.setLayoutManager(new LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false));
-        postDAL.getPetType(new IPost() {
+        postDAL.getPetType(new IControlData() {
             @Override
-            public void sendData(Object objData) {
+            public void responseData(Object objData) {
                 Object[] objRs = (Object[]) objData;
                 List<PetTypeModel> catList = (List<PetTypeModel>) objRs[0];
                 List<PetTypeModel> dogList = (List<PetTypeModel>) objRs[1];
@@ -187,6 +189,7 @@ public class PostController {
     }
 
     public void getPostHome(RecyclerView rvPoster, RelativeLayout rlBar, NestedScrollView nestedScrollView, RecyclerView rvHot) {
+        ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) rlBar.getLayoutParams();
         rlBar.setVisibility(View.VISIBLE);
         rvPoster.setLayoutManager(new GridLayoutManager(activity, 2));
         List<PosterItem> oldListNormal = new ArrayList<>();
@@ -214,9 +217,9 @@ public class PostController {
         typeRequest = 1 normalList, = 2 hotList, = 0 cả 2 :_)
          */
         isLoadingVER = true;
-        postDAL.getPostHome(0, new IPost() {
+        postDAL.getPostHome(0, new IControlData() {
             @Override
-            public void sendData(List<PosterItem> listNormal, List<PosterItem> listHot) {
+            public void responseData(List<PosterItem> listNormal, List<PosterItem> listHot) {
                 // Normal
                 oldListNormal.addAll(listNormal);
                 homeRVPosterAdapter = new RV_PosterAdapter(listNormal, iOnItemClick);
@@ -234,7 +237,6 @@ public class PostController {
                 } else {
                     isLastPageHor = true;
                     loadMoreHorizontalAdapter.removeItemLoading();
-                    Toast.makeText(activity, "Hết dữ liệu rồi!!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -243,11 +245,15 @@ public class PostController {
             if (scrollY >= (v.getChildAt(v.getChildCount() - 1).getMeasuredHeight() - v.getMeasuredHeight())) {
                 if (!isLastPageVer) {
                     if (!isLoadingVER) {
+                        if (!firstLoad) {
+                            firstLoad = true;
+                            layoutParams.topMargin = -250;
+                        }
                         rlBar.setVisibility(View.VISIBLE);
                         isLoadingVER = true;
-                        postDAL.getPostHome(1, new IPost() {
+                        postDAL.getPostHome(1, new IControlData() {
                             @Override
-                            public void sendData(Object objData) {
+                            public void responseData(Object objData) {
                                 List<PosterItem> posterItems = (List<PosterItem>) objData;
                                 if (!posterItems.isEmpty()) {
                                     oldListNormal.addAll(posterItems);
@@ -275,9 +281,9 @@ public class PostController {
             @Override
             public void loadMoreItem() {
                 isLoadingHor = true;
-                postDAL.getPostHome(2, new IPost() {
+                postDAL.getPostHome(2, new IControlData() {
                     @Override
-                    public void sendData(Object objData) {
+                    public void responseData(Object objData) {
                         List<PosterItem> posterItems = (List<PosterItem>) objData;
                         if (!posterItems.isEmpty()) {
                             new Handler().postDelayed(() -> {
@@ -292,7 +298,6 @@ public class PostController {
                                 }
                             }, 1000);
                         } else {
-                            Toast.makeText(activity, "Hết dữ liệu rồi!!", Toast.LENGTH_SHORT).show();
                             loadMoreHorizontalAdapter.removeItemLoading();
                             isLastPageHor = true;
                         }
@@ -312,6 +317,8 @@ public class PostController {
         });
     }
 
+    private boolean firstLoad;
+
     public void postDetail(String postId, SliderView imageSlider, TextView[] textViews) {
         /*
         textViews:
@@ -325,9 +332,9 @@ public class PostController {
         7: phone
         8: are
          */
-        postDAL.postDetail(postId, new IPost() {
+        postDAL.postDetail(postId, new IControlData() {
             @Override
-            public void sendData(Object objData) {
+            public void responseData(Object objData) {
                 List<Object> list = (List<Object>) objData;
                 // 0: PostModel 1: phoneNumber
                 PostModel postModel = (PostModel) list.get(0);
@@ -381,7 +388,7 @@ public class PostController {
             else  // chua luu
                 favorites.add(postId);
 
-            usersDAL.setFavorite(uid, favorites, new IUsers() {
+            usersDAL.setFavorite(uid, favorites, new IControlData() {
                 @Override
                 public void isSuccessful(boolean isSu) {
                     if (isSu) {
@@ -425,9 +432,9 @@ public class PostController {
             activity.finish();
             postDAL.updateViewsCount(postId, views);
         };
-        postDAL.getSamePosts(peType, price, new IPost() {
+        postDAL.getSamePosts(peType, price, new IControlData() {
             @Override
-            public void sendData(Object objData) {
+            public void responseData(Object objData) {
                 List<PosterItem> posterItems = (List<PosterItem>) objData;
                 if (!posterItems.isEmpty()) {
                     oldSamePostItemList.addAll(posterItems);
@@ -452,9 +459,9 @@ public class PostController {
             @Override
             public void loadMoreItem() {
                 isLoadingHor = true;
-                postDAL.getSamePosts(peType, price, new IPost() {
+                postDAL.getSamePosts(peType, price, new IControlData() {
                     @Override
-                    public void sendData(Object objData) {
+                    public void responseData(Object objData) {
                         List<PosterItem> itemsLoading = (List<PosterItem>) objData;
                         if (!itemsLoading.isEmpty()) {
                             new Handler().postDelayed(() -> {
@@ -490,18 +497,23 @@ public class PostController {
         });
     }
 
-    public void rankingProcess(String postId, String comment, int rate, View pgBar2, Button btnSubmit) {
+    public void rankingProcess(String postId, EditText etComment, RatingBar ratingUser, View pgBar2, Button btnSubmit, TextView tvTime) {
         Object objUID = usersDAL.getInfo(SessionManager.KEY_UID, false);
         if (objUID != null) {
             String uId = (String) objUID;
             btnSubmit.setVisibility(View.INVISIBLE);
             pgBar2.setVisibility(View.VISIBLE);
-            postDAL.rankingProcess(postId, comment, rate, uId, new IControlData() {
+            String comment = etComment.getText().toString();
+            int rate = (int) ratingUser.getRating();
+            String time = Utils.getCurrentDate(true);
+            postDAL.rankingProcess(postId, comment, rate, time, uId, new IControlData() {
                 @Override
                 public void isSuccessful(boolean isSu) {
                     if (isSu) {
                         btnSubmit.setVisibility(View.VISIBLE);
                         pgBar2.setVisibility(View.INVISIBLE);
+                        tvTime.setText(time);
+                        updateViewRate(btnSubmit, ratingUser, etComment);
                         Toast.makeText(activity, "Đã gửi đánh giá của bạn", Toast.LENGTH_LONG).show();
                     } else {
                         Toast.makeText(activity, "Đã xảy ra lỗi, zui lòng kiểm tra lại", Toast.LENGTH_SHORT).show();
@@ -511,5 +523,75 @@ public class PostController {
         } else {
             showSBMargin(btnSubmit, "Đăng nhập để tiếp tục bình luận & đánh giá");
         }
+    }
+
+    private void updateViewRate(Button btn, RatingBar ratingBar, EditText editText) {
+        ratingBar.setIsIndicator(true);
+        editText.setTag(editText.getText().toString());
+        editText.setEnabled(false);
+        btn.setText(PostDetailActivity.EDIT);
+        btn.setBackgroundResource(R.drawable.bg_fill_circle_edit);
+    }
+
+    public void isRatedAndGetAllComment(String postId, RelativeLayout rlIsRate, Button btn, RatingBar ratingUser
+            , EditText etComment, TextView tvTime, RatingBar ratingBarTotal, TextView tvBarTotal, RecyclerView rvRate) {
+        Object objUID = usersDAL.getInfo(SessionManager.KEY_UID, false);
+        String uId = objUID != null ? (String) objUID : null;
+        if (uId != null) {
+            postDAL.isRated(postId, uId, new IControlData() {
+                @Override
+                public void responseData(Object data) {
+                    if (data != null) {
+                        rlIsRate.setVisibility(View.VISIBLE);
+                        RankingModel rankingModel = (RankingModel) data;
+                        ratingUser.setRating(rankingModel.getRate());
+                        tvTime.setText(rankingModel.getTime());
+                        etComment.setText(rankingModel.getComment());
+                        updateViewRate(btn, ratingUser, etComment);
+                    }
+                }
+            });
+        }
+        postDAL.getAllComment(postId, new IControlData() {
+            @Override
+            public void responseData(Object data) {
+                String totalString = "(chưa có)";
+                if (data != null) {
+                    Object[] objRsp = (Object[]) data;
+                    List<RankingModel> rankingModelList = (List<RankingModel>) objRsp[0];
+                    List<String[]> nameAndAvatarList = (List<String[]>) objRsp[1];
+                    float averageStar;
+                    long totalStar;
+                    long size = rankingModelList.size();
+                    if (size != 0) {
+                        totalStar = rankingModelList.stream().mapToLong(RankingModel::getRate).sum();
+                        averageStar = (float) totalStar / (float) size;
+                        ratingBarTotal.setRating(averageStar);
+                        totalString = "(" + ((double) Math.round(averageStar * 10) / 10) + ")";
+                        tvBarTotal.setText(totalString);
+                        // Set commentList adapter
+                        // Nếu người dùng đã đăng nhập, xóa trong rv thâu
+                        if (uId != null) {
+                            for (int i = 0; i < rankingModelList.size(); i++) {
+                                if (rankingModelList.get(i).getUserId().equals(uId)) {
+                                    rankingModelList.remove(i);
+                                    nameAndAvatarList.remove(i);
+                                    break;
+                                }
+                            }
+                        }
+                        RV_RateAdapter rv_rateAdapter = new RV_RateAdapter(rankingModelList, nameAndAvatarList);
+                        rvRate.setLayoutManager(new LinearLayoutManager(activity, RecyclerView.VERTICAL, false));
+                        rvRate.setHasFixedSize(true);
+                        rvRate.setAdapter(rv_rateAdapter);
+                    } else {
+                        tvBarTotal.setText(totalString);
+                    }
+                } else {
+                    tvBarTotal.setText(totalString);
+                }
+
+            }
+        });
     }
 }

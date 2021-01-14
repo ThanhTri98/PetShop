@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.example.petmarket2020.DAL.UsersDAL;
-import com.example.petmarket2020.Interfaces.IUsers;
+import com.example.petmarket2020.Interfaces.IControlData;
 import com.example.petmarket2020.Models.UsersModel;
 import com.example.petmarket2020.R;
 import com.example.petmarket2020.Views.RegisterActivity;
@@ -26,7 +26,7 @@ public class RegisterController {
     public void registerUser(UsersModel usersModel, View viewTrans, RelativeLayout rlBar, TextInputLayout tilUid) {
         tilUid.setErrorEnabled(false);
         rlBar.setVisibility(View.VISIBLE);
-        this.usersDAL.registerUser(usersModel, new IUsers() {
+        this.usersDAL.registerUser(usersModel, new IControlData() {
             @Override
             public void isSuccessful(boolean isSu) {
                 if (isSu) {

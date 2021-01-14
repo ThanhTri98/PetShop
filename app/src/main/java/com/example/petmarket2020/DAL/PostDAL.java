@@ -4,9 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.example.petmarket2020.Adapters.items.PosterItem;
 import com.example.petmarket2020.HelperClass.NodeRootDB;
-import com.example.petmarket2020.HelperClass.Utils;
 import com.example.petmarket2020.Interfaces.IControlData;
-import com.example.petmarket2020.Interfaces.IPost;
 import com.example.petmarket2020.Models.PetTypeModel;
 import com.example.petmarket2020.Models.PostModel;
 import com.example.petmarket2020.Models.RankingModel;
@@ -37,7 +35,7 @@ public class PostDAL {
             mStorageRef = FirebaseStorage.getInstance().getReference(NodeRootDB.STORAGE_IMAGES);
     }
 
-    public void getPetBreeds(String type, IPost iPost) {
+    public void getPetBreeds(String type, IControlData iControlData) {
         mRef.child(NodeRootDB.PET_TYPE).child(type).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -48,7 +46,7 @@ public class PostDAL {
                         dataResp.put(Integer.parseInt(Objects.requireNonNull(dataSnapshot.getKey()))
                                 , (String) dataSnapshot.child("name").getValue());
                     }
-                    iPost.sendData(dataResp);
+                    iControlData.responseData(dataResp);
                 }
             }
 
@@ -59,7 +57,7 @@ public class PostDAL {
         });
     }
 
-    public void postUpload(PostModel postModel, HashMap<String, byte[]> mapImage, IPost iPost) {
+    public void postUpload(PostModel postModel, HashMap<String, byte[]> mapImage, IControlData iPost) {
         mRef.child(NodeRootDB.POST).child(postModel.getPostId()).setValue(postModel)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -76,7 +74,7 @@ public class PostDAL {
     private List<DataSnapshot> listHot;
     private List<String> listKeysHot;
 
-    public void getPostHome(int typeRequest, IPost iPost) {
+    public void getPostHome(int typeRequest, IControlData iPost) {
         if (listNormal != null && listHot != null && listKeysHot != null) {
             processPostDownload(typeRequest, iPost);
         } else {
@@ -86,7 +84,7 @@ public class PostDAL {
                     Iterable<DataSnapshot> snapshots = snapshot.getChildren();
                     listNormal = new ArrayList<>();
                     snapshots.forEach(listNormal::add);
-                    Collections.reverse(listNormal);
+                    Collections.shuffle(listNormal);
                     processTypePostList(typeRequest, iPost);
                 }
 
@@ -98,7 +96,7 @@ public class PostDAL {
         }
     }
 
-    private void processTypePostList(int typeRequest, IPost iPost) {
+    private void processTypePostList(int typeRequest, IControlData iPost) {
         mRef.child(NodeRootDB.HOT_POST).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -121,7 +119,7 @@ public class PostDAL {
         });
     }
 
-    private void processPostDownload(int typeRequest, IPost iPost) {
+    private void processPostDownload(int typeRequest, IControlData iControlData) {
 //        typeRequest = 1 normalList, = 2 hotList, = 0 cả 2 :_)
         if (typeRequest == 0) { //
             List<PosterItem> itemsNormal = new ArrayList<>();
@@ -143,7 +141,7 @@ public class PostDAL {
                     itemsHot.add(posterItem);
                 }
             }
-            iPost.sendData(itemsNormal, itemsHot);
+            iControlData.responseData(itemsNormal, itemsHot);
         } else if (typeRequest == 1) {
             List<PosterItem> itemsNormal = new ArrayList<>();
             while (!this.listNormal.isEmpty() && itemsNormal.size() < 4) {
@@ -155,7 +153,7 @@ public class PostDAL {
                     itemsNormal.add(posterItem);
                 }
             }
-            iPost.sendData(itemsNormal);
+            iControlData.responseData(itemsNormal);
         } else { // typeRequest=2
             List<PosterItem> itemsHot = new ArrayList<>();
             while (!this.listHot.isEmpty() && itemsHot.size() < 4) {
@@ -166,12 +164,12 @@ public class PostDAL {
                     itemsHot.add(posterItem);
                 }
             }
-            iPost.sendData(itemsHot);
+            iControlData.responseData(itemsHot);
         }
 
     }
 
-    public void postDetail(String postId, IPost iPost) {
+    public void postDetail(String postId, IControlData iControlData) {
         mRef.child(NodeRootDB.POST).child(postId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -186,7 +184,7 @@ public class PostDAL {
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 if (snapshot.exists())
                                     dataResult.add(snapshot.getValue());
-                                iPost.sendData(dataResult);
+                                iControlData.responseData(dataResult);
                             }
 
                             @Override
@@ -212,13 +210,13 @@ public class PostDAL {
 
     private Iterable<DataSnapshot> samePostList;
 
-    public void getSamePosts(String peType, long price, IPost iPost) {
+    public void getSamePosts(String peType, long price, IControlData iControlData) {
         if (samePostList == null) {
             mRef.child(NodeRootDB.POST).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     samePostList = snapshot.getChildren();
-                    processSamePost(peType, price, iPost);
+                    processSamePost(peType, price, iControlData);
                 }
 
                 @Override
@@ -227,12 +225,12 @@ public class PostDAL {
                 }
             });
         } else {
-            processSamePost(peType, price, iPost);
+            processSamePost(peType, price, iControlData);
         }
     }
 
-    private void processSamePost(String peType, long price, IPost iPost) {
-        long range = 500000; //500 ngan
+    private void processSamePost(String peType, long price, IControlData iControlData) {
+        long range = 1000000; // 1 trieu
         int i = 0;
         List<PosterItem> posterItems = new ArrayList<>();
         for (DataSnapshot data : this.samePostList) {
@@ -247,10 +245,10 @@ public class PostDAL {
                 }
             }
         }
-        iPost.sendData(posterItems);
+        iControlData.responseData(posterItems);
     }
 
-    public void getPetType(IPost iPost) {
+    public void getPetType(IControlData iControlData) {
         mRef.child(NodeRootDB.PET_TYPE).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -273,7 +271,7 @@ public class PostDAL {
                 catList.remove(catList.size() - 1);
                 dogList.remove(dogList.size() - 1);
                 Object[] objRs = new Object[]{catList, dogList};
-                iPost.sendData(objRs);
+                iControlData.responseData(objRs);
             }
 
             @Override
@@ -283,10 +281,74 @@ public class PostDAL {
         });
     }
 
-    public void rankingProcess(String postId, String comment, int rate, String userId, IControlData iControlData) {
-        RankingModel rankingModel = new RankingModel(postId, userId, rate, Utils.getCurrentDate(true), comment);
-        mRef.child(NodeRootDB.RANKINGS).child(postId).child(userId).setValue(rankingModel).addOnCompleteListener(task -> {
-            iControlData.isSuccessful(task.isSuccessful());
+    public void rankingProcess(String postId, String comment, int rate, String time, String userId, IControlData iControlData) {
+        RankingModel rankingModel = new RankingModel(postId, userId, rate, time, comment);
+        mRef.child(NodeRootDB.RANKINGS).child(postId).child(userId).setValue(rankingModel).addOnCompleteListener(task -> iControlData.isSuccessful(task.isSuccessful()));
+    }
+
+    public void isRated(String postId, String userId, IControlData iControlData) {
+        mRef.child(NodeRootDB.RANKINGS).child(postId).child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    RankingModel rankingModel = snapshot.getValue(RankingModel.class);
+                    iControlData.responseData(rankingModel);
+                } else {
+                    iControlData.responseData(null);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
         });
     }
+
+    public void getAllComment(String postId, IControlData iControlData) {
+        mRef.child(NodeRootDB.RANKINGS).child(postId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    List<RankingModel> rankingModelList = new ArrayList<>();
+                    List<String[]> nameAndAvatarList = new ArrayList<>();
+                    List<String> userIdList = new ArrayList<>();
+                    snapshot.getChildren().forEach(dataSnapshot -> {
+                        RankingModel rankingModel = dataSnapshot.getValue(RankingModel.class);
+                        userIdList.add(rankingModel.getUserId());
+                        rankingModelList.add(rankingModel);
+                    });
+                    mRef.child(NodeRootDB.USERS).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            snapshot.getChildren().forEach(dataSnapshot -> {
+                                if (userIdList.contains(dataSnapshot.getKey())) {
+                                    String name = (String) dataSnapshot.child("fullName").getValue();
+                                    Object avatar = dataSnapshot.child("avatar").getValue();
+                                    String[] item = new String[]{name, avatar != null ? (String) avatar : null};
+                                    nameAndAvatarList.add(item);
+                                }
+                            });
+                            Object[] objRsp = new Object[]{rankingModelList, nameAndAvatarList};
+                            iControlData.responseData(objRsp);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                } else {
+                    iControlData.responseData(null);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
 }

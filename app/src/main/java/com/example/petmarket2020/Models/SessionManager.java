@@ -58,7 +58,7 @@ public class SessionManager {
         if (acType == 1) {
             editor.putString(KEY_GENDER, usersModel.getGender());
             editor.putString(KEY_DOB, usersModel.getDateOfBirth());
-            editor.putString(KEY_COINS, usersModel.getCoins() + "");
+            editor.putString(KEY_COINS, String.valueOf(usersModel.getCoins()));
             editor.putString(KEY_LATITUDE, usersModel.getLatitude() + "");
             editor.putString(KEY_LONGITUDE, usersModel.getLongitude() + "");
             editor.putString(KEY_ADDRESS, usersModel.getAddress());
@@ -98,7 +98,7 @@ public class SessionManager {
         usersModel.setEmail(usersSession.getString(KEY_EMAIL, null));
         usersModel.setGender(usersSession.getString(KEY_GENDER, null));
         usersModel.setDateOfBirth(usersSession.getString(KEY_DOB, null));
-        usersModel.setCoins(Double.parseDouble(usersSession.getString(KEY_COINS, "0")));
+        usersModel.setCoins(Long.parseLong(usersSession.getString(KEY_COINS, "0")));
         usersModel.setLatitude(Double.parseDouble(usersSession.getString(KEY_LATITUDE, "0")));
         usersModel.setLongitude(Double.parseDouble(usersSession.getString(KEY_LONGITUDE, "0")));
         usersModel.setAddress(usersSession.getString(KEY_ADDRESS, null));

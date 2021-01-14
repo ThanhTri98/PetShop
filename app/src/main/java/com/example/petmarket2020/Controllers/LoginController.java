@@ -2,15 +2,13 @@ package com.example.petmarket2020.Controllers;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.petmarket2020.DAL.UsersDAL;
-import com.example.petmarket2020.Interfaces.IUsers;
-import com.example.petmarket2020.Models.UsersModel;
+import com.example.petmarket2020.Interfaces.IControlData;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -27,7 +25,7 @@ public class LoginController {
 
     public void firebaseAuthWithGoogle(String idToken, RelativeLayout rlBar) {
         rlBar.setVisibility(View.VISIBLE);
-        IUsers iUsers = new IUsers() {
+        usersDAL.firebaseAuthWithGoogle(idToken, new IControlData() {
             @Override
             public void isSuccessful(boolean isSu) {
                 rlBar.setVisibility(View.INVISIBLE);
@@ -38,8 +36,7 @@ public class LoginController {
                     Toast.makeText(activity, "Đăng nhập thất bại", Toast.LENGTH_SHORT).show();
                 }
             }
-        };
-        usersDAL.firebaseAuthWithGoogle(idToken, iUsers);
+        });
     }
 
     public void loginWithUidPwd(String uid, String pwd, RelativeLayout rlBar, TextView tvError) {
@@ -48,7 +45,7 @@ public class LoginController {
             return;
         }
         rlBar.setVisibility(View.VISIBLE);
-        IUsers iUsers = new IUsers() {
+        usersDAL.loginWithUidPwd(uid, pwd, new IControlData() {
             @Override
             public void isSuccessful(boolean isSu) {
                 rlBar.setVisibility(View.INVISIBLE);
@@ -61,8 +58,7 @@ public class LoginController {
                     tvError.setVisibility(View.VISIBLE);
                 }
             }
-        };
-        usersDAL.loginWithUidPwd(uid, pwd, iUsers);
+        });
     }
 
     public void signInWithGoogle(int GG_CODE, String clientId) {

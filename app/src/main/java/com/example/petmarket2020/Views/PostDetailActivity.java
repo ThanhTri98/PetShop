@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,16 +25,19 @@ import com.example.petmarket2020.Controllers.PostController;
 import com.example.petmarket2020.R;
 import com.smarteist.autoimageslider.SliderView;
 
-public class PostDetailActivity extends AppCompatActivity implements View.OnClickListener, TextWatcher, RatingBar.OnRatingBarChangeListener {
+public class PostDetailActivity extends AppCompatActivity implements View.OnClickListener, TextWatcher {
+    public static final String EDIT = "Sửa";
+    public static final String UPDATE = "Cập nhật";
     private ImageView imgFav;
     private SliderView imageSlider;
-    private TextView tvBarTotal, tvError, tvTitle, tvPrice, tvBreed, tvGender, tvAge, tvInject, tvHealthy, tvPhoneNumber, tvArea;
+    private TextView tvBarTotal, tvTime, tvError, tvTitle, tvPrice, tvBreed, tvGender, tvAge, tvInject, tvHealthy, tvPhoneNumber, tvArea;
     private RatingBar ratingBarTotal, ratingUser;
     private ProgressBar pgBar;
     private EditText etComment;
-    private Button btnSubmit, btnCall, btnSms;
-    private RecyclerView rvSamePost;
+    private Button btnSubmit;
+    private RecyclerView rvSamePost, rvRate;
     private View pgBar2;
+    private RelativeLayout rlIsRate;
 
     private PostController postController;
     private String peType;
@@ -43,14 +47,15 @@ public class PostDetailActivity extends AppCompatActivity implements View.OnClic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        postController = new PostController(this);
         setContentView(R.layout.activity_post_detail);
         getWidget();
+        postController = new PostController(this);
         postId = getIntent().getStringExtra("postId");
         peType = getIntent().getStringExtra("peType");
         price = getIntent().getLongExtra("price", 0);
         imgFav.setTag(R.id.postId, postId);
         postController.isFavorite(postId, imgFav);
+        postController.isRatedAndGetAllComment(postId, rlIsRate, btnSubmit, ratingUser, etComment, tvTime, ratingBarTotal, tvBarTotal, rvRate);
         postController.postDetail
                 (postId, imageSlider, new TextView[]
                         {
@@ -69,9 +74,10 @@ public class PostDetailActivity extends AppCompatActivity implements View.OnClic
         findViewById(R.id.tvReport).setOnClickListener(this);
         findViewById(R.id.btnCall).setOnClickListener(this);
         findViewById(R.id.btnSms).setOnClickListener(this);
-        findViewById(R.id.btnSubmit).setOnClickListener(this);
+        btnSubmit = findViewById(R.id.btnSubmit);
+        btnSubmit.setOnClickListener(this);
+        ratingBarTotal = findViewById(R.id.ratingBarTotal);
         ratingUser = findViewById(R.id.ratingUser);
-        ratingUser.setOnRatingBarChangeListener(this);
         etComment = findViewById(R.id.etComment);
         etComment.addTextChangedListener(this);
         imgFav = findViewById(R.id.imgFav);
@@ -87,9 +93,13 @@ public class PostDetailActivity extends AppCompatActivity implements View.OnClic
         tvHealthy = findViewById(R.id.tvHealthy);
         tvPhoneNumber = findViewById(R.id.tvPhoneNumber);
         tvArea = findViewById(R.id.tvArea);
+        tvTime = findViewById(R.id.tvTime);
+        tvBarTotal = findViewById(R.id.tvBarTotal);
         pgBar = findViewById(R.id.pgBar);
         rvSamePost = findViewById(R.id.rvSamePost);
+        rvRate = findViewById(R.id.rvRate);
         pgBar2 = findViewById(R.id.pgBar2);
+        rlIsRate = findViewById(R.id.rlIsRate);
     }
 
     @SuppressLint({"NonConstantResourceId", "QueryPermissionsNeeded"})
@@ -116,15 +126,31 @@ public class PostDetailActivity extends AppCompatActivity implements View.OnClic
                 startActivity(intent);
                 break;
             case R.id.btnSubmit:
-                String comment = etComment.getText().toString().trim();
-                if (TextUtils.isEmpty(comment)) {
-                    tvError.setText(t2);
-                    new Handler().postDelayed(() -> tvError.setText(null), 1500);
-                    return;
-                } else if (!TextUtils.isEmpty(tvError.getText().toString())) {
-                    return;
+                String typeBtn = ((Button) v).getText().toString();
+                if (!typeBtn.equals(EDIT)) {
+                    String comment = etComment.getText().toString().trim();
+                    if (TextUtils.isEmpty(comment)) {
+                        tvError.setText(t2);
+                        new Handler().postDelayed(() -> tvError.setText(null), 2000);
+                        return;
+                    } else if (!TextUtils.isEmpty(tvError.getText().toString())) {
+                        return;
+                    }
+                    if (typeBtn.equals(UPDATE)) {
+                        String oldCmt = (String) etComment.getTag();
+                        if (oldCmt.equals(comment)) {
+                            Toast.makeText(PostDetailActivity.this, "Không có gì để cập nhật", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                    postController.rankingProcess(postId, etComment, ratingUser, pgBar2, btnSubmit, tvTime);
+                } else {
+                    ratingUser.setIsIndicator(false);
+                    etComment.setEnabled(true);
+                    etComment.requestFocus();
+                    btnSubmit.setText(UPDATE);
                 }
-                postController.rankingProcess(postId, comment, myRate, pgBar2, (Button) v);
+
                 break;
         }
     }
@@ -150,10 +176,4 @@ public class PostDetailActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
-    private int myRate = 5; // default
-
-    @Override
-    public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-        myRate = (int) ratingBar.getRating();
-    }
 }

@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.petmarket2020.Controllers.CoinsController;
+import com.example.petmarket2020.HelperClass.Utils;
 import com.example.petmarket2020.R;
 
 public class CoinsActivity extends AppCompatActivity implements View.OnClickListener {
@@ -21,14 +22,25 @@ public class CoinsActivity extends AppCompatActivity implements View.OnClickList
     private Button btnCoinHistory;
     private RecyclerView rvCoins;
     private View pgBar;
+    private String uId;
+    private CoinsController coinsController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coins);
-        CoinsController coinsController = new CoinsController(this);
         getWidget();
+        coinsController = new CoinsController(this);
         coinsController.getCoinsPackage(rvCoins, pgBar);
+        uId = getIntent().getStringExtra("uId");
+        long coins = getIntent().getLongExtra("coins", 0);
+        String coinsS = Utils.formatCurrencyVN(coins);
+        tvRemainsValues.setText(coinsS.substring(0, coinsS.length() - 2));
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
     }
 
     private void getWidget() {
@@ -58,9 +70,12 @@ public class CoinsActivity extends AppCompatActivity implements View.OnClickList
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE) {
-            if (requestCode == RESULT_OK) {
-                Toast.makeText(CoinsActivity.this, "Nạp thành công", Toast.LENGTH_SHORT).show();
-            }else{
+            if (data != null) {
+                long value = data.getLongExtra("value", 0);
+                String payments = data.getStringExtra("payments");
+                boolean isSu = data.getBooleanExtra("isSu", false);
+                coinsController.payProcess(uId, value, payments, isSu, tvRemainsValues);
+            } else {
                 Toast.makeText(CoinsActivity.this, "Đã xảy ra lỗi, vui lòng kiểm tra lại!!", Toast.LENGTH_SHORT).show();
             }
         }

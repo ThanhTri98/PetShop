@@ -134,6 +134,7 @@
 
 
         <LinearLayout
+            android:id="@+id/llFavorites"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_border_bottom"
@@ -195,6 +196,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/llTransHis"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_border_bottom"
@@ -225,6 +227,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/llVoucher"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_border_bottom"

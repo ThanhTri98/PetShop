@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:paddingVertical="3dp">
+
+    <ImageView
+        android:id="@+id/ivAvatar"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:contentDescription="@string/AppName"
+        android:foreground="@drawable/fg_circle"
+        android:scaleType="centerCrop"
+        android:src="@drawable/cat1" />
+
+    <TextView
+        android:paddingEnd="5dp"
+        android:id="@+id/tvNameUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_toEndOf="@+id/ivAvatar"
+        android:textColor="@color/colorTextDefault"
+        android:textStyle="italic|bold"
+        tools:ignore="RtlSymmetry" />
+
+    <TextView
+        android:id="@+id/tvCmtUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvNameUser"
+        android:layout_marginStart="3dp"
+        android:layout_toEndOf="@+id/ivAvatar"
+        android:textColor="@color/colorTextDefault"
+        android:textStyle="italic" />
+
+    <RatingBar
+        android:id="@+id/ratingUser"
+        style="@android:style/Widget.Material.Light.RatingBar.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:layout_toEndOf="@+id/tvNameUser"
+        android:isIndicator="true"
+        android:progressTint="@color/colorPrimary"
+        android:rating="5"
+        android:secondaryProgressTint="@color/colorGrayLight"
+        android:stepSize="1" />
+
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="2dp"
+        android:textSize="12sp" />
+</RelativeLayout>
