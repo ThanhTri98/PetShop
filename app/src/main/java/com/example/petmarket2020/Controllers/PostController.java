@@ -88,6 +88,10 @@ public class PostController {
         isLoadingVER = isLoadingHor = isLastPageHor = isLastPageVer = false;
     }
 
+    public boolean checkLogin() {
+        return usersDAL.checkLogin();
+    }
+
     public void getPetBreeds(String type, RadioGroup radioGroup, MyViewPager vpg, TextView tvTitle) {
         if (!PostActivity.isLoaded()) {
             radioGroup.removeAllViews();

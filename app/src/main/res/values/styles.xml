@@ -10,15 +10,30 @@
         <item name="boxCornerRadiusBottomStart">0dp</item>
         <item name="boxCornerRadiusTopEnd">0dp</item>
         <item name="boxCornerRadiusTopStart">0dp</item>
+        <item name="tabStyle">@style/Widget.App.TabLayout</item>
     </style>
 
     <style name="AppSearchView" parent="Widget.AppCompat.SearchView">
         <item name="android:textSize">16sp</item>
     </style>
+
     <style name="MyTextInputEditText" parent="Widget.MaterialComponents.TimePicker.Display.TextInputEditText">
         <item name="android:textColor">@android:color/black</item>
         <item name="strokeColor">@android:color/black</item>
         <item name="boxStrokeColor">@android:color/black</item>
         <item name="background">@android:color/black</item>
+    </style>
+
+    <style name="Widget.App.TabLayout" parent="Widget.MaterialComponents.TabLayout">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.TabLayout</item>
+    </style>
+
+    <style name="TextAppearance.App.Button" parent="TextAppearance.MaterialComponents.Button">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="ThemeOverlay.App.TabLayout" parent="">
+        <item name="colorPrimary">@color/colorPrimary</item>
     </style>
 </resources>

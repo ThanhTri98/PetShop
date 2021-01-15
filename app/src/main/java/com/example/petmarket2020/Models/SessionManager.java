@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 
 import androidx.annotation.NonNull;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -36,10 +38,28 @@ public class SessionManager {
     public static final String KEY_AVATAR = "avatar";
     public static final String KEY_JOIN = "joinDate";
 
+    public static final String KEY_USER = "USER";
+
     @SuppressLint("CommitPrefEdits")
     public SessionManager(Context context) {
         usersSession = context.getSharedPreferences(PREF_LOGIN, Context.MODE_PRIVATE);
         editor = usersSession.edit();
+    }
+
+    public void createOrUpdateUserSession(UsersModel usersModel) {
+        editor.putString(KEY_USER, new Gson().toJson(usersModel));
+        editor.apply();
+    }
+
+    public UsersModel getUserSession() {
+        if (usersSession.getString(KEY_USER, null) == null)
+            return null;
+        else
+            return new Gson().fromJson(usersSession.getString(KEY_USER, null), UsersModel.class);
+    }
+
+    public boolean userIsExists() {
+        return getUserSession() != null;
     }
 
     //     uid,  pwd,  fullName,  email,  gender,  dateOfBirth,  phoneNumber,  avatar

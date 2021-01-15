@@ -5,7 +5,7 @@ import java.util.List;
 public class PostModel {
     private String postId;
     private String area;
-    private boolean isActive;
+    private long status; //0: Đang duyệt, 1: OK, 2:Cancel
     private boolean isHidden;
     private double latitude;
     private double longitude;
@@ -17,12 +17,35 @@ public class PostModel {
     private String poType;
     private String poster;
     private String gender;
-    private String timeActive;
+    private String startTime;
     private String title;
     private long viewCounts;
     private String healthGuarantee;
     private String injectStatus;
     private List<String> images;
+
+    public PostModel(String postId, String area, long status, boolean isHidden, double latitude, double longitude, long limitDay, long price, String breed, String peAge, String peType, String poType, String poster, String gender, String startTime, String title, long viewCounts, String healthGuarantee, String injectStatus, List<String> images) {
+        this.postId = postId;
+        this.area = area;
+        this.status = status;
+        this.isHidden = isHidden;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.limitDay = limitDay;
+        this.price = price;
+        this.breed = breed;
+        this.peAge = peAge;
+        this.peType = peType;
+        this.poType = poType;
+        this.poster = poster;
+        this.gender = gender;
+        this.startTime = startTime;
+        this.title = title;
+        this.viewCounts = viewCounts;
+        this.healthGuarantee = healthGuarantee;
+        this.injectStatus = injectStatus;
+        this.images = images;
+    }
 
     public PostModel() {
     }
@@ -51,12 +74,12 @@ public class PostModel {
         this.area = area;
     }
 
-    public boolean isActive() {
-        return isActive;
+    public long getStatus() {
+        return status;
     }
 
-    public void setActive(boolean active) {
-        isActive = active;
+    public void setStatus(long status) {
+        this.status = status;
     }
 
     public double getLatitude() {
@@ -139,12 +162,12 @@ public class PostModel {
         this.gender = gender;
     }
 
-    public String getTimeActive() {
-        return timeActive;
+    public String getStartTime() {
+        return startTime;
     }
 
-    public void setTimeActive(String timeActive) {
-        this.timeActive = timeActive;
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
     }
 
     public String getTitle() {

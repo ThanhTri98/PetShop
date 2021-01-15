@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.example.petmarket2020.Adapters.VP_MainAdapter;
+import com.example.petmarket2020.DAL.UsersDAL;
 import com.example.petmarket2020.HelperClass.MyViewPager;
 import com.example.petmarket2020.Models.SessionManager;
 import com.example.petmarket2020.R;
@@ -25,12 +26,14 @@ public class HomeActivity extends AppCompatActivity {
     //-- Bottom
     private BottomNavigationView botNav;
     private FloatingActionButton fabPost;
-
+    private UsersDAL usersDAL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        usersDAL = new UsersDAL(this);
+        usersDAL.checkFirstAppStart();
         getWidget();
         setUpViewPager();
         setListener();

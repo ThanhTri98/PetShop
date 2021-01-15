@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.gson.Gson;
 
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -211,7 +212,7 @@ public class UsersDAL {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 UsersModel usersModel = snapshot.getValue(UsersModel.class);
-                Log.e("COINS",usersModel.getCoins()+"");
+                Log.e("COINS", usersModel.getCoins() + "");
                 if (usersModel != null) {
                     String pwd1 = Objects.requireNonNull(snapshot.child("pwd").getValue()).toString();
                     if (!BCrypt.checkpw(pwd, pwd1)) {
@@ -298,4 +299,24 @@ public class UsersDAL {
     public Object getInfo(String key, boolean isHashSet) {
         return sessionManager.getInfo(key, isHashSet);
     }
+
+    public void checkFirstAppStart() {
+        if (checkLogin()) {
+            String uId = (String) getInfo(SessionManager.KEY_UID, false);
+            mRef.child(uId).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    UsersModel usersModel = snapshot.getValue(UsersModel.class);
+                    logout();
+                    sessionManager.createLoginSession(usersModel, 1);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
+    }
+
 }

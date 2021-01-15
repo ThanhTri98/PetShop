@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="7dp"
+    android:background="@drawable/shadow">
+
+    <RelativeLayout
+        android:id="@+id/rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <RelativeLayout
+            android:id="@+id/rlImage"
+            android:layout_width="90sp"
+            android:layout_height="70sp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp">
+
+            <TextView
+                android:id="@+id/tvImgCount"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="3dp"
+                android:background="@drawable/bg_border_circle"
+                android:backgroundTint="@color/white"
+                android:elevation="2dp"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="4"
+                android:textColor="@color/colorPrimary"
+                android:textSize="12sp"
+                android:textStyle="bold|italic" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="3dp"
+                app:cardElevation="0dp">
+
+                <ImageView
+                    android:id="@+id/ivImage"
+                    android:layout_width="90sp"
+                    android:layout_height="70dp"
+                    android:contentDescription="@string/AppName"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/cat1" />
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/rlImage"
+            android:text="Mèo xinh quá các bạn, mình muốn bán nè hi hi"
+            android:textColor="@color/colorTextDefault" />
+
+        <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvTitle"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@+id/rlImage"
+            android:text="2.000.000 đ"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvPrice"
+            android:layout_marginTop="2dp"
+            android:layout_toEndOf="@+id/rlImage"
+            android:text="20/11/2020 14:35"
+            android:textSize="13sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl"
+        android:background="@drawable/bg_border_horizontal">
+
+        <Button
+            android:id="@+id/btnFlash"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:background="@color/transparent"
+            android:drawableStart="@drawable/ic_flash"
+            android:drawableTint="@color/colorPrimary"
+            android:gravity="center"
+            android:paddingHorizontal="30dp"
+            android:text="Đẩy tin"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            android:textSize="13sp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorGrayLight" />
+
+        <Button
+            android:id="@+id/btnEdit"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:background="@color/transparent"
+            android:drawableStart="@drawable/ic_edit_20"
+            android:drawableTint="#009688"
+            android:gravity="center"
+            android:paddingHorizontal="28dp"
+            android:text="Sửa tin"
+            android:textAllCaps="false"
+            android:textColor="#009688"
+            android:textSize="13sp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorGrayLight" />
+
+        <Button
+            android:id="@+id/btnHidden"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:background="@color/transparent"
+            android:drawableStart="@drawable/ic_hidden"
+            android:drawableTint="#F44336"
+            android:gravity="center"
+            android:paddingHorizontal="32dp"
+            android:text="Ẩn tin"
+            android:textAllCaps="false"
+            android:textColor="#F44336"
+            android:textSize="13sp" />
+    </LinearLayout>
+</RelativeLayout>
