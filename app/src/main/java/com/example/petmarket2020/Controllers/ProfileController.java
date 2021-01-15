@@ -9,7 +9,6 @@ import com.example.petmarket2020.DAL.UsersDAL;
 import com.example.petmarket2020.HelperClass.NodeRootDB;
 import com.example.petmarket2020.HelperClass.Utils;
 import com.example.petmarket2020.Interfaces.IControlData;
-import com.example.petmarket2020.Models.SessionManager;
 import com.example.petmarket2020.Models.UsersModel;
 import com.example.petmarket2020.Views.ProfileActivity;
 import com.example.petmarket2020.Views.VerifyCodeActivity;
@@ -29,7 +28,7 @@ public class ProfileController {
     public void updateUserInfo(UsersModel usersModel, HashMap<String, Object> dataUpdate, RelativeLayout rlBar) {
         rlBar.setVisibility(View.VISIBLE);
         String newAvatar;
-        if (dataUpdate.containsKey(SessionManager.KEY_AVATAR)) {
+        if (dataUpdate.containsKey(UsersDAL.KEY_AVATAR)) {
             String photoName = usersModel.getUid() + new Random().nextInt(44) + ".jpg";
             newAvatar = NodeRootDB.STORAGE_PROFILE + "/" + photoName;
             dataUpdate.put("newAvatar", newAvatar);
@@ -49,9 +48,9 @@ public class ProfileController {
         });
     }
 
-    public void updateVerifyInfo(int type, String uid) {
-        usersDAL.updateVerifyInfo(type, uid);
-    }
+//    public void updateVerifyInfo(int type, String uid) {
+//        usersDAL.updateVerifyInfo(type, uid);
+//    }
 
     public void verifyPhone(String phoneNumber) {
         phoneNumber = "+84" + phoneNumber.substring(1);
@@ -64,6 +63,6 @@ public class ProfileController {
     }
 
     public UsersModel getUserDetail() {
-        return usersDAL.getUserDetail();
+        return usersDAL.getUserSession();
     }
 }

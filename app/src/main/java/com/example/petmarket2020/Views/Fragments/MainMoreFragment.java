@@ -52,8 +52,8 @@ public class MainMoreFragment extends Fragment implements View.OnClickListener {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onResume() {
+        super.onResume();
         if (mainMoreController.checkLogin()) {
             updateUI(true);
             new MyAsyncTask().execute();

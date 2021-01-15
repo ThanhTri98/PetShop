@@ -1,15 +1,12 @@
 package com.example.petmarket2020.Views;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -19,17 +16,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
 import com.example.petmarket2020.Controllers.ProfileController;
+import com.example.petmarket2020.DAL.UsersDAL;
 import com.example.petmarket2020.HelperClass.NodeRootDB;
 import com.example.petmarket2020.HelperClass.ShowImagePicker;
-import com.example.petmarket2020.Models.SessionManager;
 import com.example.petmarket2020.Models.UsersModel;
 import com.example.petmarket2020.R;
 import com.google.firebase.storage.FirebaseStorage;
@@ -206,7 +201,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         }
         HashMap<String, Object> hashMap = new HashMap<>();
         if (!fullName.equals(usersModel.getFullName())) {
-            hashMap.put(SessionManager.KEY_FULLNAME, fullName);
+            hashMap.put(UsersDAL.KEY_FULLNAME, fullName);
         }
         if (!usersModel.isPhoneVerified()) {
             String phoneNumber = etPhoneNumber.getText().toString();
@@ -216,7 +211,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                     return;
                 } else {
                     if (!phoneNumber.equals(usersModel.getPhoneNumber()))
-                        hashMap.put(SessionManager.KEY_PHONE, phoneNumber);
+                        hashMap.put(UsersDAL.KEY_PHONE, phoneNumber);
                 }
             }
 
@@ -229,21 +224,21 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                     return;
                 } else {
                     if (!email.equals(usersModel.getEmail()))
-                        hashMap.put(SessionManager.KEY_EMAIL, email);
+                        hashMap.put(UsersDAL.KEY_EMAIL, email);
                 }
             }
         }
         String address = tvAddress.getText().toString();
         if (!TextUtils.isEmpty(address) && !address.equals(usersModel.getAddress())) {
-            hashMap.put(SessionManager.KEY_ADDRESS, address);
-            hashMap.put(SessionManager.KEY_LATITUDE, usersModel.getLatitude());
-            hashMap.put(SessionManager.KEY_LONGITUDE, usersModel.getLongitude());
+            hashMap.put(UsersDAL.KEY_ADDRESS, address);
+            hashMap.put(UsersDAL.KEY_LATITUDE, usersModel.getLatitude());
+            hashMap.put(UsersDAL.KEY_LONGITUDE, usersModel.getLongitude());
         }
         if (isLoadAvatar != 0) {
             Bitmap bitmap = ((BitmapDrawable) ivAvatar.getDrawable()).getBitmap();
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-            hashMap.put(SessionManager.KEY_AVATAR, baos.toByteArray());
+            hashMap.put(UsersDAL.KEY_AVATAR, baos.toByteArray());
         }
         if (hashMap.size() == 0) {
             Toast.makeText(this, "Không có gì để cập nhật", Toast.LENGTH_SHORT).show();

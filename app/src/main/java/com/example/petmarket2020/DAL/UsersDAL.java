@@ -24,7 +24,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.gson.Gson;
 
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -38,6 +37,23 @@ import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class UsersDAL {
+    public static final String KEY_UID = "uid";
+    public static final String KEY_PWD = "pwd";
+    public static final String KEY_FULLNAME = "fullName";
+    public static final String KEY_EMAIL = "email";
+    public static final String KEY_GENDER = "gender";
+    public static final String KEY_DOB = "dateOfBirth";
+    public static final String KEY_COINS = "coins";
+    public static final String KEY_LATITUDE = "latitude";
+    public static final String KEY_LONGITUDE = "longitude";
+    public static final String KEY_ADDRESS = "address";
+    public static final String KEY_FAVORITES = "favorites";
+    public static final String KEY_EMAIL_VERIFY = "isEmailVerified";
+    public static final String KEY_PHONE_VERIFY = "isPhoneVerified";
+    public static final String KEY_PHONE = "phoneNumber";
+    public static final String KEY_AVATAR = "avatar";
+    public static final String KEY_JOIN = "joinDate";
+
     private static final long LIMIT_TIME_PHONE_OTP = 60L;
     private final SessionManager sessionManager;
     private final DatabaseReference mRef;
@@ -80,22 +96,22 @@ public class UsersDAL {
         );
     }
 
-    public void updateVerifyInfo(int type, String uid) {
-//    type == 1 (phone); type == 2 (email)
-        if (uid != null) {
-            if (type == 1) {
-                mRef.child(uid).child("phoneVerified").setValue(true);
-                HashMap<String, Object> hMap = new HashMap<>();
-                hMap.put(SessionManager.KEY_PHONE_VERIFY, true);
-                sessionManager.updateSessionInfo(hMap);
-            } else {
-                mRef.child(uid).child("emailVerified").setValue(true);
-                HashMap<String, Object> hMap = new HashMap<>();
-                hMap.put(SessionManager.KEY_EMAIL, true);
-                sessionManager.updateSessionInfo(hMap);
-            }
-        }
-    }
+//    public void updateVerifyInfo(int type, String uid) {
+////    type == 1 (phone); type == 2 (email)
+//        if (uid != null) {
+//            if (type == 1) {
+//                mRef.child(uid).child("phoneVerified").setValue(true);
+//                HashMap<String, Object> hMap = new HashMap<>();
+//                hMap.put(KEY_PHONE_VERIFY, true);
+//                updateSessionInfo(hMap);
+//            } else {
+//                mRef.child(uid).child("emailVerified").setValue(true);
+//                HashMap<String, Object> hMap = new HashMap<>();
+//                hMap.put(KEY_EMAIL, true);
+//                updateSessionInfo(hMap);
+//            }
+//        }
+//    }
 
     // Register
     public void registerUser(UsersModel usersModel, IControlData iControlData) {
@@ -136,7 +152,7 @@ public class UsersDAL {
 //                                    uid, pwd, fullName, email, gender, dateOfBirth, phoneNumber, avatar
                                     UsersModel usersModel = snapshot.getValue(UsersModel.class);
                                     if (usersModel != null) {
-                                        sessionManager.createLoginSession(usersModel, 1);
+                                        saveUserSession(usersModel.getUid());
                                         iControlData.isSuccessful(true);
                                     } else {
                                         usersModel = new UsersModel();
@@ -174,7 +190,6 @@ public class UsersDAL {
                     InputStream is = url.openStream();
                     byte[] byteChunk = new byte[1024]; // Or whatever size you want to read in at a time.
                     int n;
-
                     while ((n = is.read(byteChunk)) > 0) {
                         baos.write(byteChunk, 0, n);
                     }
@@ -185,7 +200,7 @@ public class UsersDAL {
                                 if (task.isSuccessful()) {
                                     mStorageRef.child(photoName).putBytes(baos.toByteArray()).addOnCompleteListener(task1 -> {
                                         if (task1.isSuccessful()) {
-                                            sessionManager.createLoginSession(usersModel, 2);
+                                            saveUserSession(usersModel.getUid());
                                             iControlData.isSuccessful(true);
                                         }
                                         try {
@@ -212,14 +227,12 @@ public class UsersDAL {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 UsersModel usersModel = snapshot.getValue(UsersModel.class);
-                Log.e("COINS", usersModel.getCoins() + "");
                 if (usersModel != null) {
                     String pwd1 = Objects.requireNonNull(snapshot.child("pwd").getValue()).toString();
                     if (!BCrypt.checkpw(pwd, pwd1)) {
                         iControlData.isSuccessful(false);
                     } else {
-//                       uid,  pwd,  fullName,  email,  gender,  dateOfBirth,  phoneNumber,  avatar
-                        sessionManager.createLoginSession(usersModel, 1);
+                        saveUserSession(uId);
                         iControlData.isSuccessful(true);
                     }
                 } else {
@@ -235,25 +248,23 @@ public class UsersDAL {
 
     // update info
     public void updateUserInfo(UsersModel usersModel, HashMap<String, Object> dataUpdate, IControlData iControlData) {
-        if (dataUpdate.containsKey(SessionManager.KEY_FULLNAME))
-            usersModel.setFullName((String) dataUpdate.get(SessionManager.KEY_FULLNAME));
-        if (dataUpdate.containsKey(SessionManager.KEY_PHONE))
-            usersModel.setPhoneNumber((String) dataUpdate.get(SessionManager.KEY_PHONE));
-        if (dataUpdate.containsKey(SessionManager.KEY_EMAIL))
-            usersModel.setEmail((String) dataUpdate.get(SessionManager.KEY_EMAIL));
-        if (dataUpdate.containsKey(SessionManager.KEY_ADDRESS))
-            usersModel.setAddress((String) dataUpdate.get(SessionManager.KEY_ADDRESS));
-        if (dataUpdate.containsKey(SessionManager.KEY_AVATAR)) {
+        if (dataUpdate.containsKey(KEY_FULLNAME))
+            usersModel.setFullName((String) dataUpdate.remove(KEY_FULLNAME));
+        if (dataUpdate.containsKey(KEY_PHONE))
+            usersModel.setPhoneNumber((String) dataUpdate.remove(KEY_PHONE));
+        if (dataUpdate.containsKey(KEY_EMAIL))
+            usersModel.setEmail((String) dataUpdate.remove(KEY_EMAIL));
+        if (dataUpdate.containsKey(KEY_ADDRESS))
+            usersModel.setAddress((String) dataUpdate.remove(KEY_ADDRESS));
+        if (dataUpdate.containsKey(KEY_AVATAR)) {
             String oldAvatar = usersModel.getAvatar();
             String newAvatar = (String) dataUpdate.remove("newAvatar");
             usersModel.setAvatar(newAvatar);
             mRef.child(usersModel.getUid()).setValue(usersModel).addOnCompleteListener(user -> {
                 if (user.isSuccessful()) {
-                    byte[] avatarByte = (byte[]) Objects.requireNonNull(dataUpdate.remove(SessionManager.KEY_AVATAR));
+                    byte[] avatarByte = (byte[]) Objects.requireNonNull(dataUpdate.remove(KEY_AVATAR));
                     assert newAvatar != null;
                     mStorageRef.child(newAvatar).putBytes(avatarByte);
-                    dataUpdate.put(SessionManager.KEY_AVATAR, newAvatar);
-                    sessionManager.updateSessionInfo(dataUpdate);
                     iControlData.isSuccessful(true);
                     if (oldAvatar != null) {
                         mStorageRef.child(oldAvatar).delete();
@@ -263,60 +274,57 @@ public class UsersDAL {
                 }
             });
         } else {
-            mRef.child(usersModel.getUid()).setValue(usersModel).addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    iControlData.isSuccessful(true);
-                    sessionManager.updateSessionInfo(dataUpdate);
-                } else {
-                    iControlData.isSuccessful(false);
-                }
-            });
+            mRef.child(usersModel.getUid()).setValue(usersModel).addOnCompleteListener(task -> iControlData.isSuccessful(task.isSuccessful()));
         }
     }
 
     public void setFavorite(String uid, List<String> favorites, IControlData iControlData) {
         mRef.child(uid).child("favorites").setValue(favorites).addOnCompleteListener(task -> {
             iControlData.isSuccessful(task.isSuccessful());
-            HashMap<String, Object> values = new HashMap<>();
-            values.put(SessionManager.KEY_FAVORITES, favorites);
-            sessionManager.updateSessionInfo(values);
         });
     }
 
     //    sessionManager
-    public boolean checkLogin() {
-        return sessionManager.isLogin();
+    public void createOrUpdateUserSession(UsersModel usersModel) {
+        sessionManager.createOrUpdateUserSession(usersModel);
     }
 
-    public void logout() {
-        sessionManager.logOut();
+    public UsersModel getUserSession() {
+        return sessionManager.getUserSession();
     }
 
-    public UsersModel getUserDetail() {
-        return sessionManager.getUserDetail();
+    public boolean userIsExists() {
+        return sessionManager.userIsExists();
     }
 
-    public Object getInfo(String key, boolean isHashSet) {
-        return sessionManager.getInfo(key, isHashSet);
+    public void clearSession() {
+        mRef.removeEventListener(valueEventListener);
+        sessionManager.clearSession();
     }
 
     public void checkFirstAppStart() {
-        if (checkLogin()) {
-            String uId = (String) getInfo(SessionManager.KEY_UID, false);
-            mRef.child(uId).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    UsersModel usersModel = snapshot.getValue(UsersModel.class);
-                    logout();
-                    sessionManager.createLoginSession(usersModel, 1);
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
+        if (userIsExists()) {
+            String uId = getUserSession().getUid();
+            saveUserSession(uId);
         }
+    }
+
+    private final ValueEventListener valueEventListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot snapshot) {
+            createOrUpdateUserSession(snapshot.getValue(UsersModel.class));
+            // Change ne``
+            Log.e("ValueEventListener123", "CHANGEEEEEE NE");
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError error) {
+
+        }
+    };
+
+    private void saveUserSession(String uId) {
+        mRef.child(uId).addValueEventListener(valueEventListener);
     }
 
 }

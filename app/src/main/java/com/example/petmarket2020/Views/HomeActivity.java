@@ -12,7 +12,6 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import com.example.petmarket2020.Adapters.VP_MainAdapter;
 import com.example.petmarket2020.DAL.UsersDAL;
 import com.example.petmarket2020.HelperClass.MyViewPager;
-import com.example.petmarket2020.Models.SessionManager;
 import com.example.petmarket2020.R;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -78,7 +77,7 @@ public class HomeActivity extends AppCompatActivity {
         });
         //-- Bottom
         fabPost.setOnClickListener(v -> {
-            if (new SessionManager(HomeActivity.this).isLogin()) {
+            if (usersDAL.userIsExists()) {
                 startActivity(new Intent(HomeActivity.this, PostActivity.class));
             } else {
                 showSBMargin(findViewById(R.id.cdl));
@@ -88,9 +87,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private void showSBMargin(View v) {
         Snackbar sb = Snackbar.make(v, "Đăng nhập để tiếp tục đăng tin", Snackbar.LENGTH_LONG)
-                .setAction("ĐĂNG NHẬP", v1 -> {
-                    startActivity(new Intent(HomeActivity.this, LoginActivity.class));
-                });
+                .setAction("ĐĂNG NHẬP", v1 -> startActivity(new Intent(HomeActivity.this, LoginActivity.class)));
         sb.setActionTextColor(Color.CYAN);
         sb.setAnchorView(findViewById(R.id.vTmp));
         sb.show();

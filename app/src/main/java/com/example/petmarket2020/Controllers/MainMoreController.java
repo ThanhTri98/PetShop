@@ -13,15 +13,15 @@ public class MainMoreController {
     }
 
     public boolean checkLogin() {
-        return usersDAL.checkLogin();
+        return usersDAL.userIsExists();
     }
 
     public void logout() {
-        usersDAL.logout();
+        usersDAL.clearSession();
     }
 
     public UsersModel getUserDetail() {
-        return usersDAL.getUserDetail();
+        return usersDAL.getUserSession();
     }
 
 }

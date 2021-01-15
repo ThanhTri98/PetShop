@@ -80,7 +80,6 @@ public class VerifyCodeActivity extends AppCompatActivity {
         tvError.setVisibility(View.GONE);
         rlBar.setVisibility(View.VISIBLE);
         if (verifyCode(codeResponse)) {
-            profileController.updateVerifyInfo(1,uid);
             Intent intent = new Intent();
             intent.putExtra(NodeRootDB.USERS, profileController.getUserDetail());
             setResult(RESULT_OK, intent);

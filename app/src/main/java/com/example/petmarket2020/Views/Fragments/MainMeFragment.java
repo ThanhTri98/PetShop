@@ -21,8 +21,6 @@ import com.google.android.material.tabs.TabLayoutMediator;
 public class MainMeFragment extends Fragment {
     private TabLayout tabLayout;
     private ViewPager2 vpg2;
-    private VP_PostManageAdapter vp_postManageAdapter;
-    private TabLayoutMediator tabLayoutMediator;
     private RelativeLayout rlNoLogin;
     private PostController postController;
 
@@ -37,7 +35,7 @@ public class MainMeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main_me, container, false);
         getWidget(view);
-        vp_postManageAdapter = new VP_PostManageAdapter(getActivity());
+        VP_PostManageAdapter vp_postManageAdapter = new VP_PostManageAdapter(getActivity());
         vpg2.setAdapter(vp_postManageAdapter);
         return view;
     }

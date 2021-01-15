@@ -13,10 +13,10 @@ import androidx.fragment.app.Fragment;
 
 import com.example.petmarket2020.Adapters.SliderAdapter;
 import com.example.petmarket2020.HelperClass.MyViewPager;
-import com.example.petmarket2020.HelperClass.NodeRootDB;
 import com.example.petmarket2020.HelperClass.Utils;
 import com.example.petmarket2020.Models.PostModel;
 import com.example.petmarket2020.Models.SessionManager;
+import com.example.petmarket2020.Models.UsersModel;
 import com.example.petmarket2020.R;
 import com.example.petmarket2020.Views.PostActivity;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
@@ -37,17 +37,18 @@ public class ViewPostFragment extends Fragment {
     private RelativeLayout rlBar;
     private SliderView sliderView;
     private TextView tvPostType, tvTitle, tvPrice, tvBreed, tvGender, tvInject, tvHealthy, tvAge;
-    private SessionManager sessionManager;
     private PostModel postModel;
     private String area;
     private HashMap<String, byte[]> mapImage;
+    private UsersModel usersModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         tvTitles = Objects.requireNonNull(getActivity()).findViewById(R.id.tvTitle);
         vpg = getActivity().findViewById(R.id.vpg);
-        sessionManager = new SessionManager(Objects.requireNonNull(getActivity()));
+        SessionManager sessionManager = new SessionManager(Objects.requireNonNull(getActivity()));
+        usersModel = sessionManager.getUserSession();
     }
 
     @Override
@@ -66,7 +67,7 @@ public class ViewPostFragment extends Fragment {
         tvAge = view.findViewById(R.id.tvAge);
         TextView tvPhoneNumber = view.findViewById(R.id.tvPhoneNumber);
         TextView tvArea = view.findViewById(R.id.tvArea);
-        tvPhoneNumber.setText((String) sessionManager.getInfo(SessionManager.KEY_PHONE,false));
+        tvPhoneNumber.setText(usersModel.getPhoneNumber());
         area = getArea();
         tvArea.setText(area);
         view.findViewById(R.id.bab).setOnClickListener(v -> {
@@ -77,7 +78,7 @@ public class ViewPostFragment extends Fragment {
     }
 
     private String getArea() {
-        String address = (String) sessionManager.getInfo(SessionManager.KEY_ADDRESS,false);
+        String address = usersModel.getAddress();
         int index = address.lastIndexOf(",");
         return address.substring(index + 1).trim();
     }
@@ -88,11 +89,11 @@ public class ViewPostFragment extends Fragment {
         HashMap<String, Object> hashMap = PostActivity.getAllData();
         postModel = new PostModel();
         String postID = "PO" + System.currentTimeMillis();
-        postModel.setPoster((String) sessionManager.getInfo(SessionManager.KEY_UID,false));
+        postModel.setPoster(usersModel.getUid());
         postModel.setPostId(postID);
         postModel.setArea(area);
-        postModel.setLatitude(Double.parseDouble((String) sessionManager.getInfo(SessionManager.KEY_LATITUDE,false)));
-        postModel.setLongitude(Double.parseDouble((String) sessionManager.getInfo(SessionManager.KEY_LONGITUDE,false)));
+        postModel.setLatitude(usersModel.getLatitude());
+        postModel.setLongitude(usersModel.getLongitude());
         for (Map.Entry<String, Object> data : hashMap.entrySet()) {
             switch (data.getKey()) {
                 case PostActivity.KEY_PET_TYPE:
@@ -141,7 +142,7 @@ public class ViewPostFragment extends Fragment {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
             String id = postID + i.getAndIncrement() + ".jpg";
-            images.add("images/"+id);
+            images.add("images/" + id);
             mapImage.put(id, baos.toByteArray());
 
         });

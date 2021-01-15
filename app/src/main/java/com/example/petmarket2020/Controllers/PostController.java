@@ -38,7 +38,7 @@ import com.example.petmarket2020.Interfaces.IControlData;
 import com.example.petmarket2020.Models.PetTypeModel;
 import com.example.petmarket2020.Models.PostModel;
 import com.example.petmarket2020.Models.RankingModel;
-import com.example.petmarket2020.Models.SessionManager;
+import com.example.petmarket2020.Models.UsersModel;
 import com.example.petmarket2020.R;
 import com.example.petmarket2020.Views.LoginActivity;
 import com.example.petmarket2020.Views.PostActivity;
@@ -50,7 +50,6 @@ import com.smarteist.autoimageslider.SliderView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -89,7 +88,7 @@ public class PostController {
     }
 
     public boolean checkLogin() {
-        return usersDAL.checkLogin();
+        return usersDAL.userIsExists();
     }
 
     public void getPetBreeds(String type, RadioGroup radioGroup, MyViewPager vpg, TextView tvTitle) {
@@ -221,6 +220,7 @@ public class PostController {
         typeRequest = 1 normalList, = 2 hotList, = 0 cả 2 :_)
          */
         isLoadingVER = true;
+        isLoadingHor = true;
         postDAL.getPostHome(0, new IControlData() {
             @Override
             public void responseData(List<PosterItem> listNormal, List<PosterItem> listHot) {
@@ -234,10 +234,11 @@ public class PostController {
                 // Hot
                 if (!listHot.isEmpty()) {
                     oldListHot.addAll(listHot);
-                    loadMoreHorizontalAdapter = new LoadMoreHorizontalAdapter(listHot, iOnItemClickHorizontal);
+                    loadMoreHorizontalAdapter = new LoadMoreHorizontalAdapter(oldListHot, iOnItemClickHorizontal);
                     loadMoreHorizontalAdapter.setPostController(postController);
                     loadMoreHorizontalAdapter.addItemLoading();
                     rvHot.setAdapter(loadMoreHorizontalAdapter);
+                    isLoadingHor = false;
                 } else {
                     isLastPageHor = true;
                     loadMoreHorizontalAdapter.removeItemLoading();
@@ -368,9 +369,9 @@ public class PostController {
     }
 
     public void isFavorite(String postId, ImageView ivFav) {
-        if (usersDAL.checkLogin()) {
-            HashSet<String> hashSet = (HashSet<String>) usersDAL.getInfo(SessionManager.KEY_FAVORITES, true);
-            if (hashSet.contains(postId)) {
+        if (usersDAL.userIsExists()) {
+            List<String> favorites = usersDAL.getUserSession().getFavorites();
+            if (favorites.contains(postId)) {
                 ivFav.setImageResource(R.drawable.ic_item_tym_checked);
                 ivFav.setTag(R.id.isChecked, "1"); // checked
             } else {
@@ -380,13 +381,14 @@ public class PostController {
     }
 
     public void setFavorite(ImageView ivFav, ProgressBar pgBar) {
-        if (usersDAL.checkLogin()) {
+        if (usersDAL.userIsExists()) {
+            UsersModel usersModel = usersDAL.getUserSession();
             ivFav.setVisibility(View.INVISIBLE);
             pgBar.setVisibility(View.VISIBLE);
-            String uid = (String) usersDAL.getInfo(SessionManager.KEY_UID, false);
+            String uid = usersModel.getUid();
             String postId = (String) ivFav.getTag(R.id.postId);
             boolean isChecked = !ivFav.getTag(R.id.isChecked).toString().equals("0");
-            List<String> favorites = new ArrayList<>((HashSet<String>) usersDAL.getInfo(SessionManager.KEY_FAVORITES, true));
+            List<String> favorites = usersModel.getFavorites();
             if (isChecked)  // da~ luu
                 favorites.remove(postId);
             else  // chua luu
@@ -447,13 +449,11 @@ public class PostController {
                     if (posterItems.size() == 4) {
                         loadMoreHorizontalAdapter.addItemLoading();
                     } else {
-                        Toast.makeText(activity, "Hết dữ liệu rồi!!", Toast.LENGTH_SHORT).show();
                         loadMoreHorizontalAdapter.removeItemLoading();
                         isLastPageHor = true;
                     }
                     rvSamePost.setAdapter(loadMoreHorizontalAdapter);
                 } else {
-                    Toast.makeText(activity, "Hết dữ liệu rồi!!", Toast.LENGTH_SHORT).show();
                     loadMoreHorizontalAdapter.removeItemLoading();
                     isLastPageHor = true;
                 }
@@ -502,9 +502,9 @@ public class PostController {
     }
 
     public void rankingProcess(String postId, EditText etComment, RatingBar ratingUser, View pgBar2, Button btnSubmit, TextView tvTime) {
-        Object objUID = usersDAL.getInfo(SessionManager.KEY_UID, false);
-        if (objUID != null) {
-            String uId = (String) objUID;
+        UsersModel usersModel = usersDAL.getUserSession();
+        if (usersModel != null) {
+            String uId = usersModel.getUid();
             btnSubmit.setVisibility(View.INVISIBLE);
             pgBar2.setVisibility(View.VISIBLE);
             String comment = etComment.getText().toString();
@@ -539,9 +539,9 @@ public class PostController {
 
     public void isRatedAndGetAllComment(String postId, RelativeLayout rlIsRate, Button btn, RatingBar ratingUser
             , EditText etComment, TextView tvTime, RatingBar ratingBarTotal, TextView tvBarTotal, RecyclerView rvRate) {
-        Object objUID = usersDAL.getInfo(SessionManager.KEY_UID, false);
-        String uId = objUID != null ? (String) objUID : null;
-        if (uId != null) {
+        UsersModel usersModel = usersDAL.getUserSession();
+        if (usersModel != null) {
+            String uId = usersModel.getUid();
             postDAL.isRated(postId, uId, new IControlData() {
                 @Override
                 public void responseData(Object data) {
@@ -575,9 +575,9 @@ public class PostController {
                         tvBarTotal.setText(totalString);
                         // Set commentList adapter
                         // Nếu người dùng đã đăng nhập, xóa trong rv thâu
-                        if (uId != null) {
+                        if (usersModel != null) {
                             for (int i = 0; i < rankingModelList.size(); i++) {
-                                if (rankingModelList.get(i).getUserId().equals(uId)) {
+                                if (rankingModelList.get(i).getUserId().equals(usersModel.getUid())) {
                                     rankingModelList.remove(i);
                                     nameAndAvatarList.remove(i);
                                     break;
