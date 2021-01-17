@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="7dp"
+    android:background="@drawable/bg_border_radius_gray"
+    android:paddingHorizontal="20dp">
+
+    <TextView
+        android:id="@+id/tvCoinTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/muli_black"
+        android:text="Nạp 20.000"
+        android:textColor="@color/colorTextDefault"
+        android:textSize="17sp" />
+
+    <ImageView
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_alignBottom="@+id/tvCoinTitle"
+        android:layout_marginStart="5dp"
+        android:layout_marginBottom="-1dp"
+        android:layout_toEndOf="@+id/tvCoinTitle"
+        android:contentDescription="@string/AppName"
+        android:src="@drawable/ic_coins" />
+
+    <TextView
+        android:id="@+id/tvCoin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvCoinTitle"
+        android:layout_marginBottom="10dp"
+        android:text="Giá 1.500.000 đ"
+        android:textColor="@color/colorTextDefault"
+        android:textSize="15sp"
+        android:textStyle="italic" />
+
+    <ImageView
+        android:layout_width="25dp"
+        android:layout_height="35dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/ic_next_black" />
+</RelativeLayout>
