@@ -1,100 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="180dp"
-    android:layout_height="255dp"
-    android:layout_margin="5dp"
+    android:layout_width="175dp"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="10dp"
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/shadow"
     android:clickable="true"
     android:focusable="true"
-    android:foreground="?android:attr/selectableItemBackground"
-    app:cardCornerRadius="10dp">
+    android:foreground="?attr/selectableItemBackground"
+    android:padding="4dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+
+    <ImageView
+        android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="150dp"
+        android:contentDescription="@string/app_name"
+        android:scaleType="centerCrop"
+        android:src="@drawable/cat1" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="1dp"
+        android:background="@drawable/bg_pbar"
+        android:gravity="center"
+        android:paddingHorizontal="2dp">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="13dp"
-            android:layout_marginBottom="13dp"
-            android:accessibilityLiveRegion="none"
+            android:layout_width="9dp"
+            android:layout_height="9dp"
             android:contentDescription="@string/AppName"
-            android:elevation="100dp"
-            android:src="@drawable/ic_favorite_state"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView"
-            app:layout_constraintEnd_toEndOf="@+id/imageView"
-            tools:visibility="visible" />
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:contentDescription="@string/app_name"
-            android:scaleType="centerCrop"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:src="@drawable/ic_view" />
 
         <TextView
-            android:id="@+id/tvTitle"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginVertical="7dp"
-            android:paddingHorizontal="10dp"
-            android:textAlignment="viewStart"
+            android:id="@+id/tvViews"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:includeFontPadding="false"
             android:textColor="@color/colorTextDefault"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+            android:textSize="8sp"
+            android:textStyle="italic"
+            tools:ignore="SmallSp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ivHot"
+        android:layout_width="30dp"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="1dp"
+        android:contentDescription="@string/AppName"
+        android:src="@drawable/logo_hot_item"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/imgFav"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="-3dp"
+        android:contentDescription="@string/AppName"
+        android:padding="5dp"
+        android:src="@drawable/ic_item_tym" />
+
+    <ProgressBar
+        android:id="@+id/pgBar"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="5dp"
+        android:indeterminateTint="@color/colorRedDark"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_below="@+id/imageView"
+        android:layout_marginVertical="7dp"
+        android:textColor="@color/colorTextDefault"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/llPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvTitle"
+        android:layout_marginVertical="3dp"
+        android:gravity="center_vertical">
 
         <TextView
             android:id="@+id/tvPrice"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="5dp"
-            android:paddingHorizontal="10dp"
             android:textColor="@color/colorPrimary"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+            android:textStyle="bold" />
 
-        <LinearLayout
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:paddingHorizontal="7dp"
-            android:paddingVertical="3dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvPrice">
+            android:layout_marginEnd="4dp"
+            android:text="3.3 km"
+            android:textAlignment="textEnd"
+            android:textColor="@color/colorTextDefault"
+            android:textSize="13sp" />
 
-            <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:layout_marginEnd="3dp"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/ic_item_location" />
+    </LinearLayout>
 
-            <TextView
-                android:id="@+id/tvAddress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="9sp"
-                tools:ignore="SmallSp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llPrice"
+        android:gravity="center_vertical"
+        android:paddingVertical="3dp">
 
-            <TextView
-                android:id="@+id/tvDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="textEnd"
-                android:textSize="9sp"
-                tools:ignore="SmallSp" />
-        </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginEnd="2dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_item_location" />
 
-</androidx.cardview.widget.CardView>
+        <TextView
+            android:id="@+id/tvAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="9sp"
+            tools:ignore="SmallSp" />
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:textAlignment="textEnd"
+            android:textSize="9sp"
+            tools:ignore="SmallSp" />
+    </LinearLayout>
+</RelativeLayout>

@@ -1,7 +1,5 @@
 package com.example.petmarket2020.Adapters;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,36 +9,39 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.petmarket2020.Adapters.items.PetCategoryItem;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.petmarket2020.Models.PetTypeModel;
 import com.example.petmarket2020.R;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
 
 public class RV_PetCategoryAdapter extends RecyclerView.Adapter<RV_PetCategoryAdapter.MyViewHolder> {
-    private Context context;
-    private List<PetCategoryItem> listItems;
+    private final List<PetTypeModel> listItems;
+    private final StorageReference storageReference;
 
-    public RV_PetCategoryAdapter(Context context, List<PetCategoryItem> listItems) {
-        this.context = context;
+    public RV_PetCategoryAdapter(List<PetTypeModel> listItems) {
         this.listItems = listItems;
+        storageReference = FirebaseStorage.getInstance().getReference();
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view;
-        LayoutInflater layoutInflater = LayoutInflater.from(context);
-        view = layoutInflater.inflate(R.layout.item_home_pet_category, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home_pet_category, parent, false);
         return new MyViewHolder(view);
     }
 
-    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        int imgage = listItems.get(position).getImage();
-        String title = listItems.get(position).getTitle();
-        holder.ivPet.setImageResource(imgage);
-        holder.tvPet.setText(title);
+        PetTypeModel petTypeModel = listItems.get(position);
+        String name = petTypeModel.getName();
+        String image = petTypeModel.getImage();
+        Glide.with(holder.ivPet).load(storageReference.child(image))
+                .diskCacheStrategy(DiskCacheStrategy.ALL).into(holder.ivPet);
+        holder.tvPet.setText(name);
     }
 
 

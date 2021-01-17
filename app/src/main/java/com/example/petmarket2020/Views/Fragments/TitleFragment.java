@@ -8,28 +8,40 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.petmarket2020.HelperClass.MyViewPager;
+import com.example.petmarket2020.HelperClass.Utils;
 import com.example.petmarket2020.R;
-import com.example.petmarket2020.Utils.Utils;
 import com.example.petmarket2020.Views.PostActivity;
-import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
 
 public class TitleFragment extends Fragment {
-    private TextInputLayout tilTitle;
-    private EditText etTitle;
-    private static final int TEXT_LENGTH = 70;
+    private TextView tvError;
+    private int len = 0;
+    private TextView tvTitle;
+    private MyViewPager vpg;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        vpg = Objects.requireNonNull(getActivity()).findViewById(R.id.vpg);
+        tvTitle = Objects.requireNonNull(getActivity()).findViewById(R.id.tvTitle);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_title, container, false);
-        tilTitle = view.findViewById(R.id.tilTitle);
-
-        etTitle = view.findViewById(R.id.etTitle);
+        tvError = view.findViewById(R.id.tvError);
+        EditText etTitle = view.findViewById(R.id.etTitle);
+        if (TextUtils.isEmpty(etTitle.getText().toString()) && PostActivity.getData(PostActivity.KEY_TITLE) != null) {
+            etTitle.setText((String) PostActivity.getData(PostActivity.KEY_TITLE));
+        }
         etTitle.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -37,17 +49,28 @@ public class TitleFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!TextUtils.isEmpty(s.toString())) {
-                    int length = s.toString().trim().length();
-                    if (length < 11) tilTitle.setError("Tiêu đề > 10 kí tự");
-                    else tilTitle.setError(null);
-                } else {
-                    tilTitle.setError("Vui lòng nhập tiêu đề");
-                }
+
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+                if (!TextUtils.isEmpty(s.toString())) {
+                    len = s.toString().trim().length();
+                    if (len < 11) tvError.setText(getString(R.string.TT10Char));
+                    else tvError.setText(null);
+                } else {
+                    tvError.setText(getString(R.string.TTPleaseType));
+                }
+            }
+        });
+        view.findViewById(R.id.bab).setOnClickListener(v -> {
+            if (TextUtils.isEmpty(tvError.getText().toString())) {
+                PostActivity.addData(PostActivity.KEY_TITLE, etTitle.getText().toString());
+                int currentIndex = vpg.getCurrentItem();
+                vpg.setCurrentItem(currentIndex + 1);
+                tvTitle.setText(PostActivity.getTitle(currentIndex + 1));
+            } else {
+                etTitle.requestFocus();
             }
         });
         return view;
@@ -55,9 +78,7 @@ public class TitleFragment extends Fragment {
 
     @Override
     public void onResume() {
-        Utils.HiddenKeyboard(Objects.requireNonNull(getActivity()));
-        PostActivity.bab.setVisibility(View.VISIBLE);
         super.onResume();
-
+        Utils.hiddenKeyboard(Objects.requireNonNull(getActivity()));
     }
 }

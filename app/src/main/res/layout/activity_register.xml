@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    android:orientation="vertical"
     android:padding="30dp"
     android:scrollbarSize="1dp"
     android:scrollbarStyle="outsideOverlay"
@@ -26,35 +25,16 @@
             android:padding="5dp"
             android:src="@drawable/ic_close" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:gravity="center_vertical">
-
-            <TextView
-                android:id="@+id/tvTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/muli_black"
-                android:text="Tạo\nTài khoản"
-                android:textAllCaps="true"
-                android:textColor="@color/colorBlack"
-                android:textSize="40sp"
-                android:transitionName="transition_layout_rg" />
-
-            <TextView
-                android:id="@+id/tvStep"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginStart="23dp"
-                android:background="@drawable/bg_step"
-                android:fontFamily="@font/audio_wide"
-                android:gravity="center"
-                android:text="@string/RGStep1"
-                android:textColor="@color/colorBlack"
-                android:textSize="30sp" />
-        </LinearLayout>
+            android:fontFamily="@font/muli_black"
+            android:text="Tạo\nTài khoản"
+            android:textAllCaps="true"
+            android:textColor="@color/colorBlack"
+            android:textSize="40sp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -66,7 +46,6 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
                 android:hint="@string/RGFullName"
                 android:textColorHint="@color/colorBlack"
                 app:boxStrokeColor="@color/colorBlack"
@@ -100,7 +79,6 @@
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/colorBlack"
                 app:hintTextColor="@color/colorBlack"
-                app:prefixText="+84 "
                 app:startIconDrawable="@drawable/ic_phone"
                 app:startIconTint="@color/colorBlack">
 
@@ -264,7 +242,7 @@
                 android:layout_centerInParent="true"
                 android:background="@drawable/bg_pbar"
                 android:elevation="8dp"
-                android:padding="17dp"
+                android:padding="15dp"
                 android:visibility="invisible">
 
                 <ProgressBar
@@ -280,9 +258,8 @@
             android:layout_marginTop="20dp"
             android:background="@color/colorBlack"
             android:fontFamily="@font/muli_black"
-            android:onClick="callNextStep"
+            android:onClick="callRegister"
             android:text="@string/Continue"
-            android:textColor="@color/colorWhite"
-            android:transitionName="transition_next" />
+            android:textColor="@color/colorWhite" />
     </LinearLayout>
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

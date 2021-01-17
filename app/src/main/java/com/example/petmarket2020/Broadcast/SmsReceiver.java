@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.telephony.SmsMessage;
 import android.widget.EditText;
 
-import com.example.petmarket2020.Views.Register2ndActivity;
+import com.example.petmarket2020.Views.VerifyCodeActivity;
 
 public class SmsReceiver extends BroadcastReceiver {
     private static final String ACTION = "android.provider.Telephony.SMS_RECEIVED";
@@ -35,7 +35,7 @@ public class SmsReceiver extends BroadcastReceiver {
                     if (OriginatingAddress.equals(smsMessage[0].getOriginatingAddress())) {
                         String sms = smsMessage[0].getMessageBody();
                         String code = sms.substring(sms.length() - 6);
-                        Register2ndActivity.codeResponse = code;
+                        VerifyCodeActivity.codeResponse = code;
                         if (codes != null)
                             autoFill(code);
                     }

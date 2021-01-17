@@ -1,39 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.petmarket2020">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- CAMERA (Truy cập camera) -->
-    <uses-permission android:name="android.permission.CAMERA" /> <!-- READ_EXTERNAL_STORAGE (Truy cập ảnh QR từ thư viện) -->
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
-    <uses-feature android:name="android.hardware.camera.autoFocus" />
-    <uses-feature android:name="android.hardware.camera" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
 
     <application
+        android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/AppName"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true"
-        android:fullBackupContent="true"
-        android:allowBackup="true">
-        <activity android:name=".WebviewPaymentActivity"></activity>
-        <activity android:name=".Views.LocationActivity" />
-        <activity android:name=".Views.RegisterActivity">
-            // first
-        </activity>
-        <activity android:name=".Views.Register2ndActivity" />
+        tools:replace="android:label">
+        <activity android:name=".Views.PaymentOptionActivity"></activity>
+        <activity android:name=".Views.CoinsActivity" />
+        <activity android:name=".Views.PostDetailActivity" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/api_key" />
+<activity android:name=".Views.WebViewPaymentActivity"/>
+        <activity
+            android:name=".Views.MapActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".Views.ImagePickerActivity" />
+        <activity
+            android:name=".Views.ProfileActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".Views.RegisterActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".Views.VerifyCodeActivity" />
         <activity android:name=".Views.SuccessfullyActivity" />
         <activity
             android:name=".Views.PostActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".Views.HomeActivity"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".Views.LoginActivity" />
 
         <receiver
@@ -44,15 +64,19 @@
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
-        </receiver>
-
-        <activity android:name=".Views.CoinsActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        </receiver> <!-- uCrop cropping activity -->
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait" /> <!-- cache directory file provider paths -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 
 </manifest>

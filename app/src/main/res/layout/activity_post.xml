@@ -45,49 +45,9 @@
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <com.example.petmarkets.Utils.MyViewPager
+    <com.example.petmarket2020.HelperClass.MyViewPager
         android:id="@+id/vpg"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/bab"
-        android:layout_below="@id/appbarlayout" />
-
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bab"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:backgroundTint="@color/colorPrimary"
-        android:clickable="true"
-        android:focusable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:visibility="gone"
-        tools:ignore="BottomAppBar">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="15dp"
-            android:background="@color/colorPrimary"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/ic_pet_white"
-                android:contentDescription="@string/AppName"
-                android:padding="18dp" />
-
-            <TextView
-                android:id="@+id/tvBab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="@string/Confirm"
-                android:textColor="@color/colorWhite"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-    </com.google.android.material.bottomappbar.BottomAppBar>
-
+        android:layout_height="match_parent"
+        android:layout_below="@id/appbarlayout"/>
 </RelativeLayout>

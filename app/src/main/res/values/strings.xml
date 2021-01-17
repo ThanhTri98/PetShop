@@ -1,7 +1,10 @@
 <resources>
+    <item name="isChecked" type="id" />
+    <item name="postId" type="id" />
     //Commons
     <string name="AppName">Pet Shop</string>
     <string name="Confirm">Xác nhận</string>
+    <string name="Complete">Hoàn tất</string>
     <string name="Continue">Tiếp tục</string>
     <string name="Email">Email</string>
     <string name="Pwd">Mật khẩu</string>
@@ -16,7 +19,6 @@
     <string name="RGPwd">Mật khẩu*</string>
     <string name="RGUid">Tài khoản*</string>
     <string name="RGFullName">Họ tên*</string>
-    <string name="RGStep1">1|2</string>
     <string name="RGPhoneNumber">Số điện thoại*</string>
     <string name="RGGender">Giới tính:</string>
     <string name="RGMale">Nam</string>
@@ -24,7 +26,6 @@
     <string name="RGOther">Khác</string>
     <string name="RGDob">Ngày sinh:</string>
     <string name="RGResend">Gửi lại</string>
-    <string name="RGCode">C O D E</string>
     //Login
     <string name="LG">Đăng nhập</string>
     <string name="LGHello">xin chào!</string>
@@ -33,7 +34,7 @@
     <string name="LGText1">Bạn chưa có tài khoản?</string>
     <string name="LGNow">Đăng ký ngay</string>
     //Home
-    <string name="HSearch">Tìm kiếm trên PetMarket</string>
+    <string name="HSearch">Tìm kiếm trên PetShop</string>
     <string name="HTitle1">Khám phá danh mục thú cưng</string>
     <string name="HTitle2">Tin đăng dành cho bạn</string>
     //Location
@@ -43,6 +44,7 @@
     // Add Image
     <string name="AIText1">Thêm hình ảnh để tin đăng thêm thu hút</string>
     <string name="AIText2">Vui lòng chọn ít nhất 1 hình ảnh</string>
+    <string name="AIText02">Bạn chỉ được chọn tối đa 5 ảnh</string>
     <string name="AIText3">Tối đa</string>
     <string name="AIText4">* Ảnh: 5 ảnh</string>
     <string name="AIText5">Để tin đăng thu hút hơn nên đăng kèm hình ảnh</string>
@@ -68,7 +70,7 @@
     <string name="CTCity">Tỉnh/Thành phố</string>
     <string name="CTDistrict">Quận/Huyện</string>
     <string name="CTSelect">chọn Quận/Huyện</string>
-    <string name="CTDefaul">chọn Quận/Huyện</string>
+    <string name="CTDefault">Toàn Quốc</string>
     //Duration Date
     <string name="DDPrice">Giá bán:</string>
     <string name="DDTime">Thời hạn đăng bài:</string>
@@ -82,6 +84,8 @@
     //Title
     <string name="TT">Tiêu đề</string>
     <string name="TTHint">Nhập tiêu đề</string>
+    <string name="TT10Char">Tiêu đề > 10 kí tự</string>
+    <string name="TTPleaseType">Vui lòng nhập tiêu đề!</string>
     <string name="TTText1">Ví dụ</string>
     <string name="TTText2">Nên viết tiếng việt có dấu</string>
     <string name="TTText3">* Giống thú cưng</string>
@@ -100,6 +104,7 @@
     <string name="VPTiemNgua">Tiêm ngừa</string>
     <string name="VPContact">Thông tin liên hệ</string>
     <string name="VPArea">Khu vực</string>
+    <string name="VPHealthy">Bảo hành sức khỏe</string>
 
 
     // Menu
@@ -111,6 +116,72 @@
     <string name="LGUid">Tài khoản</string>
     <string name="LGPwd">Mật khẩu</string>
     <string name="RGStep2">2|2</string>
-    <string name="RGCodeInvalid">Mã kích hoạt không hợp lệ!</string>
+    <string name="RGCodeInvalid">Mã xác thực không hợp lệ!</string>
+    <string name="MAction">Đăng nhập/Đăng ký</string>
+    <string name="MoViewProfile">Xem trang cá nhân của bạn</string>
+    <string name="MoCoins">Điểm Tốt của tôi</string>
+    <string name="MoCoinsScore">Điểm tốt</string>
+    <string name="Mo0">0</string>
+    <string name="MoSaved">Tin đăng đã lưu</string>
+    <string name="MoCoin">Đồng Tốt</string>
+    <string name="MoHistory">Lịch sử giao dịch</string>
+    <string name="MoSale">Mã khuyến mãi</string>
+    <string name="MoLogout">Đăng xuất</string>
+    <string name="PrfPwd">*************</string>
+    <string name="LGTitleError">Tài khoản hoặc mật khẩu không chính xác</string>
+    <string name="PrfTitle">Thông tin cá nhân</string>
+    <string name="PrfFullName">Họ và tên</string>
+    <string name="HintDefault">Aa</string>
+    <string name="PrfSave">Lưu</string>
+    <string name="PrfInVerify">Chưa xác thực</string>
+    <string name="PrfHaveNot">Chưa có</string>
+    <string name="PrfVerify">Xác thực ngay</string>
+    <string name="PrfAddress">Địa chỉ</string>
+    <string name="PrfStartDate">Ngày tham gia</string>
+    <string name="SuCreateAcc">Tạo tài khoản</string>
+    <string name="SuComplete">Thành công</string>
+    <string name="SuLogan">Chần chừ gì nữa mà không</string>
+    <string name="facebook_app_id">227296632169908</string>
+    <string name="fb_login_protocol_scheme">fb227296632169908</string>
+    <string name="lbl_set_profile_photo">Chọn ảnh từ</string>
+    <string name="lbl_take_camera_picture">Máy ảnh</string>
+    <string name="lbl_choose_from_gallery">Thư viện</string>
+    <string name="PrfUpdate">Cập nhật</string>
+    <string name="MapBack">Trở về</string>
+    // Keys
+    <string name="api_key">AIzaSyDim8ZTsjRMFKrrvmZsJpAEV4TvRcQn3ww</string>
 
+    <string name="co_nde">Co\nde</string>
+    <string name="verify">Xác thực</string>
+    <string name="verifyNoti">Mã xác thực còn hiệu lực:</string>
+    <string name="verifyTimeEnd">Mã xác nhận đã hết hiệu lực</string>
+    <string name="dangtinthanhcong">Đăng tin thành công</string>
+    <string name="chucmungdangtinthanhcong">Chúc mừng bạn đã đăng tin thành công.</string>
+    <string name="tindanthanhcongluuy">Lưu ý: Tin rao của bạn đang được xét duyệt, để kiểm tra trạng thái tin rao trong mục Tin của tôi ở giao diện trang chủ.</string>
+    <string name="xincamon">Xin cảm ơn!</string>
+    <string name="tin_hot">Tin HOT</string>
+    <string name="cmt_reate"><![CDATA[Bình luận & Đánh giá]]></string>
+    <string name="tindangtuongtu">Tin đăng tương tự</string>
+    <string name="gui_sms">Gửi SMS</string>
+    <string name="goi_dien">Gọi điện</string>
+    <string name="gui_danh_gia">Gửi đánh giá</string>
+    <string name="noi_dung">Nội dung:</string>
+    <string name="danh_gia">Đánh giá:</string>
+    <string name="bao_cao_tin">Báo cáo tin không hợp lệ</string>
+    <string name="warning_post_detail">Tin đăng này đã được kiểm duyệt, Nếu gặp vấn đề, vui lòng báo cáo tin đăng hoặc liên hệ CSKH để được trợ giúp.</string>
+    <string name="v_vnpay">Ví VNPay</string>
+    <string name="thanh_toan">Thanh Toán</string>
+    <string name="v_momo">Ví Momo</string>
+    <string name="chon_hinh_thuc_thanh_toan">Chọn hình thức thanh toán</string>
+    <string name="so_tien_phai_tra">Số tiền phải trả</string>
+    <string name="khuyen_mai">Khuyến mãi:</string>
+    <string name="dong_tot_nap_them">Đồng Tốt nạp thêm:</string>
+    <string name="thanh_tpan_dong_tot">Thanh Toán Đồng Tốt</string>
+    <string name="dich_vu">Dịch vụ</string>
+    <string name="xem_lich_su_gd"><![CDATA[Xem lịch sử giao dịch >>]]></string>
+    <string name="ban_da_danh_gia_bv">Bạn đã đánh giá bài viết này</string>
+    <string name="bai_dang">Bài đăng</string>
+    <string name="so_du">Số dư:</string>
+    <string name="cac_goi_nap">Các gói nạp</string>
+    <string name="dong_tot">Đồng Tốt</string>
 </resources>

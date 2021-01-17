@@ -1,7 +1,5 @@
 package com.example.petmarket2020.Views;
 
-import android.app.ActivityOptions;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -16,13 +14,6 @@ public class SuccessfullyActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_successfully);
-    }
-
-    public void callLogin(View view) {
-        // Add transition
-        ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(SuccessfullyActivity.this, view, "transition_layout_lg");
-        startActivity(new Intent(SuccessfullyActivity.this, LoginActivity.class), activityOptions.toBundle());
-        finish();
     }
 
     public void callFinish(View view) {

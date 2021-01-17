@@ -15,8 +15,7 @@
         android:contentDescription="@string/AppName"
         android:onClick="callFinish"
         android:padding="5dp"
-        android:src="@drawable/ic_close"
-        android:transitionName="transition_back" />
+        android:src="@drawable/ic_close" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/muli_black"
-            android:text="Tạo tài khoản"
+            android:text="@string/SuCreateAcc"
             android:textAllCaps="true"
             android:textColor="@color/colorBlack"
             android:textSize="25sp" />
@@ -39,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/muli_black"
-            android:text="Thành công"
+            android:text="@string/SuComplete"
             android:textAllCaps="true"
             android:textColor="@color/colorBlack"
             android:textSize="40sp" />
@@ -47,6 +46,7 @@
         <ImageView
             android:layout_width="200dp"
             android:layout_height="200dp"
+            android:contentDescription="@string/AppName"
             android:src="@drawable/ic_verified" />
 
         <TextView
@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/muli_black"
-            android:text="Chần chừ gì nữa mà không"
+            android:text="@string/SuLogan"
             android:textAllCaps="true"
             android:textColor="@color/colorBlack"
             android:textSize="15sp" />
@@ -66,7 +66,7 @@
             android:layout_marginTop="10dp"
             android:background="@color/colorBlack"
             android:fontFamily="@font/muli_black"
-            android:onClick="callLogin"
+            android:onClick="callFinish"
             android:text="@string/LG"
             android:textColor="@color/colorWhite"
             android:transitionName="transition_next" />

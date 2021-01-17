@@ -1,164 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cdl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Views.HomeActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true">
+        android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.Toolbar
+        <com.example.petmarket2020.HelperClass.MyViewPager
+            android:id="@+id/vpg"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimary"
-            android:paddingVertical="5dp"
-            app:layout_scrollFlags="exitUntilCollapsed">
+            android:layout_height="match_parent" />
 
-            <LinearLayout
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/bottomAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            app:fabCradleMargin="5dp"
+            app:fabCradleRoundedCornerRadius="10dp"
+            tools:ignore="BottomAppBar">
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/botNav"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginEnd="12dp"
-                android:focusable="false"
-                android:focusableInTouchMode="true">
+                android:layout_marginEnd="16dp"
+                android:background="@android:color/transparent"
+                app:menu="@menu/bottom_nav_menu" />
+        </com.google.android.material.bottomappbar.BottomAppBar>
 
-                <ImageView
-                    android:id="@+id/ivBack"
-                    android:layout_width="30dp"
-                    android:layout_height="match_parent"
-                    android:contentDescription="@string/AppName"
-                    android:src="@drawable/ic_search_back"
-                    android:visibility="gone" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabPost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/AppName"
+            android:src="@drawable/ic_nav_post"
+            app:backgroundTint="@color/colorPrimary"
+            app:borderWidth="0dp"
+            app:layout_anchor="@id/bottomAppBar"
+            app:rippleColor="@color/colorWhite" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-                <SearchView
-                    android:id="@+id/svHome"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_search"
-                    android:iconifiedByDefault="false"
-                    android:paddingLeft="-8dp"
-                    android:paddingRight="-8dp"
-                    android:queryBackground="@android:color/transparent"
-                    android:queryHint="@string/HSearch"
-                    android:theme="@style/AppSearchView" />
-
-            </LinearLayout>
-        </androidx.appcompat.widget.Toolbar>
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="?attr/actionBarSize">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorGrayLight"
-            android:orientation="vertical">
-            <com.denzcoskun.imageslider.ImageSlider
-                android:id="@+id/imgSlider"
-                android:layout_width="match_parent"
-                android:layout_height="130dp"
-                app:iss_auto_cycle="true"
-                app:iss_delay="0"
-                app:iss_period="2000" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="10dp"
-                android:background="@color/colorWhite"
-                android:orientation="vertical"
-                android:paddingHorizontal="10dp"
-                android:paddingTop="5dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="7dp"
-                    android:text="@string/HTitle1"
-                    android:textColor="@color/colorTextDefault"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvCategoryDog"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:paddingVertical="5dp"
-                    tools:itemCount="0" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvCategoryCat"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingVertical="5dp"
-                    tools:itemCount="0" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/colorWhite"
-                android:orientation="vertical"
-                android:paddingHorizontal="10dp"
-                android:paddingTop="5dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="7dp"
-                    android:text="@string/HTitle2"
-                    android:textColor="@color/colorTextDefault"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvPoster"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    tools:itemCount="0" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/colorWhite" />
-        </LinearLayout>
-
-    </androidx.core.widget.NestedScrollView>
-
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottomAppBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:fabCradleMargin="5dp"
-        app:fabCradleRoundedCornerRadius="10dp"
-        tools:ignore="BottomAppBar">
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/botNav"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="16dp"
-            android:background="@android:color/transparent"
-            app:menu="@menu/bottom_nav_menu" />
-    </com.google.android.material.bottomappbar.BottomAppBar>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabPost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/AppName"
-        android:src="@drawable/ic_nav_post"
-        app:backgroundTint="@color/colorPrimary"
-        app:borderWidth="0dp"
-        app:layout_anchor="@id/bottomAppBar"
-        app:rippleColor="@color/colorWhite" />
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <View
+        android:visibility="invisible"
+        android:id="@+id/vTmp"
+        android:layout_marginBottom="90dp"
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>

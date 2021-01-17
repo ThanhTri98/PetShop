@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="5dp"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <RadioGroup
@@ -11,78 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:ignore="UselessParent">
-
-        <RadioButton
-            android:id="@+id/rdbtnPug"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_rd_selector"
-            android:button="@android:color/transparent"
-            android:drawableEnd="@drawable/bg_rd_ic_end_selector"
-            android:textColor="@drawable/bg_rd_text_color_selector"
-            android:paddingHorizontal="15dp"
-            android:text="Chó Pug"
-            android:textSize="15sp" />
-
-        <RadioButton
-            android:id="@+id/rdbtnPoodle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_rd_selector"
-            android:button="@android:color/transparent"
-            android:drawableEnd="@drawable/bg_rd_ic_end_selector"
-            android:paddingHorizontal="15dp"
-            android:text="Chó Poodle"
-            android:textColor="@drawable/bg_rd_text_color_selector"
-            android:textSize="15sp" />
-
-        <RadioButton
-            android:id="@+id/rdbtnHusky"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_rd_selector"
-            android:button="@android:color/transparent"
-            android:drawableEnd="@drawable/bg_rd_ic_end_selector"
-            android:paddingHorizontal="15dp"
-            android:text="Chó Husky"
-            android:textColor="@drawable/bg_rd_text_color_selector"
-            android:textSize="15sp" />
-
-        <RadioButton
-            android:id="@+id/rdbtnCorgi"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_rd_selector"
-            android:button="@android:color/transparent"
-            android:drawableEnd="@drawable/bg_rd_ic_end_selector"
-            android:paddingHorizontal="15dp"
-            android:text="Chó Corgi"
-            android:textColor="@drawable/bg_rd_text_color_selector"
-            android:textSize="15sp" />
-
-        <RadioButton
-            android:id="@+id/rdbtnShiba"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_rd_selector"
-            android:button="@android:color/transparent"
-            android:drawableEnd="@drawable/bg_rd_ic_end_selector"
-            android:paddingHorizontal="15dp"
-            android:text="Chó Shiba"
-            android:textColor="@drawable/bg_rd_text_color_selector"
-            android:textSize="15sp" />
-
-        <RadioButton
-            android:id="@+id/rdbtnOther"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_rd_selector"
-            android:button="@android:color/transparent"
-            android:drawableEnd="@drawable/bg_rd_ic_end_selector"
-            android:paddingHorizontal="15dp"
-            android:text="Dòng chó khác"
-            android:textColor="@drawable/bg_rd_text_color_selector"
-            android:textSize="15sp" />
     </RadioGroup>
 
 </LinearLayout>

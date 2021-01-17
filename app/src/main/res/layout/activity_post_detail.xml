@@ -1,0 +1,623 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbarlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorPrimary"
+                app:layout_scrollFlags="exitUntilCollapsed">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="12dp"
+                    tools:ignore="UseCompoundDrawables">
+
+                    <ImageView
+                        android:id="@+id/ivBack"
+                        android:layout_width="40dp"
+                        android:layout_height="match_parent"
+                        android:contentDescription="@string/AppName"
+                        android:paddingVertical="13dp"
+                        android:src="@drawable/ic_post_arrow_back" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="25dp"
+                        android:gravity="center"
+                        android:text="@string/bai_dang"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/bab">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.smarteist.autoimageslider.SliderView
+                    android:id="@+id/imageSlider"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    app:sliderAnimationDuration="600"
+                    app:sliderAutoCycleDirection="back_and_forth"
+                    app:sliderAutoCycleEnabled="true"
+                    app:sliderIndicatorAnimationDuration="600"
+                    app:sliderIndicatorGravity="center_horizontal|bottom"
+                    app:sliderIndicatorMargin="15dp"
+                    app:sliderIndicatorOrientation="horizontal"
+                    app:sliderIndicatorPadding="3dp"
+                    app:sliderIndicatorRadius="2dp"
+                    app:sliderIndicatorSelectedColor="@color/colorPrimary"
+                    app:sliderIndicatorUnselectedColor="@color/colorGrayLight"
+                    app:sliderScrollTimeInSec="1"
+                    app:sliderStartAutoCycle="true" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/tvTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorTextDefault"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp">
+
+                        <TextView
+                            android:id="@+id/tvPrice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            tools:ignore="RelativeOverlap" />
+
+                        <RatingBar
+                            android:id="@+id/ratingBarTotal"
+                            style="@android:style/Widget.Material.Light.RatingBar.Small"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_centerVertical="true"
+                            android:isIndicator="true"
+                            android:progressTint="@color/colorPrimary"
+                            android:secondaryProgressTint="@color/colorLoading"
+                            android:stepSize="0.1" />
+
+                        <TextView
+                            android:id="@+id/tvBarTotal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toEndOf="@+id/ratingBarTotal"
+                            android:textColor="@color/colorTextDefault"
+                            android:textSize="15sp"
+                            tools:ignore="RelativeOverlap" />
+
+                        <ImageView
+                            android:id="@+id/imgFav"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:contentDescription="@string/AppName"
+                            android:padding="5dp"
+                            android:src="@drawable/ic_item_tym" />
+
+                        <ProgressBar
+                            android:id="@+id/pgBar"
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="5dp"
+                            android:indeterminateTint="@color/colorRedDark"
+                            android:visibility="invisible" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:background="@color/colorPrimary" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingVertical="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="@string/VPInfor"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/bg_border_horizontal"
+                        android:paddingHorizontal="10dp"
+                        android:shrinkColumns="*"
+                        tools:ignore="RtlSymmetry">
+
+                        <TableRow
+                            android:gravity="center_horizontal"
+                            android:paddingVertical="3dp">
+
+                            <TextView
+                                style="@style/TextAppearance.AppCompat.SearchResult.Title"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:text="@string/VPBreed"
+                                android:textSize="15sp" />
+
+                            <TextView
+                                android:id="@+id/tvBreed"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:textSize="15sp" />
+                        </TableRow>
+
+                        <TableRow android:paddingVertical="3dp">
+
+                            <TextView
+                                style="@style/TextAppearance.AppCompat.SearchResult.Title"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:text="@string/VPGender"
+                                android:textSize="15sp" />
+
+                            <TextView
+                                android:id="@+id/tvGender"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:textSize="15sp" />
+                        </TableRow>
+
+                        <TableRow android:paddingVertical="3dp">
+
+                            <TextView
+                                style="@style/TextAppearance.AppCompat.SearchResult.Title"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:text="@string/VPYear"
+                                android:textSize="15sp" />
+
+                            <TextView
+                                android:id="@+id/tvAge"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:textSize="15sp" />
+                        </TableRow>
+
+                        <TableRow android:paddingVertical="3dp">
+
+                            <TextView
+                                style="@style/TextAppearance.AppCompat.SearchResult.Title"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:text="@string/VPTiemNgua"
+                                android:textSize="15sp" />
+
+                            <TextView
+                                android:id="@+id/tvInject"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:textSize="15sp" />
+                        </TableRow>
+
+                        <TableRow android:paddingVertical="3dp">
+
+                            <TextView
+                                style="@style/TextAppearance.AppCompat.SearchResult.Title"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:text="@string/VPHealthy"
+                                android:textSize="15sp" />
+
+                            <TextView
+                                android:id="@+id/tvHealthy"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:textSize="15sp" />
+                        </TableRow>
+                    </TableLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingVertical="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="@string/VPContact"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/bg_border_horizontal"
+                        android:paddingHorizontal="10dp"
+                        android:shrinkColumns="*"
+                        tools:ignore="RtlSymmetry">
+
+                        <TableRow android:paddingVertical="3dp">
+
+                            <TextView
+                                style="@style/TextAppearance.AppCompat.SearchResult.Title"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:text="@string/PhoneNumber"
+                                android:textSize="15sp" />
+
+                            <TextView
+                                android:id="@+id/tvPhoneNumber"
+                                android:layout_weight="1"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="15sp" />
+                        </TableRow>
+
+                        <TableRow android:paddingVertical="3dp">
+
+                            <TextView
+                                style="@style/TextAppearance.AppCompat.SearchResult.Title"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:text="@string/VPArea"
+                                android:textSize="15sp" />
+
+                            <TextView
+                                android:id="@+id/tvArea"
+                                android:layout_weight="1"
+                                android:textSize="15sp" />
+                        </TableRow>
+                    </TableLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_border_horizontal"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="15dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:ignore="UseCompoundDrawables,UselessParent">
+
+                        <ImageView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:contentDescription="@string/AppName"
+                            android:src="@drawable/icon_approved" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="11dp"
+                            android:text="@string/warning_post_detail"
+                            android:textColor="@color/colorTextDefault"
+                            android:textSize="15sp"
+                            android:textStyle="italic" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tvReport"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/bg_search"
+                        android:paddingHorizontal="20dp"
+                        android:paddingVertical="5dp"
+                        android:text="@string/bao_cao_tin"
+                        android:textColor="@color/colorRedDark"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/tvRateCmt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:text="@string/cmt_reate"
+                        android:textColor="@color/colorTextDefault"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <RelativeLayout
+                        android:id="@+id/rlIsRate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_centerVertical="true"
+                            android:background="@color/colorGrayLight" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginVertical="5dp"
+                            android:background="@color/white"
+                            android:elevation="0dp"
+                            android:paddingHorizontal="2dp"
+                            android:text="@string/ban_da_danh_gia_bv"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="12sp" />
+
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/tvRate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/danh_gia"
+                            android:textColor="@color/colorPrimary" />
+
+                        <RatingBar
+                            android:id="@+id/ratingUser"
+                            style="@android:style/Widget.Material.Light.RatingBar.Small"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="2dp"
+                            android:isIndicator="false"
+                            android:progressTint="@color/colorPrimary"
+                            android:rating="5"
+                            android:secondaryProgressTint="@color/colorGrayLight"
+                            android:stepSize="1" />
+
+                        <TextView
+                            android:id="@+id/tvTime"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="2dp"
+                            android:textAlignment="textEnd"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+
+                    <TextView
+                        android:id="@+id/tvCmt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:text="@string/noi_dung"
+                        android:textColor="@color/colorPrimary" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilComment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorWhite"
+                        app:boxStrokeWidth="0dp"
+                        app:boxStrokeWidthFocused="0dp"
+                        app:counterEnabled="true"
+                        app:counterMaxLength="300"
+                        app:hintEnabled="false">
+
+                        <EditText
+                            android:id="@+id/etComment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:height="50dp"
+                            android:autofillHints=""
+                            android:background="@color/colorWhite"
+                            android:gravity="top"
+                            android:hint="Để lại vài lời góp lúa..."
+                            android:inputType="textMultiLine"
+                            android:maxLength="300"
+                            android:padding="0dp"
+                            android:textColor="@color/colorTextDefault"
+                            android:textSize="15sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:id="@+id/tvError"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-17dp"
+                        android:textColor="@color/colorRedDark"
+                        android:textSize="13sp" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <Button
+                            android:id="@+id/btnSubmit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginVertical="7dp"
+                            android:layout_marginBottom="3dp"
+                            android:background="@drawable/bg_fill_circle_submit"
+                            android:paddingHorizontal="15dp"
+                            android:text="@string/gui_danh_gia"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white" />
+
+                        <include
+                            android:id="@+id/pgBar2"
+                            layout="@layout/progress_bar_custom"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:visibility="invisible" />
+                    </RelativeLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvRate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="@color/colorGrayLight" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorWhite"
+                    android:orientation="vertical"
+                    android:paddingStart="10dp"
+                    android:paddingTop="5dp"
+                    tools:ignore="RtlSymmetry">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:text="@string/tindangtuongtu"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorTextDefault"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvSamePost"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <RelativeLayout
+                            android:id="@+id/rlBar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginHorizontal="5dp"
+                            android:background="@drawable/bg_pbar"
+                            android:elevation="4dp"
+                            android:padding="11dp"
+                            android:visibility="gone">
+
+                            <ProgressBar
+                                android:layout_width="19dp"
+                                android:layout_height="18dp" />
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <LinearLayout
+            android:id="@+id/bab"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/bg_bottom_contact"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="10dp">
+
+            <Button
+                android:id="@+id/btnCall"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                android:clickable="true"
+                android:drawableStart="@drawable/ic_phone"
+                android:drawableTint="@color/white"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:paddingHorizontal="35dp"
+                android:text="@string/goi_dien"
+                android:textColor="@color/white"
+                tools:ignore="ButtonStyle" />
+
+            <Button
+                android:id="@+id/btnSms"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/colorGreen"
+                android:clickable="true"
+                android:drawableStart="@drawable/ic_details_chat"
+                android:drawableTint="@color/white"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:paddingHorizontal="35dp"
+                android:text="@string/gui_sms"
+                android:textColor="@color/white"
+                tools:ignore="ButtonStyle" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

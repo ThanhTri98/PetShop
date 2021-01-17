@@ -1,0 +1,640 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite">
+
+    <RelativeLayout
+        android:id="@+id/r1"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:contentDescription="@string/AppName"
+            android:padding="5dp"
+            android:src="@drawable/ic_search_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/PrfTitle"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/r2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/r1"
+        android:background="@drawable/bg_border_bottom"
+        android:gravity="center_vertical"
+        android:paddingVertical="10dp"
+        android:paddingStart="10dp"
+        tools:ignore="RtlSymmetry,UselessParent">
+
+        <RelativeLayout
+            android:id="@+id/rlIvProfile"
+            android:layout_width="70dp"
+            android:layout_height="80dp">
+
+            <ImageView
+                android:id="@+id/ivAvatar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/app_name"
+                android:foreground="@drawable/fg_circle"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_login_user" />
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/bg_border_circle"
+                android:backgroundTint="@color/colorWhite"
+                android:contentDescription="@string/AppName"
+                android:padding="4dp"
+                android:src="@drawable/ic_camera" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="15dp"
+            android:background="@drawable/bg_search"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/tvLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/PrfFullName"
+                tools:ignore="RelativeOverlap" />
+
+            <EditText
+                android:id="@+id/etFullName"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/tvLabel"
+                android:layout_marginEnd="30dp"
+                android:autofillHints=""
+                android:background="@drawable/bg_et"
+                android:enabled="false"
+                android:hint="@string/HintDefault"
+                android:inputType="textPersonName"
+                android:maxLength="40"
+                android:padding="0dp"
+                android:textColor="@color/colorTextDefault"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/ivEditName"
+                android:layout_width="30dp"
+                android:layout_height="35dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:contentDescription="@string/AppName"
+                android:padding="5dp"
+                android:src="@drawable/ic_edit_24" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/r3"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_below="@+id/r2"
+        android:background="@drawable/bg_border_bottom"
+        android:paddingVertical="5dp">
+
+        <FrameLayout
+            android:id="@+id/flPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/bg_border_circle"
+            android:backgroundTint="@color/colorPrimary">
+
+            <View
+                android:layout_width="20sp"
+                android:layout_height="20sp"
+                android:layout_margin="5dp"
+                android:background="@drawable/ic_phone"
+                android:backgroundTint="@color/colorWhite"
+                android:contentDescription="@string/app_name" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tvPhoneNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/flPhone"
+            android:text="@string/PhoneNumber"
+            android:textColor="@color/grey_font"
+            android:textSize="15sp"
+            tools:ignore="RelativeOverlap" />
+
+        <EditText
+            android:id="@+id/etPhoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="40dp"
+            android:layout_toEndOf="@+id/flPhone"
+            android:autofillHints=""
+            android:background="@drawable/bg_et"
+            android:enabled="false"
+            android:hint="@string/PrfHaveNot"
+            android:inputType="number"
+            android:maxLength="10"
+            android:padding="0dp"
+            android:textColor="@color/colorTextDefault"
+            android:textSize="15sp"
+            tools:ignore="LabelFor,TextFields" />
+
+        <View
+            android:id="@+id/vMailStatusPhone"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="2dp"
+            android:layout_toEndOf="@+id/tvPhoneNumber"
+            android:background="@drawable/ic_baseline_info_24"
+            android:contentDescription="@string/AppName"
+            tools:ignore="RelativeOverlap" />
+
+        <Button
+            android:id="@+id/btnVerifyPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/vMailStatusPhone"
+            android:background="@drawable/bg_border_circle"
+            android:backgroundTint="@color/colorGreen"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="0dp"
+            android:text="@string/PrfVerify"
+            android:textAllCaps="false"
+            android:textColor="@color/colorWhite"
+            android:textSize="12sp"
+            tools:ignore="RelativeOverlap" />
+
+        <ImageView
+            android:id="@+id/ivEditPhone"
+            android:layout_width="30dp"
+            android:layout_height="35dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="5dp"
+            android:contentDescription="@string/AppName"
+            android:padding="5dp"
+            android:src="@drawable/ic_edit_24" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/r4"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_below="@+id/r3"
+        android:background="@drawable/bg_border_bottom"
+        android:paddingVertical="5dp">
+
+        <FrameLayout
+            android:id="@+id/flEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/bg_border_circle"
+            android:backgroundTint="#2196F3">
+
+            <View
+                android:layout_width="20sp"
+                android:layout_height="20sp"
+                android:layout_margin="5dp"
+                android:background="@drawable/ic_email_24"
+                android:backgroundTint="@color/colorWhite"
+                android:contentDescription="@string/app_name" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tvEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/flEmail"
+            android:text="@string/Email"
+            android:textColor="@color/grey_font"
+            android:textSize="15sp" />
+
+
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="40dp"
+            android:layout_toEndOf="@+id/flEmail"
+            android:autofillHints=""
+            android:background="@drawable/bg_et"
+            android:enabled="false"
+            android:hint="@string/PrfHaveNot"
+            android:inputType="textEmailAddress"
+            android:maxLength="60"
+            android:padding="0dp"
+            android:textColor="@color/colorTextDefault"
+            android:textSize="15sp"
+            tools:ignore="LabelFor" />
+
+        <ImageView
+            android:id="@+id/ivEditEmail"
+            android:layout_width="30dp"
+            android:layout_height="35dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="5dp"
+            android:contentDescription="@string/AppName"
+            android:padding="5dp"
+            android:src="@drawable/ic_edit_24" />
+
+        <View
+            android:id="@+id/vMailStatusEmail"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="2dp"
+            android:layout_toEndOf="@+id/tvEmail"
+            android:background="@drawable/ic_baseline_info_24"
+            android:contentDescription="@string/AppName"
+            tools:ignore="RelativeOverlap" />
+
+        <Button
+            android:id="@+id/btnVerifyEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/vMailStatusEmail"
+            android:background="@drawable/bg_border_circle"
+            android:backgroundTint="@color/colorGreen"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="0dp"
+            android:text="@string/PrfVerify"
+            android:textAllCaps="false"
+            android:textColor="@color/colorWhite"
+            android:textSize="12sp"
+            tools:ignore="RelativeOverlap" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/r5"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_below="@+id/r4"
+        android:background="@drawable/bg_border_bottom"
+        android:paddingVertical="5dp">
+
+        <FrameLayout
+            android:id="@+id/flAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/bg_border_circle"
+            android:backgroundTint="#8BC34A">
+
+            <View
+                android:layout_width="20sp"
+                android:layout_height="20sp"
+                android:layout_margin="5dp"
+                android:background="@drawable/ic_item_location"
+                android:backgroundTint="@color/colorWhite"
+                android:contentDescription="@string/app_name" />
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/flAddress"
+            android:text="@string/PrfAddress"
+            android:textColor="@color/grey_font"
+            android:textSize="15sp"
+            tools:ignore="RelativeOverlap" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="40dp"
+            android:layout_toEndOf="@+id/flAddress"
+            android:scrollbarSize="0.2dp">
+
+            <TextView
+                android:id="@+id/tvAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="10dp"
+                android:autofillHints=""
+                android:background="@drawable/bg_et"
+                android:hint="@string/PrfHaveNot"
+                android:padding="0dp"
+                android:paddingEnd="10dp"
+                android:textColor="@color/colorTextDefault"
+                android:textSize="15sp"
+                tools:ignore="LabelFor,RtlSymmetry" />
+        </HorizontalScrollView>
+
+
+        <ImageView
+            android:id="@+id/ivEditAddress"
+            android:layout_width="30dp"
+            android:layout_height="35dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="5dp"
+            android:contentDescription="@string/AppName"
+            android:padding="5dp"
+            android:src="@drawable/ic_edit_24" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlPwd"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_below="@+id/r5"
+        android:background="@drawable/bg_border_bottom"
+        android:paddingVertical="5dp">
+
+        <FrameLayout
+            android:id="@+id/flPwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/bg_border_circle"
+            android:backgroundTint="#009688">
+
+            <View
+                android:layout_width="20sp"
+                android:layout_height="20sp"
+                android:layout_margin="5dp"
+                android:background="@drawable/ic_login_pass"
+                android:backgroundTint="@color/colorWhite"
+                android:contentDescription="@string/app_name" />
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/flPwd"
+            android:text="@string/Pwd"
+            android:textColor="@color/grey_font"
+            android:textSize="15sp"
+            tools:ignore="RelativeOverlap" />
+
+        <EditText
+            android:id="@+id/etPwd"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/flPwd"
+            android:autofillHints=""
+            android:background="@drawable/bg_et"
+            android:enabled="false"
+            android:inputType="textPassword"
+            android:padding="0dp"
+            android:textColor="@color/colorTextDefault"
+            android:textSize="15sp"
+            tools:ignore="LabelFor" />
+
+        <ImageView
+            android:id="@+id/ivEditPwd"
+            android:layout_width="30dp"
+            android:layout_height="35dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="5dp"
+            android:contentDescription="@string/AppName"
+            android:padding="5dp"
+            android:src="@drawable/ic_edit_24" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/r7"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_below="@+id/rlPwd"
+        android:background="@drawable/bg_border_bottom"
+        android:paddingVertical="5dp">
+
+        <FrameLayout
+            android:id="@+id/flGender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/bg_border_circle"
+            android:backgroundTint="#7D64A8">
+
+            <View
+                android:layout_width="20sp"
+                android:layout_height="20sp"
+                android:layout_margin="5dp"
+                android:background="@drawable/ic_face"
+                android:backgroundTint="@color/colorWhite"
+                android:contentDescription="@string/app_name" />
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/flGender"
+            android:text="@string/VPGender"
+            android:textColor="@color/grey_font"
+            android:textSize="15sp"
+            tools:ignore="RelativeOverlap" />
+
+        <TextView
+            android:id="@+id/tvGender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/flGender"
+            android:textColor="@color/colorTextDefault"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/ivEditGender"
+            android:layout_width="30dp"
+            android:layout_height="35dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="5dp"
+            android:contentDescription="@string/AppName"
+            android:padding="5dp"
+            android:src="@drawable/ic_edit_24" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/r8"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_below="@+id/r7"
+        android:background="@drawable/bg_border_bottom"
+        android:paddingVertical="5dp">
+
+        <FrameLayout
+            android:id="@+id/flDob"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/bg_border_circle"
+            android:backgroundTint="#BF4880">
+
+            <View
+                android:layout_width="20sp"
+                android:layout_height="20sp"
+                android:layout_margin="5dp"
+                android:background="@drawable/ic_cake"
+                android:backgroundTint="@color/colorWhite"
+                android:contentDescription="@string/app_name" />
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/flDob"
+            android:text="@string/RGDob"
+            android:textColor="@color/grey_font"
+            android:textSize="15sp"
+            tools:ignore="RelativeOverlap" />
+
+        <TextView
+            android:id="@+id/tvDob"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/flDob"
+            android:textColor="@color/colorTextDefault"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/ivEditDob"
+            android:layout_width="30dp"
+            android:layout_height="35dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="5dp"
+            android:contentDescription="@string/AppName"
+            android:padding="5dp"
+            android:src="@drawable/ic_edit_24" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/r9"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_below="@+id/r8"
+        android:background="@drawable/bg_border_bottom"
+        android:paddingVertical="5dp">
+
+        <FrameLayout
+            android:id="@+id/flStartDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/bg_border_circle"
+            android:backgroundTint="#03A9F4">
+
+            <View
+                android:layout_width="20sp"
+                android:layout_height="20sp"
+                android:layout_margin="5dp"
+                android:background="@drawable/ic_date"
+                android:backgroundTint="@color/colorWhite"
+                android:contentDescription="@string/app_name" />
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/flStartDate"
+            android:text="@string/PrfStartDate"
+            android:textColor="@color/grey_font"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tvJoinDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/flStartDate"
+            android:textColor="@color/colorTextDefault"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/bg_pbar"
+        android:elevation="8dp"
+        android:padding="17dp"
+        android:visibility="invisible">
+
+        <ProgressBar
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btnUpdate"
+        android:layout_width="100dp"
+        android:layout_height="35dp"
+        android:layout_below="@+id/r9"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_border_circle"
+        android:backgroundTint="@color/colorBlack"
+        android:fontFamily="@font/muli_black"
+        android:text="@string/PrfUpdate"
+        android:textAllCaps="false"
+        android:textColor="@color/colorWhite"
+        android:textSize="16sp" />
+</RelativeLayout>
