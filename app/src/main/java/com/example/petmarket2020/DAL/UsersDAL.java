@@ -1,7 +1,6 @@
 package com.example.petmarket2020.DAL;
 
 import android.app.Activity;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -35,24 +34,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class UsersDAL {
-    public static final String KEY_UID = "uid";
-    public static final String KEY_PWD = "pwd";
     public static final String KEY_FULLNAME = "fullName";
     public static final String KEY_EMAIL = "email";
-    public static final String KEY_GENDER = "gender";
-    public static final String KEY_DOB = "dateOfBirth";
-    public static final String KEY_COINS = "coins";
     public static final String KEY_LATITUDE = "latitude";
     public static final String KEY_LONGITUDE = "longitude";
     public static final String KEY_ADDRESS = "address";
-    public static final String KEY_FAVORITES = "favorites";
-    public static final String KEY_EMAIL_VERIFY = "isEmailVerified";
-    public static final String KEY_PHONE_VERIFY = "isPhoneVerified";
     public static final String KEY_PHONE = "phoneNumber";
     public static final String KEY_AVATAR = "avatar";
-    public static final String KEY_JOIN = "joinDate";
 
     private static final long LIMIT_TIME_PHONE_OTP = 60L;
     private final SessionManager sessionManager;
@@ -96,22 +87,16 @@ public class UsersDAL {
         );
     }
 
-//    public void updateVerifyInfo(int type, String uid) {
-////    type == 1 (phone); type == 2 (email)
-//        if (uid != null) {
-//            if (type == 1) {
-//                mRef.child(uid).child("phoneVerified").setValue(true);
-//                HashMap<String, Object> hMap = new HashMap<>();
-//                hMap.put(KEY_PHONE_VERIFY, true);
-//                updateSessionInfo(hMap);
-//            } else {
-//                mRef.child(uid).child("emailVerified").setValue(true);
-//                HashMap<String, Object> hMap = new HashMap<>();
-//                hMap.put(KEY_EMAIL, true);
-//                updateSessionInfo(hMap);
-//            }
-//        }
-//    }
+    public void updateVerifyInfo(int type, String uid) {
+//    type == 1 (phone); type == 2 (email)
+        if (uid != null) {
+            if (type == 1) {
+                mRef.child(uid).child("phoneVerified").setValue(true);
+            } else {
+                mRef.child(uid).child("emailVerified").setValue(true);
+            }
+        }
+    }
 
     // Register
     public void registerUser(UsersModel usersModel, IControlData iControlData) {
@@ -279,14 +264,21 @@ public class UsersDAL {
     }
 
     public void setFavorite(String uid, List<String> favorites, IControlData iControlData) {
-        mRef.child(uid).child("favorites").setValue(favorites).addOnCompleteListener(task -> {
-            iControlData.isSuccessful(task.isSuccessful());
-        });
+        mRef.child(uid).child("favorites").setValue(favorites)
+                .addOnCompleteListener(task -> iControlData.isSuccessful(task.isSuccessful()));
     }
 
     //    sessionManager
     public void createOrUpdateUserSession(UsersModel usersModel) {
         sessionManager.createOrUpdateUserSession(usersModel);
+    }
+
+    public void savePostManageOfUserSession(SessionManager.PostManageItemCount postManageItemCount) {
+        sessionManager.createOrUpdatePostOfUserSession(postManageItemCount);
+    }
+
+    public SessionManager.PostManageItemCount getPostOfUserSession() {
+        return sessionManager.getPostOfUserSession();
     }
 
     public UsersModel getUserSession() {
@@ -306,7 +298,45 @@ public class UsersDAL {
         if (userIsExists()) {
             String uId = getUserSession().getUid();
             saveUserSession(uId);
+            savePostManageOfUserSession(uId);
         }
+    }
+
+    private void savePostManageOfUserSession(String uId) {
+        FirebaseDatabase.getInstance().getReference().child(NodeRootDB.POST).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                AtomicInteger sellingCount = new AtomicInteger();
+                AtomicInteger hiddenCount = new AtomicInteger();
+                AtomicInteger refuseCount = new AtomicInteger();
+                AtomicInteger waitingCount = new AtomicInteger();
+                SessionManager.PostManageItemCount postManageItemCount = new SessionManager.PostManageItemCount();
+                snapshot.getChildren().forEach(dataSnapshot -> {
+                    String poster = String.valueOf(dataSnapshot.child("poster").getValue());
+                    if (poster.equals(uId)) {
+                        boolean hidden = Boolean.parseBoolean(String.valueOf(dataSnapshot.child("hidden").getValue()));
+                        long status = Long.parseLong(String.valueOf(dataSnapshot.child("status").getValue()));
+                        if (status == 1) {
+                            if (hidden) hiddenCount.getAndIncrement();
+                            else sellingCount.getAndIncrement();
+                        } else {
+                            if (status == 0) waitingCount.getAndIncrement();
+                            else refuseCount.getAndIncrement();
+                        }
+                    }
+                });
+                postManageItemCount.setSellingCount(sellingCount.get());
+                postManageItemCount.setHiddenCount(hiddenCount.get());
+                postManageItemCount.setRefuseCount(refuseCount.get());
+                postManageItemCount.setWaitingCount(waitingCount.get());
+                savePostManageOfUserSession(postManageItemCount);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private final ValueEventListener valueEventListener = new ValueEventListener() {
@@ -314,7 +344,7 @@ public class UsersDAL {
         public void onDataChange(@NonNull DataSnapshot snapshot) {
             createOrUpdateUserSession(snapshot.getValue(UsersModel.class));
             // Change ne``
-            Log.e("ValueEventListener123", "CHANGEEEEEE NE");
+//            Log.e("ValueEventListener123", "CHANGEEEEEE NE");
         }
 
         @Override

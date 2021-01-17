@@ -315,6 +315,7 @@ public class PostDAL {
                     List<String> userIdList = new ArrayList<>();
                     snapshot.getChildren().forEach(dataSnapshot -> {
                         RankingModel rankingModel = dataSnapshot.getValue(RankingModel.class);
+                        assert rankingModel != null;
                         userIdList.add(rankingModel.getUserId());
                         rankingModelList.add(rankingModel);
                     });
@@ -351,4 +352,35 @@ public class PostDAL {
         });
     }
 
+    // PostManage DAL
+    public void getPostByStatus(String uId, long status, IControlData iControlData) {
+        // status: 0 Đang duyệt, 1 OK, 2 Bị từ chấu, 3 ẩn cmn danh
+        mRef.child(NodeRootDB.POST).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<PostModel> postModelList = new ArrayList<>();
+                snapshot.getChildren().forEach(dataSnapshot -> {
+                    String poster = String.valueOf(dataSnapshot.child("poster").getValue());
+                    boolean hidden = Boolean.parseBoolean(String.valueOf(dataSnapshot.child("hidden").getValue()));
+                    if (poster.equals(uId)) {
+                        if (status < 3) {
+                            long status1 = Long.parseLong(String.valueOf(dataSnapshot.child("status").getValue()));
+                            if (status == status1 && !hidden) {
+                                postModelList.add(dataSnapshot.getValue(PostModel.class));
+                            }
+                        } else {
+                            if (hidden)
+                                postModelList.add(dataSnapshot.getValue(PostModel.class));
+                        }
+                    }
+                });
+                iControlData.responseData(postModelList);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.petmarket2020.Models;
 
 import java.util.List;
+import java.util.Objects;
 
 public class PostModel {
     private String postId;
@@ -17,35 +18,12 @@ public class PostModel {
     private String poType;
     private String poster;
     private String gender;
-    private String startTime;
+    private String timeStart;
     private String title;
     private long viewCounts;
     private String healthGuarantee;
     private String injectStatus;
     private List<String> images;
-
-    public PostModel(String postId, String area, long status, boolean isHidden, double latitude, double longitude, long limitDay, long price, String breed, String peAge, String peType, String poType, String poster, String gender, String startTime, String title, long viewCounts, String healthGuarantee, String injectStatus, List<String> images) {
-        this.postId = postId;
-        this.area = area;
-        this.status = status;
-        this.isHidden = isHidden;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.limitDay = limitDay;
-        this.price = price;
-        this.breed = breed;
-        this.peAge = peAge;
-        this.peType = peType;
-        this.poType = poType;
-        this.poster = poster;
-        this.gender = gender;
-        this.startTime = startTime;
-        this.title = title;
-        this.viewCounts = viewCounts;
-        this.healthGuarantee = healthGuarantee;
-        this.injectStatus = injectStatus;
-        this.images = images;
-    }
 
     public PostModel() {
     }
@@ -162,12 +140,12 @@ public class PostModel {
         this.gender = gender;
     }
 
-    public String getStartTime() {
-        return startTime;
+    public String getTimeStart() {
+        return timeStart;
     }
 
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
+    public void setTimeStart(String timeStart) {
+        this.timeStart = timeStart;
     }
 
     public String getTitle() {
@@ -208,5 +186,37 @@ public class PostModel {
 
     public void setImages(List<String> images) {
         this.images = images;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PostModel postModel = (PostModel) o;
+        return status == postModel.status &&
+                isHidden == postModel.isHidden &&
+                Double.compare(postModel.latitude, latitude) == 0 &&
+                Double.compare(postModel.longitude, longitude) == 0 &&
+                limitDay == postModel.limitDay &&
+                price == postModel.price &&
+                viewCounts == postModel.viewCounts &&
+                postId.equals(postModel.postId) &&
+                area.equals(postModel.area) &&
+                breed.equals(postModel.breed) &&
+                peAge.equals(postModel.peAge) &&
+                peType.equals(postModel.peType) &&
+                poType.equals(postModel.poType) &&
+                poster.equals(postModel.poster) &&
+                gender.equals(postModel.gender) &&
+                timeStart.equals(postModel.timeStart) &&
+                title.equals(postModel.title) &&
+                healthGuarantee.equals(postModel.healthGuarantee) &&
+                injectStatus.equals(postModel.injectStatus) &&
+                images.equals(postModel.images);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(postId, area, status, isHidden, latitude, longitude, limitDay, price, breed, peAge, peType, poType, poster, gender, timeStart, title, viewCounts, healthGuarantee, injectStatus, images);
     }
 }

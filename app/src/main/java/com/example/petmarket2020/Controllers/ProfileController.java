@@ -48,9 +48,9 @@ public class ProfileController {
         });
     }
 
-//    public void updateVerifyInfo(int type, String uid) {
-//        usersDAL.updateVerifyInfo(type, uid);
-//    }
+    public void updateVerifyInfo(int type, String uid) {
+        usersDAL.updateVerifyInfo(type, uid);
+    }
 
     public void verifyPhone(String phoneNumber) {
         phoneNumber = "+84" + phoneNumber.substring(1);

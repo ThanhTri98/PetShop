@@ -21,7 +21,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:label">
-        <activity android:name=".Views.PaymentOptionActivity"></activity>
+        <activity android:name=".Views.PaymentOptionActivity" />
+        <activity android:name=".Views.WebViewPaymentActivity" />
         <activity android:name=".Views.CoinsActivity" />
         <activity android:name=".Views.PostDetailActivity" />
 

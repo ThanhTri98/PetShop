@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -25,6 +26,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.petmarket2020.Adapters.LoadMoreHorizontalAdapter;
 import com.example.petmarket2020.Adapters.RV_PetCategoryAdapter;
+import com.example.petmarket2020.Adapters.RV_PostManageAdapter;
 import com.example.petmarket2020.Adapters.RV_PosterAdapter;
 import com.example.petmarket2020.Adapters.RV_RateAdapter;
 import com.example.petmarket2020.Adapters.SliderAdapter;
@@ -38,6 +40,7 @@ import com.example.petmarket2020.Interfaces.IControlData;
 import com.example.petmarket2020.Models.PetTypeModel;
 import com.example.petmarket2020.Models.PostModel;
 import com.example.petmarket2020.Models.RankingModel;
+import com.example.petmarket2020.Models.SessionManager;
 import com.example.petmarket2020.Models.UsersModel;
 import com.example.petmarket2020.R;
 import com.example.petmarket2020.Views.LoginActivity;
@@ -597,5 +600,38 @@ public class PostController {
 
             }
         });
+    }
+
+    // PostManae Controller
+    public SessionManager.PostManageItemCount getPostOfUserSession() {
+        return usersDAL.getPostOfUserSession();
+    }
+
+    public void getPostByStatus(long status, RecyclerView recyclerView, View pgBar, IControlData iControlDataView) {
+        // status: 0 Đang duyệt, 1 OK, 2 Bị từ chấu, 3 ẩn cmn danh
+        UsersModel usersModel = usersDAL.getUserSession();
+        if (usersModel != null) {
+            int viewType = 0; // Dang ban
+            if (status == 0) viewType = 3; //Đang duyệt
+            else if (status == 2) viewType = 2; //Bị từ chấu
+            else if (status == 3) viewType = 1; // An~
+            String uId = usersModel.getUid();
+            pgBar.setVisibility(View.VISIBLE);
+            RV_PostManageAdapter postManageAdapter = new RV_PostManageAdapter(viewType);
+            postDAL.getPostByStatus(uId, status, new IControlData() {
+                @Override
+                public void responseData(Object data) {
+                    List<PostModel> postModelList = (List<PostModel>) data;
+                    Log.e("StatusHIHE", status + " - - - Size " + postModelList.size());
+                    if (!postModelList.isEmpty()) {
+                        postManageAdapter.setOrUpdateData(postModelList);
+                        recyclerView.setHasFixedSize(true);
+                        recyclerView.setAdapter(postManageAdapter);
+                        iControlDataView.responseData(postModelList.size());
+                    }
+                    pgBar.setVisibility(View.INVISIBLE);
+                }
+            });
+        }
     }
 }

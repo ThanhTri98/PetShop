@@ -4,7 +4,15 @@
     android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv"
+        android:id="@+id/rvHidden"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    <include
+        android:id="@+id/pgBar"
+        layout="@layout/progress_bar_custom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginVertical="20dp"
+        android:visibility="invisible" />
 </FrameLayout>

@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -19,21 +20,21 @@ import com.example.petmarket2020.R;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class RV_PostManageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<PostModel> postModelList;
     private final int VIEW_TYPE;
     private final StorageReference storageReference;
 
-    public RV_PostManageAdapter(List<PostModel> postModelList, int VIEW_TYPE) {
-        this.postModelList = postModelList;
+    public RV_PostManageAdapter(int VIEW_TYPE) {
         this.VIEW_TYPE = VIEW_TYPE;
         storageReference = FirebaseStorage.getInstance().getReference();
+        postModelList = new ArrayList<>();
     }
 
-    public void setData(List<PostModel> postModelList) {
+    public void setOrUpdateData(List<PostModel> postModelList) {
         this.postModelList = postModelList;
         notifyDataSetChanged();
     }
@@ -66,7 +67,7 @@ public class RV_PostManageAdapter extends RecyclerView.Adapter<RecyclerView.View
             SellingHolder sellingHolder = (SellingHolder) holder;
             sellingHolder.tvTitle.setText(postModel.getTitle());
             sellingHolder.tvPrice.setText(Utils.formatCurrencyVN(postModel.getPrice()));
-            sellingHolder.tvTime.setText(postModel.getStartTime());
+            sellingHolder.tvTime.setText(postModel.getTimeStart());
             sellingHolder.tvImgCount.setText(String.valueOf(sizeImage));
             ImageView ivImage = sellingHolder.ivImage;
             Glide.with(ivImage).load(storageReference.child(postModel.getImages()
@@ -92,7 +93,7 @@ public class RV_PostManageAdapter extends RecyclerView.Adapter<RecyclerView.View
             Glide.with(ivImage).load(storageReference.child(postModel.getImages()
                     .get(0))).diskCacheStrategy(DiskCacheStrategy.ALL).into(ivImage);
             refusedHolder.btnEdit.setOnClickListener(v -> Log.e("ButtonRefusedHolder", "btnEdit"));
-        } else{
+        } else {
             WaitingHolder waitingHolder = (WaitingHolder) holder;
             waitingHolder.tvTitle.setText(postModel.getTitle());
             waitingHolder.tvPrice.setText(Utils.formatCurrencyVN(postModel.getPrice()));
@@ -105,7 +106,7 @@ public class RV_PostManageAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     @Override
     public int getItemCount() {
-        return postModelList.size();
+        return postModelList != null ? postModelList.size() : 0;
     }
 
     @Override

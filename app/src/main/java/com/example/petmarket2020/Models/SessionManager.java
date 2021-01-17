@@ -4,21 +4,14 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import androidx.annotation.NonNull;
-
 import com.google.gson.Gson;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
 
 
 public class SessionManager {
     private final SharedPreferences usersSession;
     private final SharedPreferences.Editor editor;
     public static final String KEY_USER = "USER";
+    public static final String KEY_POST_MANAGE_COUNT = "KEY_POST_MANAGE_COUNT";
 
     @SuppressLint("CommitPrefEdits")
     public SessionManager(Context context) {
@@ -29,6 +22,18 @@ public class SessionManager {
     public void createOrUpdateUserSession(UsersModel usersModel) {
         editor.putString(KEY_USER, new Gson().toJson(usersModel));
         editor.apply();
+    }
+
+    public void createOrUpdatePostOfUserSession(PostManageItemCount postManageItemCount) {
+        editor.putString(KEY_POST_MANAGE_COUNT, new Gson().toJson(postManageItemCount));
+        editor.apply();
+    }
+
+    public PostManageItemCount getPostOfUserSession() {
+        if (usersSession.getString(KEY_POST_MANAGE_COUNT, null) == null)
+            return null;
+        else
+            return new Gson().fromJson(usersSession.getString(KEY_POST_MANAGE_COUNT, null), PostManageItemCount.class);
     }
 
     public UsersModel getUserSession() {
@@ -45,5 +50,47 @@ public class SessionManager {
     public void clearSession() {
         editor.clear();
         editor.apply();
+    }
+
+    public static class PostManageItemCount {
+        private int sellingCount;
+        private int hiddenCount;
+        private int refuseCount;
+        private int waitingCount;
+
+        public PostManageItemCount() {
+        }
+
+        public int getSellingCount() {
+            return sellingCount;
+        }
+
+        public void setSellingCount(int sellingCount) {
+            this.sellingCount = sellingCount;
+        }
+
+        public int getHiddenCount() {
+            return hiddenCount;
+        }
+
+        public void setHiddenCount(int hiddenCount) {
+            this.hiddenCount = hiddenCount;
+        }
+
+        public int getRefuseCount() {
+            return refuseCount;
+        }
+
+        public void setRefuseCount(int refuseCount) {
+            this.refuseCount = refuseCount;
+        }
+
+        public int getWaitingCount() {
+            return waitingCount;
+        }
+
+        public void setWaitingCount(int waitingCount) {
+            this.waitingCount = waitingCount;
+        }
     }
 }
