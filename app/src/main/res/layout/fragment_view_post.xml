@@ -29,8 +29,8 @@
                 app:sliderIndicatorOrientation="horizontal"
                 app:sliderIndicatorPadding="3dp"
                 app:sliderIndicatorRadius="2dp"
-                app:sliderIndicatorSelectedColor="#5A5A5A"
-                app:sliderIndicatorUnselectedColor="#FFF"
+                app:sliderIndicatorSelectedColor="@color/colorPrimary"
+                app:sliderIndicatorUnselectedColor="@color/colorGrayLight"
                 app:sliderScrollTimeInSec="1"
                 app:sliderStartAutoCycle="true" />
 
@@ -200,7 +200,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/bg_border_horizontal"
-                    android:paddingStart="10dp"
+                    android:paddingHorizontal="10dp"
+                    android:shrinkColumns="*"
                     tools:ignore="RtlSymmetry">
 
                     <TableRow android:paddingVertical="3dp">
@@ -214,6 +215,7 @@
 
                         <TextView
                             android:id="@+id/tvPhoneNumber"
+                            android:layout_width="0dp"
                             android:layout_weight="1"
                             android:textColor="@color/colorPrimary"
                             android:textSize="15sp" />
@@ -230,6 +232,7 @@
 
                         <TextView
                             android:id="@+id/tvArea"
+                            android:layout_width="0dp"
                             android:layout_weight="1"
                             android:textSize="15sp" />
                     </TableRow>

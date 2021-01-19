@@ -11,13 +11,31 @@ public class PosterItem {
     private double longitude;
     private long price;
     private String poType;
+    private String breed;
     private String peType;
     private String title;
     private String timeStart;
     private boolean isHot;
+    private String pkgId;
     private long viewCounts;
 
     public PosterItem() {
+    }
+
+    public String getPkgId() {
+        return pkgId;
+    }
+
+    public String getBreed() {
+        return breed;
+    }
+
+    public void setBreed(String breed) {
+        this.breed = breed;
+    }
+
+    public void setPkgId(String pkgId) {
+        this.pkgId = pkgId;
     }
 
     public long getViewCounts() {

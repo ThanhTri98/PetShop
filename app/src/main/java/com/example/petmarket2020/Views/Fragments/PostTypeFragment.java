@@ -1,9 +1,12 @@
 package com.example.petmarket2020.Views.Fragments;
 
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -17,9 +20,10 @@ import com.example.petmarket2020.Views.PostActivity;
 import java.util.Objects;
 
 public class PostTypeFragment extends Fragment {
-    private static final String TAG = "PostTypeFragment";
     private TextView tvTitle;
     private MyViewPager vpg;
+    private final String SELL = "Cần bán";
+    private final String BUY = "Cần mua";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,17 +39,27 @@ public class PostTypeFragment extends Fragment {
         RadioGroup radioGroup = view.findViewById(R.id.rdGroup);
         radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
             if (R.id.rdbtnSell == checkedId) {
-                PostActivity.addData(PostActivity.KEY_POST_TYPE, "Cần bán");
+                PostActivity.addOrUpdateData(PostActivity.KEY_POST_TYPE, SELL);
             } else {
-                PostActivity.addData(PostActivity.KEY_POST_TYPE, "Cần mua");
+                PostActivity.addOrUpdateData(PostActivity.KEY_POST_TYPE, BUY);
             }
         });
         int childCount = radioGroup.getChildCount();
+        boolean is = false;
+        // init default Data
+        String poType = (String) PostActivity.getData(PostActivity.KEY_POST_TYPE);
         for (int i = 0; i < childCount; i++) {
-            (radioGroup.getChildAt(i)).setOnClickListener(v -> {
+            RadioButton rdBtn = (RadioButton) radioGroup.getChildAt(i);
+            if (!is && !TextUtils.isEmpty(poType)) {
+                if (rdBtn.getText().toString().equals(poType)) {
+                    radioGroup.check(rdBtn.getId());
+                    is = true;
+                }
+            }
+            rdBtn.setOnClickListener(v -> {
                 int currentIndex = vpg.getCurrentItem();
-                vpg.setCurrentItem(currentIndex+1);
-                tvTitle.setText(PostActivity.getTitle(currentIndex+1));
+                vpg.setCurrentItem(currentIndex + 1);
+                tvTitle.setText(PostActivity.getTitle(currentIndex + 1));
             });
         }
 
@@ -53,8 +67,8 @@ public class PostTypeFragment extends Fragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onStart() {
+        super.onStart();
         tvTitle.setText(PostActivity.getTitle(0));
     }
 }

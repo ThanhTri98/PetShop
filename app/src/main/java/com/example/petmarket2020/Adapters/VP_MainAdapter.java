@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import com.example.petmarket2020.Views.Fragments.MainHomeFragment;
 import com.example.petmarket2020.Views.Fragments.MainMeFragment;
 import com.example.petmarket2020.Views.Fragments.MainMoreFragment;
+import com.example.petmarket2020.Views.Fragments.MainNotiFragment;
 
 public class VP_MainAdapter extends FragmentStatePagerAdapter {
 
@@ -22,8 +23,9 @@ public class VP_MainAdapter extends FragmentStatePagerAdapter {
             case 0:
                 return new MainHomeFragment();
             case 1:
-            case 2:
                 return new MainMeFragment();
+            case 2:
+                return new MainNotiFragment();
             default:
                 return new MainMoreFragment();
         }

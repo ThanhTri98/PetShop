@@ -21,6 +21,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:label">
+        <activity android:name=".Views.SearchActivity"></activity>
+        <activity android:name=".Views.SplashScreenActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Views.TransactionHistoryActivity" />
+        <activity android:name=".Views.FavoritesActivity" />
+        <activity android:name=".Views.FlashSellActivity" />
         <activity android:name=".Views.PaymentOptionActivity" />
         <activity android:name=".Views.WebViewPaymentActivity" />
         <activity android:name=".Views.CoinsActivity" />
@@ -47,13 +58,7 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".Views.HomeActivity"
-            android:windowSoftInputMode="adjustPan">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".Views.LoginActivity" />
 
         <receiver

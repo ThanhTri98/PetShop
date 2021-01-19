@@ -1,10 +1,12 @@
 package com.example.petmarket2020.Views.Fragments;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -18,7 +20,6 @@ import com.example.petmarket2020.Views.PostActivity;
 import java.util.Objects;
 
 public class PetTypeFragment extends Fragment {
-    private static final String TAG = "PetTypeFragment";
     private TextView tvTitle;
     private MyViewPager vpg;
 
@@ -39,16 +40,28 @@ public class PetTypeFragment extends Fragment {
             if (R.id.rdbtnDog == checkedId) {
                 if (!Objects.equals(PostActivity.getData(PostActivity.KEY_PET_TYPE), dog))
                     PostActivity.setLoadingStatus(true);
-                PostActivity.addData(PostActivity.KEY_PET_TYPE, dog);
+                PostActivity.addOrUpdateData(PostActivity.KEY_PET_TYPE, dog);
             } else {
                 if (!Objects.equals(PostActivity.getData(PostActivity.KEY_PET_TYPE), cat))
                     PostActivity.setLoadingStatus(true);
-                PostActivity.addData(PostActivity.KEY_PET_TYPE, cat);
+                PostActivity.addOrUpdateData(PostActivity.KEY_PET_TYPE, cat);
             }
         });
         int childCount = radioGroup.getChildCount();
+        boolean is = false;
+        // init default Data
+        String petType = (String) PostActivity.getData(PostActivity.KEY_PET_TYPE);
         for (int i = 0; i < childCount; i++) {
-            (radioGroup.getChildAt(i)).setOnClickListener(v -> {
+            RadioButton rdBtn = (RadioButton) radioGroup.getChildAt(i);
+            if (!is && !TextUtils.isEmpty(petType)) {
+                petType = petType.equals("cat") ? "Mèo" : "Chó";
+                Log.e("PÉT TYPE",petType);
+                if (rdBtn.getText().toString().equals(petType)) {
+                    radioGroup.check(rdBtn.getId());
+                    is = true;
+                }
+            }
+            rdBtn.setOnClickListener(v -> {
                 int currentIndex = vpg.getCurrentItem();
                 vpg.setCurrentItem(currentIndex + 1);
                 tvTitle.setText(PostActivity.getTitle(currentIndex + 1));

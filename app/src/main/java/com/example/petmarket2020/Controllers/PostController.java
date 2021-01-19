@@ -1,11 +1,11 @@
 package com.example.petmarket2020.Controllers;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.location.Location;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.petmarket2020.Adapters.LoadMoreHorizontalAdapter;
+import com.example.petmarket2020.Adapters.RV_FavoritesAdapter;
 import com.example.petmarket2020.Adapters.RV_PetCategoryAdapter;
 import com.example.petmarket2020.Adapters.RV_PostManageAdapter;
 import com.example.petmarket2020.Adapters.RV_PosterAdapter;
@@ -35,6 +36,7 @@ import com.example.petmarket2020.DAL.PostDAL;
 import com.example.petmarket2020.DAL.UsersDAL;
 import com.example.petmarket2020.HelperClass.MyViewPager;
 import com.example.petmarket2020.HelperClass.PaginationScrollListener;
+import com.example.petmarket2020.HelperClass.PaginationScrollListener2;
 import com.example.petmarket2020.HelperClass.Utils;
 import com.example.petmarket2020.Interfaces.IControlData;
 import com.example.petmarket2020.Models.PetTypeModel;
@@ -43,9 +45,11 @@ import com.example.petmarket2020.Models.RankingModel;
 import com.example.petmarket2020.Models.SessionManager;
 import com.example.petmarket2020.Models.UsersModel;
 import com.example.petmarket2020.R;
+import com.example.petmarket2020.Views.FlashSellActivity;
 import com.example.petmarket2020.Views.LoginActivity;
 import com.example.petmarket2020.Views.PostActivity;
 import com.example.petmarket2020.Views.PostDetailActivity;
+import com.example.petmarket2020.Views.SearchActivity;
 import com.google.android.material.snackbar.Snackbar;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
@@ -56,6 +60,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 public class PostController {
     private static final String KEY_DOG = "dog", KEY_CAT = "cat";
@@ -63,12 +68,14 @@ public class PostController {
     private PostDAL postDAL;
     private UsersDAL usersDAL;
     private final PostController postController;
+    private SessionManager sessionManager;
 
     public PostController(Activity activity) {
         this.activity = activity;
         this.postDAL = new PostDAL();
         this.usersDAL = new UsersDAL(activity);
         this.postController = this;
+        sessionManager = new SessionManager(activity);
     }
 
     private RV_PosterAdapter homeRVPosterAdapter;
@@ -107,9 +114,9 @@ public class PostController {
                     if (objData != null) {
                         Map<Integer, String> dataResp = (Map<Integer, String>) objData;
                         if (type.equals(KEY_DOG) && PostActivity.getData(KEY_DOG) == null) {
-                            PostActivity.addData(KEY_DOG, dataResp);
+                            PostActivity.addOrUpdateData(KEY_DOG, dataResp);
                         } else if (type.equals(KEY_CAT) && PostActivity.getData(KEY_CAT) == null) {
-                            PostActivity.addData(KEY_CAT, dataResp);
+                            PostActivity.addOrUpdateData(KEY_CAT, dataResp);
                         }
                         initView(dataResp, radioGroup, tvTitle, vpg);
                     }
@@ -118,33 +125,30 @@ public class PostController {
         } else {
             if (radioGroup.getChildCount() == 0) {
                 radioGroup.removeAllViews();
-                initView((Map<Integer, String>) Objects.requireNonNull(PostActivity.getData((String) PostActivity.getData(PostActivity.KEY_PET_TYPE))), radioGroup, tvTitle, vpg);
+                initView((Map<Integer, String>) Objects.requireNonNull(PostActivity.getData(type)), radioGroup, tvTitle, vpg);
             }
         }
 
     }
 
+    public void deleteImageFragment(String imageId) {
+        postDAL.deleteImageFragment(imageId);
+    }
+
     private void initView(Map<Integer, String> dataResp, RadioGroup radioGroup, TextView tvTitle, MyViewPager vpg) {
-        RadioButton radioButton;
         ViewGroup.LayoutParams layoutParams = new ViewGroup
                 .LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        ColorStateList colorStateList = new ColorStateList(
-                new int[][]{new int[]{android.R.attr.state_checked},
-                        new int[]{-android.R.attr.state_checked}},
-                new int[]{Color.WHITE, Color.BLACK}
-        );
+        String breed = (String) PostActivity.getData(PostActivity.KEY_BREEDS);
         for (Map.Entry<Integer, String> data : dataResp.entrySet()) {
-            radioButton = new RadioButton(activity);
+            @SuppressLint("InflateParams")
+            RadioButton radioButton = (RadioButton) activity.getLayoutInflater().inflate(R.layout.radio_button_layout, null);
             setListener(data.getValue(), radioButton, tvTitle, vpg);
             radioButton.setId(data.getKey());
             radioButton.setText(data.getValue());
-            radioButton.setTextColor(colorStateList);
-            radioButton.setBackgroundResource(R.drawable.bg_rd_selector);
-            radioButton.setTextSize(15);
+            if (breed != null && breed.equals(data.getValue())) {
+                radioButton.setChecked(true);
+            }
             radioButton.setLayoutParams(layoutParams);
-            radioButton.setButtonDrawable(R.drawable.custom_radio_button);
-            radioButton.setPadding(45, 25, 45, 25);
-            radioButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.bg_rd_ic_end_selector, 0);
             radioGroup.addView(radioButton);
         }
         PostActivity.setLoadingStatus(false);
@@ -152,16 +156,16 @@ public class PostController {
 
     private void setListener(final String value, RadioButton radioButton, TextView tvTitle, MyViewPager vpg) {
         radioButton.setOnClickListener(v -> {
-            PostActivity.addData(PostActivity.KEY_BREEDS, value);
+            PostActivity.addOrUpdateData(PostActivity.KEY_BREEDS, value);
             int currentIndex = vpg.getCurrentItem();
             vpg.setCurrentItem(currentIndex + 1);
             tvTitle.setText(PostActivity.getTitle(currentIndex + 1));
         });
     }
 
-    public void postUpload(PostModel postModel, HashMap<String, byte[]> mapImage, RelativeLayout rlBar, MyViewPager vpg, TextView tvTitles) {
+    public void postUpload(PostModel postModel, Set<String> imageRemoved, HashMap<String, byte[]> mapImage, RelativeLayout rlBar, MyViewPager vpg, TextView tvTitles) {
         rlBar.setVisibility(View.VISIBLE);
-        postDAL.postUpload(postModel, mapImage, new IControlData() {
+        postDAL.postUpload(postModel, mapImage, imageRemoved, new IControlData() {
             @Override
             public void isSuccessful(boolean isSu) {
                 if (isSu) {
@@ -185,14 +189,102 @@ public class PostController {
                 Object[] objRs = (Object[]) objData;
                 List<PetTypeModel> catList = (List<PetTypeModel>) objRs[0];
                 List<PetTypeModel> dogList = (List<PetTypeModel>) objRs[1];
-                rvCategoryCat.setAdapter(new RV_PetCategoryAdapter(catList));
-                rvCategoryDog.setAdapter(new RV_PetCategoryAdapter(dogList));
+                rvCategoryCat.setAdapter(new RV_PetCategoryAdapter(catList, breed -> {
+                    Intent intent = new Intent(activity, SearchActivity.class);
+                    intent.putExtra("breed", breed);
+                    activity.startActivity(intent);
+                }));
+                rvCategoryDog.setAdapter(new RV_PetCategoryAdapter(dogList, breed -> {
+                    Intent intent = new Intent(activity, SearchActivity.class);
+                    intent.putExtra("breed", breed);
+                    activity.startActivity(intent);
+                }));
                 rvCategoryDog.setHasFixedSize(true);
                 rvCategoryCat.setHasFixedSize(true);
             }
         });
 
     }
+
+    public void getPostFilter(RecyclerView rvSearch, String queryArea, String queryPeType, String breed) {
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(activity, 2);
+        rvSearch.setLayoutManager(gridLayoutManager);
+        List<PosterItem> oldList = new ArrayList<>();
+        isLoadingHor = true;
+        Location location = sessionManager.getLocation();
+        LoadMoreHorizontalAdapter.IOnItemClick iOnItemClick = (postId, peType1, price1, views) -> {
+            Intent intent = new Intent(activity, PostDetailActivity.class);
+            intent.putExtra("postId", postId);
+            intent.putExtra("peType", peType1);
+            intent.putExtra("price", price1);
+            activity.startActivity(intent);
+            postDAL.updateViewsCount(postId, views);
+        };
+        postDAL.getPostFilter(queryArea, queryPeType, location, breed, new IControlData() {
+            @Override
+            public void responseData(Object data) {
+                List<PosterItem> posterItems = (List<PosterItem>) data;
+                if (!posterItems.isEmpty()) {
+                    oldList.addAll(posterItems);
+                    loadMoreHorizontalAdapter = new LoadMoreHorizontalAdapter(posterItems, 1, iOnItemClick);
+                    loadMoreHorizontalAdapter.setPostController(postController);
+                    loadMoreHorizontalAdapter.setLocationUser(location);
+                    if (posterItems.size() == 6) {
+                        loadMoreHorizontalAdapter.addItemLoading();
+                    } else {
+                        loadMoreHorizontalAdapter.removeItemLoading();
+                        isLastPageHor = true;
+                    }
+                    isLoadingHor = false;
+                    rvSearch.setAdapter(loadMoreHorizontalAdapter);
+                } else {
+                    isLastPageHor = true;
+                }
+            }
+        });
+        rvSearch.addOnScrollListener(new PaginationScrollListener2(gridLayoutManager) {
+            @Override
+            public void loadMoreItem() {
+                isLoadingHor = true;
+                postDAL.getPostFilter(queryArea, queryPeType, location, breed, new IControlData() {
+                    @Override
+                    public void responseData(Object data) {
+                        List<PosterItem> itemsLoading = (List<PosterItem>) data;
+                        if (!itemsLoading.isEmpty()) {
+                            new Handler().postDelayed(() -> {
+                                oldList.addAll(itemsLoading);
+                                loadMoreHorizontalAdapter.removeItemLoading();
+                                loadMoreHorizontalAdapter.updateData(oldList);
+                                isLoadingHor = false;
+                                if (itemsLoading.size() == 6) {
+                                    loadMoreHorizontalAdapter.addItemLoading();
+                                } else {
+                                    Toast.makeText(activity, "Hết dữ liệu rồi!!", Toast.LENGTH_SHORT).show();
+                                    isLastPageHor = true;
+                                }
+                            }, 1000);
+                        } else {
+                            loadMoreHorizontalAdapter.removeItemLoading();
+                            Toast.makeText(activity, "Hết dữ liệu rồi!!", Toast.LENGTH_SHORT).show();
+                            isLastPageHor = true;
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public boolean isLoading() {
+                return isLoadingHor;
+            }
+
+            @Override
+            public boolean isLastPage() {
+                return isLastPageHor;
+            }
+        });
+
+    }
+
 
     public void getPostHome(RecyclerView rvPoster, RelativeLayout rlBar, NestedScrollView nestedScrollView, RecyclerView rvHot) {
         ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) rlBar.getLayoutParams();
@@ -231,20 +323,21 @@ public class PostController {
                 oldListNormal.addAll(listNormal);
                 homeRVPosterAdapter = new RV_PosterAdapter(listNormal, iOnItemClick);
                 homeRVPosterAdapter.setPostController(postController);
+                homeRVPosterAdapter.setLocationUser(sessionManager.getLocation());
                 rvPoster.setAdapter(homeRVPosterAdapter);
                 rlBar.setVisibility(View.GONE);
                 isLoadingVER = false;
                 // Hot
                 if (!listHot.isEmpty()) {
                     oldListHot.addAll(listHot);
-                    loadMoreHorizontalAdapter = new LoadMoreHorizontalAdapter(oldListHot, iOnItemClickHorizontal);
+                    loadMoreHorizontalAdapter = new LoadMoreHorizontalAdapter(oldListHot, 0, iOnItemClickHorizontal);
                     loadMoreHorizontalAdapter.setPostController(postController);
+                    loadMoreHorizontalAdapter.setLocationUser(sessionManager.getLocation());
                     loadMoreHorizontalAdapter.addItemLoading();
                     rvHot.setAdapter(loadMoreHorizontalAdapter);
                     isLoadingHor = false;
                 } else {
                     isLastPageHor = true;
-                    loadMoreHorizontalAdapter.removeItemLoading();
                 }
             }
         });
@@ -327,7 +420,7 @@ public class PostController {
 
     private boolean firstLoad;
 
-    public void postDetail(String postId, SliderView imageSlider, TextView[] textViews) {
+    public void postDetail(String postId, PostModel postModel, SliderView imageSlider, TextView[] textViews) {
         /*
         textViews:
         0: title
@@ -340,41 +433,50 @@ public class PostController {
         7: phone
         8: are
          */
-        postDAL.postDetail(postId, new IControlData() {
+        postDAL.postDetail(postId, postModel, new IControlData() {
             @Override
             public void responseData(Object objData) {
-                List<Object> list = (List<Object>) objData;
-                // 0: PostModel 1: phoneNumber
-                PostModel postModel = (PostModel) list.get(0);
-                String phoneNumber = list.get(1).toString();
-                String poType = postModel.getPoType().contains("bán") ? "[BÁN] " : "[MUA] ";
-                String title = poType + postModel.getTitle();
-                textViews[0].setText(title);
-                textViews[1].setText(Utils.formatCurrencyVN(postModel.getPrice()));
-                textViews[2].setText(postModel.getBreed());
-                textViews[3].setText(postModel.getGender());
-                textViews[4].setText(postModel.getPeAge());
-                textViews[5].setText(postModel.getInjectStatus());
-                textViews[6].setText(postModel.getHealthGuarantee());
-                textViews[7].setText(phoneNumber);
-                textViews[8].setText(postModel.getArea());
-                List<String> images = postModel.getImages();
-                SliderAdapter sliderAdapter = new SliderAdapter();
-                sliderAdapter.setStringList(images);
-                imageSlider.setSliderAdapter(sliderAdapter);
-                imageSlider.setIndicatorAnimation(IndicatorAnimationType.WORM);
-                imageSlider.setSliderTransformAnimation(SliderAnimations.DEPTHTRANSFORMATION);
-                imageSlider.setScrollTimeInSec(3);
-                imageSlider.startAutoCycle();
+                if (postModel != null) {
+                    String phoneNumber = (String) objData;
+                    String poType = postModel.getPoType().contains("bán") ? "[BÁN] " : "[MUA] ";
+                    String title = poType + postModel.getTitle();
+                    String[] data = new String[]{title, Utils.formatCurrencyVN(postModel.getPrice()), postModel.getBreed(),
+                            postModel.getPeAge(), postModel.getInjectStatus(), postModel.getHealthGuarantee(), phoneNumber, postModel.getArea()};
+                    initPostDetailView(data, textViews, postModel.getImages(), imageSlider);
+                } else {
+                    List<Object> list = (List<Object>) objData;
+                    // 0: PostModel 1: phoneNumber
+                    PostModel postModel = (PostModel) list.get(0);
+                    String phoneNumber = list.get(1).toString();
+                    String poType = postModel.getPoType().contains("bán") ? "[BÁN] " : "[MUA] ";
+                    String title = poType + postModel.getTitle();
+                    List<String> images = postModel.getImages();
+                    String[] data = new String[]{title, Utils.formatCurrencyVN(postModel.getPrice()), postModel.getBreed(),
+                            postModel.getPeAge(), postModel.getInjectStatus(), postModel.getHealthGuarantee(), phoneNumber, postModel.getArea()};
+                    initPostDetailView(data, textViews, images, imageSlider);
+                }
             }
         });
 
     }
 
+    private void initPostDetailView(String[] data, TextView[] textViews, List<String> images, SliderView imageSlider) {
+        for (int i = 0; i < data.length; i++) {
+            textViews[i].setText(data[i]);
+        }
+        SliderAdapter sliderAdapter = new SliderAdapter();
+        sliderAdapter.setStringList(images);
+        imageSlider.setSliderAdapter(sliderAdapter);
+        imageSlider.setIndicatorAnimation(IndicatorAnimationType.WORM);
+        imageSlider.setSliderTransformAnimation(SliderAnimations.DEPTHTRANSFORMATION);
+        imageSlider.setScrollTimeInSec(3);
+        imageSlider.startAutoCycle();
+    }
+
     public void isFavorite(String postId, ImageView ivFav) {
         if (usersDAL.userIsExists()) {
             List<String> favorites = usersDAL.getUserSession().getFavorites();
-            if (favorites.contains(postId)) {
+            if (favorites != null && favorites.contains(postId)) {
                 ivFav.setImageResource(R.drawable.ic_item_tym_checked);
                 ivFav.setTag(R.id.isChecked, "1"); // checked
             } else {
@@ -390,8 +492,11 @@ public class PostController {
             pgBar.setVisibility(View.VISIBLE);
             String uid = usersModel.getUid();
             String postId = (String) ivFav.getTag(R.id.postId);
-            boolean isChecked = !ivFav.getTag(R.id.isChecked).toString().equals("0");
+            Object a = ivFav.getTag(R.id.isChecked);
+            if(a==null) return;
+            boolean isChecked = !a.toString().equals("0");
             List<String> favorites = usersModel.getFavorites();
+            if (favorites == null) favorites = new ArrayList<>();
             if (isChecked)  // da~ luu
                 favorites.remove(postId);
             else  // chua luu
@@ -447,8 +552,9 @@ public class PostController {
                 List<PosterItem> posterItems = (List<PosterItem>) objData;
                 if (!posterItems.isEmpty()) {
                     oldSamePostItemList.addAll(posterItems);
-                    loadMoreHorizontalAdapter = new LoadMoreHorizontalAdapter(posterItems, iOnItemClick);
+                    loadMoreHorizontalAdapter = new LoadMoreHorizontalAdapter(posterItems, 0, iOnItemClick);
                     loadMoreHorizontalAdapter.setPostController(postController);
+                    loadMoreHorizontalAdapter.setLocationUser(sessionManager.getLocation());
                     if (posterItems.size() == 4) {
                         loadMoreHorizontalAdapter.addItemLoading();
                     } else {
@@ -457,7 +563,6 @@ public class PostController {
                     }
                     rvSamePost.setAdapter(loadMoreHorizontalAdapter);
                 } else {
-                    loadMoreHorizontalAdapter.removeItemLoading();
                     isLastPageHor = true;
                 }
             }
@@ -617,19 +722,71 @@ public class PostController {
             else if (status == 3) viewType = 1; // An~
             String uId = usersModel.getUid();
             pgBar.setVisibility(View.VISIBLE);
-            RV_PostManageAdapter postManageAdapter = new RV_PostManageAdapter(viewType);
+
+            RV_PostManageAdapter postManageAdapter = new RV_PostManageAdapter(viewType, new RV_PostManageAdapter.IOnItemClick() {
+                @Override
+                public void onClick(PostModel postModel, int type) {
+                    if (type == RV_PostManageAdapter.FLASH) {
+                        Intent intent = new Intent(activity, FlashSellActivity.class);
+                        intent.putExtra("image", postModel.getImages().get(0));
+                        intent.putExtra("title", postModel.getTitle());
+                        intent.putExtra("time", postModel.getTimeStart());
+                        intent.putExtra("postId", postModel.getPostId());
+                        activity.startActivity(intent);
+                    } else if (type == RV_PostManageAdapter.ITEM_CLICK) {
+                        Intent intent = new Intent(activity, PostDetailActivity.class);
+                        intent.putExtra("postModel", postModel);
+                        activity.startActivity(intent);
+                    } else if (type == RV_PostManageAdapter.EDIT) {
+                        Intent intent = new Intent(activity, PostActivity.class);
+                        intent.putExtra("postModel", postModel);
+                        activity.startActivity(intent);
+                    } else {
+                        pgBar.setVisibility(View.VISIBLE);
+                        boolean isHide = type == RV_PostManageAdapter.HIDDEN;
+                        postDAL.hideOrUnHidePost(isHide, postModel.getPostId(), new IControlData() {
+                            @Override
+                            public void isSuccessful(boolean isSu) {
+                                pgBar.setVisibility(View.INVISIBLE);
+                                Toast.makeText(activity, isHide ? "Đã ẩn tin" : "Tin đã được hiển thị", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                }
+            });
             postDAL.getPostByStatus(uId, status, new IControlData() {
                 @Override
                 public void responseData(Object data) {
                     List<PostModel> postModelList = (List<PostModel>) data;
-                    Log.e("StatusHIHE", status + " - - - Size " + postModelList.size());
-                    if (!postModelList.isEmpty()) {
-                        postManageAdapter.setOrUpdateData(postModelList);
-                        recyclerView.setHasFixedSize(true);
-                        recyclerView.setAdapter(postManageAdapter);
-                        iControlDataView.responseData(postModelList.size());
-                    }
+//                    Log.e("StatusHIHE", status + " - - - Size " + postModelList.size());
+                    postManageAdapter.setOrUpdateData(postModelList);
+                    recyclerView.setHasFixedSize(true);
+                    recyclerView.setAdapter(postManageAdapter);
+                    iControlDataView.responseData(postModelList.size());
                     pgBar.setVisibility(View.INVISIBLE);
+                }
+            });
+        }
+    }
+
+    //Favorites
+    public void getFavoriteList(RecyclerView recyclerView) {
+        UsersModel usersModel = usersDAL.getUserSession();
+        if (usersModel != null) {
+            RV_FavoritesAdapter rv_favoritesAdapter = new RV_FavoritesAdapter((price, peType, postId) -> {
+                Intent intent = new Intent(activity, PostDetailActivity.class);
+                intent.putExtra("postId", postId);
+                intent.putExtra("peType", peType);
+                intent.putExtra("price", price);
+                activity.startActivity(intent);
+            });
+            rv_favoritesAdapter.setPostController(postController);
+            postDAL.getFavoriteList(usersModel.getUid(), new IControlData() {
+                @Override
+                public void responseData(Object data) {
+                    List<PosterItem> posterItems = (List<PosterItem>) data;
+                    rv_favoritesAdapter.setData(posterItems);
+                    recyclerView.setAdapter(rv_favoritesAdapter);
                 }
             });
         }

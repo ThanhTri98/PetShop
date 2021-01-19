@@ -42,10 +42,8 @@ public class BreedsFragment extends Fragment {
     public void onResume() {
         super.onResume();
         Utils.hiddenKeyboard(Objects.requireNonNull(getActivity()));
-        if (PostActivity.getData(PostActivity.KEY_PET_TYPE) != null) {
             String petType = (String) PostActivity.getData(PostActivity.KEY_PET_TYPE);
             PostActivity.getPostController().getPetBreeds(petType, radioGroup, vpg, tvTitle);
-        }
     }
 
 }

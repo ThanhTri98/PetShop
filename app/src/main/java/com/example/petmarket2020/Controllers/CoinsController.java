@@ -10,10 +10,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.petmarket2020.Adapters.RV_CoinsAdapter;
+import com.example.petmarket2020.Adapters.RV_TransHisAdapter;
 import com.example.petmarket2020.DAL.CoinsDAL;
+import com.example.petmarket2020.DAL.UsersDAL;
 import com.example.petmarket2020.HelperClass.Utils;
 import com.example.petmarket2020.Interfaces.IControlData;
 import com.example.petmarket2020.Models.CoinsModel;
+import com.example.petmarket2020.Models.TransactionHistoryModel;
+import com.example.petmarket2020.Models.UsersModel;
 import com.example.petmarket2020.Views.CoinsActivity;
 import com.example.petmarket2020.Views.PaymentOptionActivity;
 
@@ -22,10 +26,12 @@ import java.util.List;
 public class CoinsController {
     private final Activity activity;
     private final CoinsDAL coinsDAL;
+    private final UsersDAL usersDAL;
 
     public CoinsController(Activity activity) {
         this.activity = activity;
         coinsDAL = new CoinsDAL();
+        usersDAL = new UsersDAL(activity);
     }
 
     public void getCoinsPackage(RecyclerView rvCoins, View pgBar) {
@@ -62,5 +68,19 @@ public class CoinsController {
                 }
             }
         });
+    }
+
+    public void getTransaction(RecyclerView recyclerView) {
+        UsersModel usersModel = usersDAL.getUserSession();
+        if (usersModel != null) {
+            coinsDAL.getTransaction(usersModel.getUid(), new IControlData() {
+                @Override
+                public void responseData(Object data) {
+                    List<TransactionHistoryModel> transactionHistoryModels = (List<TransactionHistoryModel>) data;
+                    RV_TransHisAdapter rv_transHisAdapter = new RV_TransHisAdapter(transactionHistoryModels);
+                    recyclerView.setAdapter(rv_transHisAdapter);
+                }
+            });
+        }
     }
 }

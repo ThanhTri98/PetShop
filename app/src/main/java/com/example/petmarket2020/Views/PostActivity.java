@@ -14,25 +14,31 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import com.example.petmarket2020.Adapters.VP_PostAdapter;
 import com.example.petmarket2020.Controllers.PostController;
 import com.example.petmarket2020.HelperClass.MyViewPager;
+import com.example.petmarket2020.Models.PostModel;
 import com.example.petmarket2020.R;
 import com.example.petmarket2020.Views.Fragments.AddImageFragment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 public class PostActivity extends AppCompatActivity {
     private static List<String> listTitle;
     private TextView tvTitle;
     private MyViewPager vpg;
     private ImageView ivBack;
-
+    private PostModel postModel;
     @SuppressLint("StaticFieldLeak")
     private static PostController postController;
     private static HashMap<String, Object> dataMap;
     private static HashMap<String, Bitmap> picturesMap;
-    public static final String KEY_LOADED = "0", KEY_POST_TYPE = "1", KEY_PET_TYPE = "2", KEY_BREEDS = "3", KEY_TITLE = "4", KEY_DURATION_DATE = "5", KEY_INFO = "6";
+    private static Set<String> imageRemoved;
+    public static final String KEY_LOADED = "0", KEY_POST_TYPE = "1", KEY_PET_TYPE = "2", KEY_BREEDS = "3",
+            KEY_TITLE = "4", KEY_PRICE = "5", KEY_DURATION = "6", KEY_GENDER = "7", KEY_INJECT = "8",
+            KEY_HEALTH = "9", KEY_PE_AGE = "10", KEY_OLD_IMAGE = "11", KEY_POST_ID = "12";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,13 +48,30 @@ public class PostActivity extends AppCompatActivity {
         setUpViewPager();
         setListener();
         initListTitle();
+        imageRemoved = new HashSet<>();
         dataMap = new HashMap<>();
         picturesMap = new HashMap<>();
         postController = new PostController(this);
+        postModel = (PostModel) getIntent().getSerializableExtra("postModel");
+        if (postModel != null) initDataPost();
+    }
+
+    private void initDataPost() {
+        dataMap.put(KEY_POST_ID, postModel.getPostId());
+        dataMap.put(KEY_POST_TYPE, postModel.getPoType());
+        dataMap.put(KEY_PET_TYPE, postModel.getPeType());
+        dataMap.put(KEY_BREEDS, postModel.getBreed());
+        dataMap.put(KEY_TITLE, postModel.getTitle());
+        dataMap.put(KEY_PRICE, postModel.getPrice());
+        dataMap.put(KEY_DURATION, postModel.getLimitDay());
+        dataMap.put(KEY_GENDER, postModel.getGender());
+        dataMap.put(KEY_INJECT, postModel.getInjectStatus());
+        dataMap.put(KEY_HEALTH, postModel.getHealthGuarantee());
+        dataMap.put(KEY_PE_AGE, postModel.getPeAge());
+        dataMap.put(KEY_OLD_IMAGE, postModel.getImages());
     }
 
     public static PostController getPostController() {
-//        postController.setNode(node);
         return postController;
     }
 
@@ -94,9 +117,8 @@ public class PostActivity extends AppCompatActivity {
         vpg.setAdapter(VPPostAdapter);
     }
 
-    public static void addData(String key, Object data) {
-        if (!dataMap.containsValue(data))
-            dataMap.put(key, data);
+    public static void addOrUpdateData(String key, Object data) {
+        dataMap.put(key, data);
     }
 
     public static boolean isLoaded() {
@@ -112,9 +134,7 @@ public class PostActivity extends AppCompatActivity {
     }
 
     public static Object getData(String key) {
-        if (dataMap.containsKey(key))
-            return dataMap.get(key);
-        return null;
+        return dataMap.get(key);
     }
 
     public static HashMap<String, Object> getAllData() {
@@ -128,6 +148,14 @@ public class PostActivity extends AppCompatActivity {
 
     public static void removeImage(String key) {
         picturesMap.remove(key);
+    }
+
+    public static void addImageRemoved(String key) {
+        imageRemoved.add(key);
+    }
+
+    public static Set<String> getImageRemoved() {
+        return imageRemoved;
     }
 
     public static HashMap<String, Bitmap> getAllImages() {

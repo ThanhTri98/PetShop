@@ -37,7 +37,7 @@ public class HiddenFragment extends Fragment {
             @Override
             public void responseData(Object data) {
                 MainMeFragment.setBadgeHidden((Integer) data);
-                Log.e("setBadgeHidden", String.valueOf(data));
+//                Log.e("setBadgeHidden", String.valueOf(data));
             }
         });
         return view;

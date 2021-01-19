@@ -37,7 +37,7 @@ public class WaitingFragment extends Fragment {
             @Override
             public void responseData(Object data) {
                 MainMeFragment.setBadgeWaiting((Integer) data);
-                Log.e("setBadgeWaiting", String.valueOf(data));
+//                Log.e("setBadgeWaiting", String.valueOf(data));
 
             }
         });

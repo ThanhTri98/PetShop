@@ -39,8 +39,11 @@ public class TitleFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_title, container, false);
         tvError = view.findViewById(R.id.tvError);
         EditText etTitle = view.findViewById(R.id.etTitle);
-        if (TextUtils.isEmpty(etTitle.getText().toString()) && PostActivity.getData(PostActivity.KEY_TITLE) != null) {
-            etTitle.setText((String) PostActivity.getData(PostActivity.KEY_TITLE));
+        // init old value
+        String title = (String) PostActivity.getData(PostActivity.KEY_TITLE);
+        if (!TextUtils.isEmpty(title)) {
+            etTitle.setText(title);
+            tvError.setText(null);
         }
         etTitle.addTextChangedListener(new TextWatcher() {
             @Override
@@ -65,7 +68,7 @@ public class TitleFragment extends Fragment {
         });
         view.findViewById(R.id.bab).setOnClickListener(v -> {
             if (TextUtils.isEmpty(tvError.getText().toString())) {
-                PostActivity.addData(PostActivity.KEY_TITLE, etTitle.getText().toString());
+                PostActivity.addOrUpdateData(PostActivity.KEY_TITLE, etTitle.getText().toString());
                 int currentIndex = vpg.getCurrentItem();
                 vpg.setCurrentItem(currentIndex + 1);
                 tvTitle.setText(PostActivity.getTitle(currentIndex + 1));

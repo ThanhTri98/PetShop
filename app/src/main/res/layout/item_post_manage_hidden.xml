@@ -10,7 +10,7 @@
         android:id="@+id/rl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:padding="7dp">
 
         <RelativeLayout
             android:id="@+id/rlImage"
@@ -30,7 +30,6 @@
                 android:elevation="2dp"
                 android:gravity="center"
                 android:includeFontPadding="false"
-                android:text="4"
                 android:textColor="@color/colorTextDefault"
                 android:textSize="12sp"
                 android:textStyle="bold|italic" />
@@ -46,8 +45,7 @@
                     android:layout_width="90sp"
                     android:layout_height="70dp"
                     android:contentDescription="@string/AppName"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/cat1" />
+                    android:scaleType="fitXY" />
             </androidx.cardview.widget.CardView>
         </RelativeLayout>
 
@@ -57,7 +55,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@+id/rlImage"
-            android:text="Mèo xinh quá các bạn, mình muốn bán nè hi hi"
             android:textColor="@color/colorTextDefault" />
 
         <TextView
@@ -67,18 +64,17 @@
             android:layout_below="@+id/tvTitle"
             android:layout_marginTop="5dp"
             android:layout_toEndOf="@+id/rlImage"
-            android:text="2.000.000 đ"
             android:textColor="@color/grey_font"
             android:textStyle="bold" />
 
         <TextView
+            android:text="@string/da_an"
             android:id="@+id/tvStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvPrice"
             android:layout_marginStart="3dp"
             android:layout_toEndOf="@+id/iv"
-            android:text="Đã ẩn"
             android:textColor="#535252"
             android:textSize="13sp" />
 
@@ -102,7 +98,7 @@
             android:drawableTint="#FF5722"
             android:gravity="center"
             android:paddingHorizontal="5dp"
-            android:text="Hiện tin"
+            android:text="@string/hien_tin"
             android:textAllCaps="false"
             android:textColor="#FF5722"
             android:textSize="13sp" />

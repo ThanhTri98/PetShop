@@ -22,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.petmarket2020.Controllers.PostController;
+import com.example.petmarket2020.Models.PostModel;
 import com.example.petmarket2020.R;
 import com.smarteist.autoimageslider.SliderView;
 
@@ -50,14 +51,22 @@ public class PostDetailActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_post_detail);
         getWidget();
         postController = new PostController(this);
-        postId = getIntent().getStringExtra("postId");
-        peType = getIntent().getStringExtra("peType");
-        price = getIntent().getLongExtra("price", 0);
+        PostModel postModel = (PostModel) getIntent().getSerializableExtra("postModel");
+        if (postModel != null) {
+            postId = postModel.getPostId();
+            peType = postModel.getPeType();
+            price = postModel.getPrice();
+        } else {
+            postId = getIntent().getStringExtra("postId");
+            peType = getIntent().getStringExtra("peType");
+            price = getIntent().getLongExtra("price", 0);
+        }
+
         imgFav.setTag(R.id.postId, postId);
         postController.isFavorite(postId, imgFav);
         postController.isRatedAndGetAllComment(postId, rlIsRate, btnSubmit, ratingUser, etComment, tvTime, ratingBarTotal, tvBarTotal, rvRate);
         postController.postDetail
-                (postId, imageSlider, new TextView[]
+                (postId, postModel, imageSlider, new TextView[]
                         {
                                 tvTitle, tvPrice, tvBreed, tvGender, tvAge, tvInject, tvHealthy, tvPhoneNumber, tvArea
                         });

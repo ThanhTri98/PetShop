@@ -29,13 +29,11 @@ public class MainMeFragment extends Fragment {
     private RelativeLayout rlNoLogin;
     private PostController postController;
     private VP_PostManageAdapter vp_postManageAdapter;
-    private TabLayoutMediator tabLayoutMediator;
 
     private static BadgeDrawable badgeSelling;
     private static BadgeDrawable badgeHidden;
     private static BadgeDrawable badgeRefused;
     private static BadgeDrawable badgeWaiting;
-    private boolean firstStart;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,30 +48,6 @@ public class MainMeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_main_me, container, false);
         getWidget(view);
         vpg2.setAdapter(vp_postManageAdapter);
-        tabLayoutMediator = new TabLayoutMediator(tabLayout, vpg2, (tab, position) -> {
-            switch (position) {
-                case 0:
-                    tab.setText("Đang bán");
-                    badgeSelling = tab.getOrCreateBadge();
-//                    initBadge(badgeSelling, postManageItemCount.getSellingCount());
-                    break;
-                case 1:
-                    tab.setText("Đã Ẩn");
-                    badgeHidden = tab.getOrCreateBadge();
-//                    initBadge(badgeHidden, postManageItemCount.getHiddenCount());
-                    break;
-                case 2:
-                    tab.setText("Bị từ chối");
-                    badgeRefused = tab.getOrCreateBadge();
-//                    initBadge(badgeRefused, postManageItemCount.getRefuseCount());
-                    break;
-                case 3:
-                    tab.setText("Chờ duyệt");
-                    badgeWaiting = tab.getOrCreateBadge();
-//                    initBadge(badgeWaiting, postManageItemCount.getWaitingCount());
-                    break;
-            }
-        });
         return view;
     }
 
@@ -81,17 +55,56 @@ public class MainMeFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         if (postController.checkLogin()) {
-            SessionManager.PostManageItemCount postManageItemCount = postController.getPostOfUserSession();
             rlNoLogin.setVisibility(View.GONE);
             vpg2.setVisibility(View.VISIBLE);
             tabLayout.setVisibility(View.VISIBLE);
-            if (!firstStart) {
-                firstStart = true;
-                tabLayoutMediator.attach();
+            TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout, vpg2, (tab, position) -> {
+                switch (position) {
+                    case 0:
+                        tab.setText("Đang bán");
+                        badgeSelling = tab.getOrCreateBadge();
+                        badgeSelling.setBackgroundColor(ContextCompat.getColor(Objects.requireNonNull(getContext()), R.color.colorPrimary));
+                        badgeSelling.setHorizontalOffset(8);
+                        badgeSelling.setMaxCharacterCount(2);
+                        break;
+                    case 1:
+                        tab.setText("Đã Ẩn");
+                        badgeHidden = tab.getOrCreateBadge();
+                        badgeHidden.setBackgroundColor(ContextCompat.getColor(Objects.requireNonNull(getContext()), R.color.colorPrimary));
+                        badgeHidden.setHorizontalOffset(8);
+                        badgeHidden.setMaxCharacterCount(2);
+                        break;
+                    case 2:
+                        tab.setText("Bị từ chối");
+                        badgeRefused = tab.getOrCreateBadge();
+                        badgeRefused.setBackgroundColor(ContextCompat.getColor(Objects.requireNonNull(getContext()), R.color.colorPrimary));
+                        badgeRefused.setHorizontalOffset(8);
+                        badgeRefused.setMaxCharacterCount(2);
+                        break;
+                    case 3:
+                        tab.setText("Chờ duyệt");
+                        badgeWaiting = tab.getOrCreateBadge();
+                        badgeWaiting.setBackgroundColor(ContextCompat.getColor(Objects.requireNonNull(getContext()), R.color.colorPrimary));
+                        badgeWaiting.setHorizontalOffset(8);
+                        badgeWaiting.setMaxCharacterCount(2);
+                        break;
+                }
+            });
+            tabLayoutMediator.attach();
+            SessionManager.PostManageItemCount postManageItemCount = postController.getPostOfUserSession();
+            if (postManageItemCount != null) {
+                initBadge(badgeSelling, postManageItemCount.getSellingCount());
+                initBadge(badgeHidden, postManageItemCount.getHiddenCount());
+                initBadge(badgeRefused, postManageItemCount.getRefuseCount());
+                initBadge(badgeWaiting, postManageItemCount.getWaitingCount());
             }
         } else {
-            tabLayoutMediator.detach();
             vpg2.setVisibility(View.GONE);
             tabLayout.setVisibility(View.GONE);
             rlNoLogin.setVisibility(View.VISIBLE);
@@ -99,9 +112,6 @@ public class MainMeFragment extends Fragment {
     }
 
     private void initBadge(BadgeDrawable badgeDrawable, int firstNumber) {
-        badgeDrawable.setBackgroundColor(ContextCompat.getColor(Objects.requireNonNull(getContext()), R.color.colorPrimary));
-        badgeDrawable.setHorizontalOffset(8);
-        badgeDrawable.setMaxCharacterCount(2);
         badgeDrawable.setVisible(firstNumber != 0);
         badgeDrawable.setNumber(firstNumber);
     }

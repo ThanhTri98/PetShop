@@ -23,8 +23,10 @@ import com.example.petmarket2020.HelperClass.NodeRootDB;
 import com.example.petmarket2020.Models.UsersModel;
 import com.example.petmarket2020.R;
 import com.example.petmarket2020.Views.CoinsActivity;
+import com.example.petmarket2020.Views.FavoritesActivity;
 import com.example.petmarket2020.Views.LoginActivity;
 import com.example.petmarket2020.Views.ProfileActivity;
+import com.example.petmarket2020.Views.TransactionHistoryActivity;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.storage.FirebaseStorage;
@@ -131,12 +133,12 @@ public class MainMoreFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.llFavorites:
                 if (mainMoreController.checkLogin())
-                    Toast.makeText(getContext(), "CHUA LAM llFavorites", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(getActivity(), FavoritesActivity.class));
                 else showSBMargin(v);
                 break;
             case R.id.llTransHis:
                 if (mainMoreController.checkLogin())
-                    Toast.makeText(getContext(), "CHUA LAM llTransHis", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(getActivity(), TransactionHistoryActivity.class));
                 else showSBMargin(v);
                 break;
             case R.id.llVoucher:

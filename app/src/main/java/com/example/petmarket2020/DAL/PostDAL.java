@@ -1,5 +1,9 @@
 package com.example.petmarket2020.DAL;
 
+import android.location.Location;
+import android.os.Handler;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.example.petmarket2020.Adapters.items.PosterItem;
@@ -23,6 +27,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 public class PostDAL {
     private DatabaseReference mRef;
@@ -32,7 +37,7 @@ public class PostDAL {
         if (mRef == null)
             mRef = FirebaseDatabase.getInstance().getReference();
         if (mStorageRef == null)
-            mStorageRef = FirebaseStorage.getInstance().getReference(NodeRootDB.STORAGE_IMAGES);
+            mStorageRef = FirebaseStorage.getInstance().getReference();
     }
 
     public void getPetBreeds(String type, IControlData iControlData) {
@@ -57,13 +62,23 @@ public class PostDAL {
         });
     }
 
-    public void postUpload(PostModel postModel, HashMap<String, byte[]> mapImage, IControlData iPost) {
+    public void deleteImageFragment(String imageId) {
+        Log.e("ImageID", imageId);
+//        mStorageRef.child(imageId).delete();
+    }
+
+    public void postUpload(PostModel postModel, HashMap<String, byte[]> mapImage, Set<String> imageRemoved, IControlData iPost) {
         mRef.child(NodeRootDB.POST).child(postModel.getPostId()).setValue(postModel)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         // upload image
                         iPost.isSuccessful(true);
-                        mapImage.forEach((s, bytes) -> mStorageRef.child(s).putBytes(bytes));
+                        imageRemoved.forEach(s -> {
+                            mStorageRef.child(NodeRootDB.STORAGE_IMAGES).child(s).delete();
+                        });
+                        mapImage.forEach((s, bytes) -> {
+                            mStorageRef.child(NodeRootDB.STORAGE_IMAGES).child(s).putBytes(bytes);
+                        });
                     } else {
                         iPost.isSuccessful(false);
                     }
@@ -72,7 +87,7 @@ public class PostDAL {
 
     private List<DataSnapshot> listNormal;
     private List<DataSnapshot> listHot;
-    private List<String> listKeysHot;
+    private HashMap<String, String> listKeysHot;
 
     public void getPostHome(int typeRequest, IControlData iPost) {
         if (listNormal != null && listHot != null && listKeysHot != null) {
@@ -83,7 +98,16 @@ public class PostDAL {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     Iterable<DataSnapshot> snapshots = snapshot.getChildren();
                     listNormal = new ArrayList<>();
-                    snapshots.forEach(listNormal::add);
+                    snapshots.forEach(dataSnapshot -> {
+                        Object statusss = dataSnapshot.child("status").getValue();
+                        if (statusss != null) {
+                            long status = Long.parseLong(String.valueOf(statusss));
+                            boolean hidden = Boolean.parseBoolean(String.valueOf(dataSnapshot.child("hidden").getValue()));
+                            if (status == 1 && !hidden)
+                                listNormal.add(dataSnapshot);
+                        }
+
+                    });
                     Collections.shuffle(listNormal);
                     processTypePostList(typeRequest, iPost);
                 }
@@ -100,13 +124,13 @@ public class PostDAL {
         mRef.child(NodeRootDB.HOT_POST).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                listKeysHot = new ArrayList<>();
+                listKeysHot = new HashMap<>();
                 for (DataSnapshot ds : snapshot.getChildren()) {
-                    listKeysHot.add(ds.getKey());
+                    listKeysHot.put(ds.getKey(), (String) ds.child("pkgId").getValue());
                 }
                 listHot = new ArrayList<>();
                 listNormal.forEach(dataSnapshot -> {
-                    if (listKeysHot.contains(dataSnapshot.getKey()))
+                    if (listKeysHot.containsKey(dataSnapshot.getKey()))
                         listHot.add(dataSnapshot);
                 });
                 processPostDownload(typeRequest, iPost);
@@ -127,8 +151,10 @@ public class PostDAL {
                 DataSnapshot ds = this.listNormal.remove(0);
                 PosterItem posterItem = ds.getValue(PosterItem.class);
                 if (posterItem != null) {
-                    if (listKeysHot.contains(posterItem.getPostId()))
+                    if (listKeysHot.containsKey(posterItem.getPostId())) {
                         posterItem.setHot(true);
+                        posterItem.setPkgId(listKeysHot.get(posterItem.getPostId()));
+                    }
                     itemsNormal.add(posterItem);
                 }
             }
@@ -138,6 +164,7 @@ public class PostDAL {
                 PosterItem posterItem = ds.getValue(PosterItem.class);
                 if (posterItem != null) {
                     posterItem.setHot(true);
+                    posterItem.setPkgId(listKeysHot.get(posterItem.getPostId()));
                     itemsHot.add(posterItem);
                 }
             }
@@ -148,8 +175,10 @@ public class PostDAL {
                 DataSnapshot ds = this.listNormal.remove(0);
                 PosterItem posterItem = ds.getValue(PosterItem.class);
                 if (posterItem != null) {
-                    if (listKeysHot.contains(posterItem.getPostId()))
+                    if (listKeysHot.containsKey(posterItem.getPostId())) {
                         posterItem.setHot(true);
+                        posterItem.setPkgId(listKeysHot.get(posterItem.getPostId()));
+                    }
                     itemsNormal.add(posterItem);
                 }
             }
@@ -161,6 +190,7 @@ public class PostDAL {
                 PosterItem posterItem = ds.getValue(PosterItem.class);
                 if (posterItem != null) {
                     posterItem.setHot(true);
+                    posterItem.setPkgId(listKeysHot.get(posterItem.getPostId()));
                     itemsHot.add(posterItem);
                 }
             }
@@ -169,38 +199,53 @@ public class PostDAL {
 
     }
 
-    public void postDetail(String postId, IControlData iControlData) {
-        mRef.child(NodeRootDB.POST).child(postId).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    List<Object> dataResult = new ArrayList<>();
-                    PostModel postModel = snapshot.getValue(PostModel.class);
-                    if (postModel != null) {
-                        dataResult.add(postModel);
-                        String poster = postModel.getPoster();
-                        mRef.child(NodeRootDB.USERS).child(poster).child("phoneNumber").addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if (snapshot.exists())
-                                    dataResult.add(snapshot.getValue());
-                                iControlData.responseData(dataResult);
-                            }
+    public void postDetail(String postId, PostModel postModel, IControlData iControlData) {
+        if (postModel != null) {
+            mRef.child(NodeRootDB.USERS).child(postModel.getPoster()).child("phoneNumber").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists())
+                        iControlData.responseData(snapshot.getValue());
+                }
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-                            }
-                        });
+                }
+            });
+        } else {
+            mRef.child(NodeRootDB.POST).child(postId).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        List<Object> dataResult = new ArrayList<>();
+                        PostModel postModel = snapshot.getValue(PostModel.class);
+                        if (postModel != null) {
+                            dataResult.add(postModel);
+                            String poster = postModel.getPoster();
+                            mRef.child(NodeRootDB.USERS).child(poster).child("phoneNumber").addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    if (snapshot.exists())
+                                        dataResult.add(snapshot.getValue());
+                                    iControlData.responseData(dataResult);
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+                        }
                     }
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
+                }
+            });
+        }
     }
 
     public void updateViewsCount(String postId, long views) {
@@ -352,6 +397,76 @@ public class PostDAL {
         });
     }
 
+    public void getPostFilter(String queryArea, String queryPeType, Location location, String breed, IControlData iControlData) {
+        if (listNormal != null) {
+            postSearchProcess(queryArea, queryPeType, location, breed, iControlData);
+        } else {
+            mRef.child(NodeRootDB.POST).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    Iterable<DataSnapshot> snapshots = snapshot.getChildren();
+                    listNormal = new ArrayList<>();
+                    snapshots.forEach(dataSnapshot -> {
+                        Object statusss = dataSnapshot.child("status").getValue();
+                        if (statusss != null) {
+                            long status = Long.parseLong(String.valueOf(statusss));
+                            boolean hidden = Boolean.parseBoolean(String.valueOf(dataSnapshot.child("hidden").getValue()));
+                            if (status == 1 && !hidden)
+                                listNormal.add(dataSnapshot);
+                        }
+
+                    });
+                    Collections.shuffle(listNormal);
+                    postSearchProcess(queryArea, queryPeType, location, breed, iControlData);
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
+    }
+
+    private void postSearchProcess(String queryArea, String queryPeType, Location locationUser, String breed, IControlData iControlData) {
+        List<PosterItem> itemsNormal = new ArrayList<>();
+        while (!this.listNormal.isEmpty() && itemsNormal.size() < 6) {
+            DataSnapshot ds = this.listNormal.remove(0);
+            PosterItem posterItem = ds.getValue(PosterItem.class);
+            if (posterItem != null) {
+                if (breed == null) {
+                    if (queryArea.contains("bạn")) {
+                        Log.e("@@@@@@@@@@@@@a", "ađaá");
+                        Location locationPost = new Location("");
+                        locationPost.setLatitude(posterItem.getLatitude());
+                        locationPost.setLongitude(posterItem.getLongitude());
+                        if (!checkDistanceValid(locationUser, locationPost)) continue;
+                    }
+                    if (queryPeType.equals("Chó")) {
+                        if (posterItem.getPeType().equals("dog"))
+                            itemsNormal.add(posterItem);
+                    } else {
+                        if (posterItem.getPeType().equals("cat"))
+                            itemsNormal.add(posterItem);
+                    }
+                } else {
+                    Log.e("zooooooposterItem", posterItem.getBreed());
+                    Log.e("zoooooo", breed);
+                    if (posterItem.getBreed().equals(breed)) {
+                        itemsNormal.add(posterItem);
+                    }
+                }
+            }
+        }
+        iControlData.responseData(itemsNormal);
+    }
+
+    private boolean checkDistanceValid(Location locationUser, Location locationPost) {
+        double distance = (double) Math.round((locationUser.distanceTo(locationPost) / 1000) * 100) / 100;
+        return distance <= 10;
+    }
+
     // PostManage DAL
     public void getPostByStatus(String uId, long status, IControlData iControlData) {
         // status: 0 Đang duyệt, 1 OK, 2 Bị từ chấu, 3 ẩn cmn danh
@@ -361,15 +476,20 @@ public class PostDAL {
                 List<PostModel> postModelList = new ArrayList<>();
                 snapshot.getChildren().forEach(dataSnapshot -> {
                     String poster = String.valueOf(dataSnapshot.child("poster").getValue());
-                    boolean hidden = Boolean.parseBoolean(String.valueOf(dataSnapshot.child("hidden").getValue()));
                     if (poster.equals(uId)) {
+                        long status1 = Long.parseLong(String.valueOf(dataSnapshot.child("status").getValue()));
+                        boolean hidden = Boolean.parseBoolean(String.valueOf(dataSnapshot.child("hidden").getValue()));
                         if (status < 3) {
-                            long status1 = Long.parseLong(String.valueOf(dataSnapshot.child("status").getValue()));
-                            if (status == status1 && !hidden) {
-                                postModelList.add(dataSnapshot.getValue(PostModel.class));
+                            if (status == status1) {
+                                if (status1 == 1) {
+                                    if (!hidden)
+                                        postModelList.add(dataSnapshot.getValue(PostModel.class));
+                                } else {
+                                    postModelList.add(dataSnapshot.getValue(PostModel.class));
+                                }
                             }
                         } else {
-                            if (hidden)
+                            if (hidden && status1 == 1)
                                 postModelList.add(dataSnapshot.getValue(PostModel.class));
                         }
                     }
@@ -382,5 +502,82 @@ public class PostDAL {
 
             }
         });
+    }
+
+    public void hideOrUnHidePost(boolean isHide, String postId, IControlData iControlData) {
+        mRef.child(NodeRootDB.POST).child(postId).child("hidden").setValue(isHide)
+                .addOnCompleteListener(task -> iControlData.isSuccessful(task.isSuccessful()));
+    }
+
+    //Fav
+    public void getFavoriteList(String uId, IControlData iControlData) {
+        mRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<String> postIds = new ArrayList<>();
+                Iterable<DataSnapshot> data = snapshot.child(NodeRootDB.USERS).child(uId).child("favorites").getChildren();
+                if(data!=null){
+                    data.forEach(dataSnapshot -> {
+                        String postId = (String) dataSnapshot.getValue();
+                        postIds.add(postId);
+                    });
+                    List<PosterItem> posterItems = new ArrayList<>();
+                    snapshot.child(NodeRootDB.POST).getChildren().forEach(dataSnapshot -> {
+                        if (postIds.contains(dataSnapshot.getKey())) {
+                            PosterItem posterItem = dataSnapshot.getValue(PosterItem.class);
+                            if (posterItem != null) posterItems.add(posterItem);
+                        }
+                    });
+                    iControlData.responseData(posterItems);
+                }else{
+                    iControlData.responseData(new ArrayList<>());
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+//        DatabaseReference mRef2 = FirebaseDatabase.getInstance().getReference(NodeRootDB.POST);
+//        mRef.child(NodeRootDB.USERS).child(uId).child("favorites").addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                if (snapshot.exists()) {
+//                    List<PosterItem> posterItems = new ArrayList<>();
+//                    List<String> postIds = new ArrayList<>();
+//                    snapshot.getChildren().forEach(dataSnapshot -> {
+//                        String postId = (String) dataSnapshot.getValue();
+//                        postIds.add(postId);
+//                    });
+//
+//                    postIds.forEach(s ->
+//                            mRef2.child(s).addListenerForSingleValueEvent(new ValueEventListener() {
+//                                @Override
+//                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                                    PosterItem posterItem = snapshot.getValue(PosterItem.class);
+//                                    if (posterItem != null) posterItems.add(posterItem);
+//                                }
+//
+//                                @Override
+//                                public void onCancelled(@NonNull DatabaseError error) {
+//
+//                                }
+//                            }));
+//                    new Handler().postDelayed(() -> {
+//                        iControlData.responseData(posterItems);
+//                    }, 500);
+//                } else {
+//                    iControlData.responseData(new ArrayList<>());
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
     }
 }

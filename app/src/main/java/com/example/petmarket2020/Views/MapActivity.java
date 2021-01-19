@@ -271,10 +271,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         //check if gps is enabled or not and then request user to enable it
         LocationRequest locationRequest = LocationRequest.create();
-//        locationRequest.setInterval(10000);
-//        locationRequest.setFastestInterval(5000);
-//        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-//
         LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder().addLocationRequest(locationRequest);
 
         SettingsClient settingsClient = LocationServices.getSettingsClient(MapActivity.this);
@@ -334,10 +330,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                             if (mLastKnownLocation != null) {
                                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
                             } else {
-//                                final LocationRequest locationRequest = LocationRequest.create();
-//                                locationRequest.setInterval(10000);
-//                                locationRequest.setFastestInterval(5000);
-//                                locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
                                 locationCallback = new LocationCallback() {
                                     @Override
                                     public void onLocationResult(LocationResult locationResult) {
@@ -350,8 +342,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                         mFusedLocationProviderClient.removeLocationUpdates(locationCallback);
                                     }
                                 };
-//                                mFusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, null);
-
                             }
                         }
                     }

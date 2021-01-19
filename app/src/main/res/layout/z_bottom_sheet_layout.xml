@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bottom_sheet"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="7dp"
+        android:fontFamily="@font/audio_wide"
+        android:text="PetShop 2020"
+        android:textColor="@color/colorRedDark"
+        android:textSize="14sp" />
+
+    <ImageView
+        android:id="@+id/ivClose"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentEnd="true"
+        android:contentDescription="@string/AppName"
+        android:padding="5dp"
+        android:src="@drawable/ic_close" />
+
+    <RelativeLayout
+        android:id="@+id/rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivClose"
+        android:layout_margin="10dp"
+        android:background="@drawable/bg_border_radius_gray"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/tvTitle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Đẩy tin 1 ngày"
+            android:textColor="@color/colorTextDefault"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvTitle2"
+            android:text="5.000 đ"
+            android:textColor="@color/colorGreen"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl"
+        android:layout_marginHorizontal="10dp"
+        android:text="Chọn số ngày đẩy tin"
+        android:textColor="@color/colorTextDefault"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <RadioGroup
+        android:id="@+id/rg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv"
+        android:layout_marginBottom="5dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingVertical="10dp">
+
+        <RadioButton
+            android:id="@+id/rd1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_rd_selector_circle"
+            android:button="@android:color/transparent"
+            android:checked="true"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="3dp"
+            android:text="1 ngày"
+            android:textColor="@drawable/bg_rd_text_color_selector" />
+
+        <RadioButton
+            android:id="@+id/rd2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:background="@drawable/bg_rd_selector_circle"
+            android:button="@android:color/transparent"
+            android:drawableEnd="@drawable/ic_sale"
+            android:drawablePadding="5dp"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="3dp"
+            android:text="3 ngày"
+            android:textColor="@drawable/bg_rd_text_color_selector" />
+
+        <RadioButton
+            android:id="@+id/rd3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_rd_selector_circle"
+            android:button="@android:color/transparent"
+            android:drawableEnd="@drawable/ic_sale"
+            android:drawablePadding="5dp"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="3dp"
+            android:text="7 ngày"
+            android:textColor="@drawable/bg_rd_text_color_selector" />
+    </RadioGroup>
+
+    <LinearLayout
+        android:id="@+id/llPayment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rg"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:paddingVertical="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/thanh_toan"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvPrice2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:text="32.000 đ"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</RelativeLayout>

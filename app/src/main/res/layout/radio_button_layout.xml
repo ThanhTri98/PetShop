@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RadioButton xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_rd_selector"
+    android:button="@android:color/transparent"
+    android:drawableEnd="@drawable/bg_rd_ic_end_selector"
+    android:paddingHorizontal="15dp"
+    android:paddingVertical="11dp"
+    android:textColor="@drawable/bg_rd_text_color_selector"
+    android:textSize="15sp" />

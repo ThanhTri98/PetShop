@@ -1,6 +1,5 @@
 package com.example.petmarket2020.Adapters;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +8,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -22,13 +20,23 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
 
 public class RV_PostManageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private final IOnItemClick iOnItemClick;
     private List<PostModel> postModelList;
     private final int VIEW_TYPE;
     private final StorageReference storageReference;
 
-    public RV_PostManageAdapter(int VIEW_TYPE) {
+    public static final int FLASH = 0;
+    public static final int EDIT = 1;
+    public static final int ITEM_CLICK = 5;
+    public static final int HIDDEN = 2;
+    public static final int UNHIDDEN = 3;
+
+    public RV_PostManageAdapter(int VIEW_TYPE, IOnItemClick iOnItemClick) {
+        this.iOnItemClick = iOnItemClick;
         this.VIEW_TYPE = VIEW_TYPE;
         storageReference = FirebaseStorage.getInstance().getReference();
         postModelList = new ArrayList<>();
@@ -39,6 +47,9 @@ public class RV_PostManageAdapter extends RecyclerView.Adapter<RecyclerView.View
         notifyDataSetChanged();
     }
 
+    public interface IOnItemClick {
+        void onClick(PostModel postModel, int type); //Edit or ViewDetail
+    }
 
     @NonNull
     @Override
@@ -62,6 +73,7 @@ public class RV_PostManageAdapter extends RecyclerView.Adapter<RecyclerView.View
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         PostModel postModel = postModelList.get(position);
+        String postId = postModel.getPostId();
         int sizeImage = postModel.getImages().size();
         if (holder.getItemViewType() == 0) {
             SellingHolder sellingHolder = (SellingHolder) holder;
@@ -71,10 +83,11 @@ public class RV_PostManageAdapter extends RecyclerView.Adapter<RecyclerView.View
             sellingHolder.tvImgCount.setText(String.valueOf(sizeImage));
             ImageView ivImage = sellingHolder.ivImage;
             Glide.with(ivImage).load(storageReference.child(postModel.getImages()
-                    .get(0))).diskCacheStrategy(DiskCacheStrategy.ALL).into(ivImage);
-            sellingHolder.btnFlash.setOnClickListener(v -> Log.e("ButtonsellingHolder", "btnFlash"));
-            sellingHolder.btnEdit.setOnClickListener(v -> Log.e("ButtonsellingHolder", "btnEdit"));
-            sellingHolder.btnHidden.setOnClickListener(v -> Log.e("ButtonsellingHolder", "btnHidden"));
+                    .get(new Random().nextInt(sizeImage)))).diskCacheStrategy(DiskCacheStrategy.ALL).into(ivImage);
+            sellingHolder.btnFlash.setOnClickListener(v -> iOnItemClick.onClick(postModel, FLASH));
+            sellingHolder.btnEdit.setOnClickListener(v -> iOnItemClick.onClick(postModel, EDIT));
+            sellingHolder.btnHidden.setOnClickListener(v -> iOnItemClick.onClick(postModel, HIDDEN));
+            sellingHolder.itemView.setOnClickListener(v -> iOnItemClick.onClick(postModel, ITEM_CLICK));
         } else if (holder.getItemViewType() == 1) {
             HiddenHolder hiddenHolder = (HiddenHolder) holder;
             hiddenHolder.tvTitle.setText(postModel.getTitle());
@@ -82,8 +95,9 @@ public class RV_PostManageAdapter extends RecyclerView.Adapter<RecyclerView.View
             hiddenHolder.tvImgCount.setText(String.valueOf(sizeImage));
             ImageView ivImage = hiddenHolder.ivImage;
             Glide.with(ivImage).load(storageReference.child(postModel.getImages()
-                    .get(0))).diskCacheStrategy(DiskCacheStrategy.ALL).into(ivImage);
-            hiddenHolder.btnHidden.setOnClickListener(v -> Log.e("ButtonHiddenHolder", "btnHidden"));
+                    .get(new Random().nextInt(sizeImage)))).diskCacheStrategy(DiskCacheStrategy.ALL).into(ivImage);
+            hiddenHolder.btnHidden.setOnClickListener(v -> iOnItemClick.onClick(postModel, UNHIDDEN));
+            hiddenHolder.itemView.setOnClickListener(v -> iOnItemClick.onClick(postModel, ITEM_CLICK));
         } else if (holder.getItemViewType() == 2) {
             RefusedHolder refusedHolder = (RefusedHolder) holder;
             refusedHolder.tvTitle.setText(postModel.getTitle());
@@ -91,8 +105,8 @@ public class RV_PostManageAdapter extends RecyclerView.Adapter<RecyclerView.View
             refusedHolder.tvImgCount.setText(String.valueOf(sizeImage));
             ImageView ivImage = refusedHolder.ivImage;
             Glide.with(ivImage).load(storageReference.child(postModel.getImages()
-                    .get(0))).diskCacheStrategy(DiskCacheStrategy.ALL).into(ivImage);
-            refusedHolder.btnEdit.setOnClickListener(v -> Log.e("ButtonRefusedHolder", "btnEdit"));
+                    .get(new Random().nextInt(sizeImage)))).diskCacheStrategy(DiskCacheStrategy.ALL).into(ivImage);
+            refusedHolder.btnEdit.setOnClickListener(v -> iOnItemClick.onClick(postModel, EDIT));
         } else {
             WaitingHolder waitingHolder = (WaitingHolder) holder;
             waitingHolder.tvTitle.setText(postModel.getTitle());
@@ -100,7 +114,7 @@ public class RV_PostManageAdapter extends RecyclerView.Adapter<RecyclerView.View
             waitingHolder.tvImgCount.setText(String.valueOf(sizeImage));
             ImageView ivImage = waitingHolder.ivImage;
             Glide.with(ivImage).load(storageReference.child(postModel.getImages()
-                    .get(0))).diskCacheStrategy(DiskCacheStrategy.ALL).into(ivImage);
+                    .get(new Random().nextInt(sizeImage)))).diskCacheStrategy(DiskCacheStrategy.ALL).into(ivImage);
         }
     }
 

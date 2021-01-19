@@ -20,7 +20,6 @@
             android:background="@drawable/bg_rd_selector"
             android:button="@android:color/transparent"
             android:drawableEnd="@drawable/bg_rd_ic_end_selector"
-            android:onClick="callNextPage"
             android:paddingHorizontal="15dp"
             android:paddingVertical="8dp"
             android:text="@string/PoTSell"

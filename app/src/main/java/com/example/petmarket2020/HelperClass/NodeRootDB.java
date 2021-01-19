@@ -9,6 +9,7 @@ public class NodeRootDB {
     public static String COINS_PACKAGE = "CoinsPackage";
     public static String RANKINGS = "Rankings";
     public static String TRANS_HIS = "TransactionHistory";
+    public static String TRANS_NOTI = "Notifications";
 
     public static String STORAGE_PROFILE = "profile";
     public static String STORAGE_IMAGES = "images";

@@ -1,7 +1,6 @@
 package com.example.petmarket2020.Views.Fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,37 +32,17 @@ public class SellingFragment extends Fragment {
         rvSelling = view.findViewById(R.id.rvSelling);
         rvSelling.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
         pgBar = view.findViewById(R.id.pgBar);
-        postController.getPostByStatus(1, rvSelling, pgBar, new IControlData() {
-            @Override
-            public void responseData(Object data) {
-                Log.e("setBadgeSelling", String.valueOf(data));
-                MainMeFragment.setBadgeSelling((Integer) data);
-            }
-        });
         return view;
     }
 
     @Override
     public void onStart() {
         super.onStart();
-//
-//        List<PostModel> postModelList = new ArrayList<>();
-//        PostModel postModel = new PostModel("PO1", "", 0, false, 10, 10, 10, 200000, "Mèo Xiêm", "", "", "", "", "", "20/12/2020 14:35",
-//                "Mồn lèo lèo lèo lèo lèo lèo lèo lèo lèo lèo lèo"
-//                , 0, "", "", Arrays.asList("images/PO16101915940350.jpg", "images/PO16101915940351.jpg"));
-//        postModelList.add(postModel);
-//        postModelList.add(postModel);
-//        postModelList.add(postModel);
-//        postModelList.add(postModel);
-//        postModelList.add(postModel);
-//        postModelList.add(postModel);
-//        postModelList.add(postModel);
-//        RV_PostManageAdapter postManageAdapter = new RV_PostManageAdapter(postModelList, 0);
-//        rvSelling.setAdapter(postManageAdapter);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
+        postController.getPostByStatus(1, rvSelling, pgBar, new IControlData() {
+            @Override
+            public void responseData(Object data) {
+                MainMeFragment.setBadgeSelling((Integer) data);
+            }
+        });
     }
 }

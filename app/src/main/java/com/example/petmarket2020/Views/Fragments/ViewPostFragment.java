@@ -2,6 +2,7 @@ package com.example.petmarket2020.Views.Fragments;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,7 +73,8 @@ public class ViewPostFragment extends Fragment {
         tvArea.setText(area);
         view.findViewById(R.id.bab).setOnClickListener(v -> {
             // Xử lý đăng tin ở đây
-            PostActivity.getPostController().postUpload(postModel, mapImage, rlBar, vpg, tvTitles);
+            postModel.setStatus(0);
+            PostActivity.getPostController().postUpload(postModel,PostActivity.getImageRemoved(), mapImage, rlBar, vpg, tvTitles);
         });
         return view;
     }
@@ -80,7 +82,10 @@ public class ViewPostFragment extends Fragment {
     private String getArea() {
         String address = usersModel.getAddress();
         int index = address.lastIndexOf(",");
-        return address.substring(index + 1).trim();
+        String area = address.substring(index + 1).trim();
+        if (area.contains("Thành phố"))
+            area = area.replace("Thành phố", "TP.");
+        return area;
     }
 
     @Override
@@ -88,9 +93,12 @@ public class ViewPostFragment extends Fragment {
         super.onResume();
         HashMap<String, Object> hashMap = PostActivity.getAllData();
         postModel = new PostModel();
-        String postID = "PO" + System.currentTimeMillis();
+        String postId = (String) PostActivity.getData(PostActivity.KEY_POST_ID);
+        if (postId == null) {
+            postId = "PO" + System.currentTimeMillis();
+        }
         postModel.setPoster(usersModel.getUid());
-        postModel.setPostId(postID);
+        postModel.setPostId(postId);
         postModel.setArea(area);
         postModel.setLatitude(usersModel.getLatitude());
         postModel.setLongitude(usersModel.getLongitude());
@@ -113,23 +121,34 @@ public class ViewPostFragment extends Fragment {
                     postModel.setTitle((String) data.getValue());
                     tvTitle.setText((String) data.getValue());
                     break;
-                case PostActivity.KEY_DURATION_DATE:
-                    String[] items = ((String) data.getValue()).split("@"); // 0:price, 1:time
-                    postModel.setPrice(Long.parseLong(items[0]));
-                    postModel.setLimitDay(Long.parseLong(items[1].split(" ")[0]));
-                    tvPrice.setText(Utils.formatCurrencyVN(Double.parseDouble(items[0])));
+                case PostActivity.KEY_PRICE:
+                    String price = (String) data.getValue();
+                    postModel.setPrice(Long.parseLong(price));
+                    tvPrice.setText(Utils.formatCurrencyVN(Double.parseDouble(price)));
                     break;
-                case PostActivity.KEY_INFO:
-                    String[] info_s = ((String) data.getValue()).split("@");
-                    //0: gender, 1:inject, 2:healthy, 3: age
-                    postModel.setGender(info_s[0]);
-                    postModel.setInjectStatus(info_s[1]);
-                    postModel.setHealthGuarantee(info_s[2]);
-                    postModel.setPeAge(info_s[3]);
-                    tvGender.setText(info_s[0]);
-                    tvInject.setText(info_s[1]);
-                    tvHealthy.setText(info_s[2]);
-                    tvAge.setText(info_s[3]);
+                case PostActivity.KEY_DURATION:
+                    String duration = (String) data.getValue();
+                    postModel.setLimitDay(Long.parseLong(duration.split(" ")[0]));
+                    break;
+                case PostActivity.KEY_GENDER:
+                    String gender = (String) data.getValue();
+                    postModel.setGender(gender);
+                    tvGender.setText(gender);
+                    break;
+                case PostActivity.KEY_INJECT:
+                    String inject = (String) data.getValue();
+                    postModel.setInjectStatus(inject);
+                    tvInject.setText(inject);
+                    break;
+                case PostActivity.KEY_HEALTH:
+                    String health = (String) data.getValue();
+                    postModel.setHealthGuarantee(health);
+                    tvHealthy.setText(health);
+                    break;
+                case PostActivity.KEY_PE_AGE:
+                    String peAge = (String) data.getValue();
+                    postModel.setPeAge(peAge);
+                    tvAge.setText(peAge);
                     break;
             }
         }
@@ -138,10 +157,11 @@ public class ViewPostFragment extends Fragment {
         AtomicInteger i = new AtomicInteger();
         List<String> images = new ArrayList<>();
         mapImage = new HashMap<>();
+        String finalPostId = postId;
         new ArrayList<>(dataMap.values()).forEach(bitmap -> {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-            String id = postID + i.getAndIncrement() + ".jpg";
+            String id = finalPostId + i.getAndIncrement() + ".jpg";
             images.add("images/" + id);
             mapImage.put(id, baos.toByteArray());
 

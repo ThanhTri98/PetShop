@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -21,10 +22,16 @@ import java.util.List;
 public class RV_PetCategoryAdapter extends RecyclerView.Adapter<RV_PetCategoryAdapter.MyViewHolder> {
     private final List<PetTypeModel> listItems;
     private final StorageReference storageReference;
+    private final IOnItemClick iOnItemClick;
 
-    public RV_PetCategoryAdapter(List<PetTypeModel> listItems) {
+    public RV_PetCategoryAdapter(List<PetTypeModel> listItems, IOnItemClick iOnItemClick) {
+        this.iOnItemClick = iOnItemClick;
         this.listItems = listItems;
         storageReference = FirebaseStorage.getInstance().getReference();
+    }
+
+    public interface IOnItemClick {
+        void itemClick(String breed);
     }
 
     @NonNull
@@ -42,6 +49,9 @@ public class RV_PetCategoryAdapter extends RecyclerView.Adapter<RV_PetCategoryAd
         Glide.with(holder.ivPet).load(storageReference.child(image))
                 .diskCacheStrategy(DiskCacheStrategy.ALL).into(holder.ivPet);
         holder.tvPet.setText(name);
+        holder.cv.setOnClickListener(v -> {
+            iOnItemClick.itemClick(name);
+        });
     }
 
 
@@ -53,11 +63,13 @@ public class RV_PetCategoryAdapter extends RecyclerView.Adapter<RV_PetCategoryAd
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView ivPet;
         TextView tvPet;
+        CardView cv;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             ivPet = itemView.findViewById(R.id.ivPet);
             tvPet = itemView.findViewById(R.id.tvPet);
+            cv = itemView.findViewById(R.id.cv);
         }
     }
 }

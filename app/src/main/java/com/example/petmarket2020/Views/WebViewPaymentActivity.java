@@ -40,13 +40,6 @@ public class WebViewPaymentActivity extends AppCompatActivity {
             String url = request.getUrl().toString().substring(0,18);
             Log.e("shouldOverrideUrlLoading", url);
             if (url.equals("https://google.com")) {
-//                Intent i = new Intent();
-                //getApplicationContext(), PaymentOptionActivity.class
-//                i.putExtra("message", "OK");
-//                long values = getIntent().getLongExtra("value", 0);
-//                i.putExtra("value", values);
-//                Log.e("WebView_Coins_48", values + "");
-//                coinsController.payProcess();
                 setResult(RESULT_OK);
                 finish();
                 return true;

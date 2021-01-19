@@ -41,7 +41,7 @@ public class RefusedFragment extends Fragment {
             @Override
             public void responseData(Object data) {
                 MainMeFragment.setBadgeRefused((Integer) data);
-                Log.e("setBadgeRefused", String.valueOf(data));
+//                Log.e("setBadgeRefused", String.valueOf(data));
 
             }
         });

@@ -3,6 +3,7 @@ package com.example.petmarket2020.Models;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.location.Location;
 
 import com.google.gson.Gson;
 
@@ -12,11 +13,30 @@ public class SessionManager {
     private final SharedPreferences.Editor editor;
     public static final String KEY_USER = "USER";
     public static final String KEY_POST_MANAGE_COUNT = "KEY_POST_MANAGE_COUNT";
+    public static final String LATITUDE = "LATITUDE";
+    public static final String LONGITUDE = "LONGITUDE";
 
     @SuppressLint("CommitPrefEdits")
     public SessionManager(Context context) {
         usersSession = context.getSharedPreferences(KEY_USER, Context.MODE_PRIVATE);
         editor = usersSession.edit();
+    }
+
+    public void createOrUpdateLocationSession(Location location) {
+        editor.putString(LATITUDE, String.valueOf(location.getLatitude()));
+        editor.putString(LONGITUDE, String.valueOf(location.getLongitude()));
+        editor.apply();
+    }
+
+    public Location getLocation() {
+        if (usersSession.getString(LATITUDE, null) == null)
+            return null;
+        Location location = new Location("");
+        double lat = Double.parseDouble(String.valueOf(usersSession.getString(LATITUDE, "0")));
+        double lon = Double.parseDouble(String.valueOf(usersSession.getString(LONGITUDE, "0")));
+        location.setLatitude(lat);
+        location.setLongitude(lon);
+        return location;
     }
 
     public void createOrUpdateUserSession(UsersModel usersModel) {

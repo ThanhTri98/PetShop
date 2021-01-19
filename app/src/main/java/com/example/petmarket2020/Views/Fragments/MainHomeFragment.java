@@ -17,10 +17,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.denzcoskun.imageslider.ImageSlider;
+import com.denzcoskun.imageslider.constants.ScaleTypes;
+import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.petmarket2020.Controllers.PostController;
 import com.example.petmarket2020.HelperClass.Utils;
 import com.example.petmarket2020.R;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class MainHomeFragment extends Fragment {
@@ -66,6 +70,16 @@ public class MainHomeFragment extends Fragment {
         ivBack = v.findViewById(R.id.ivBack);
         //  ++ Slider
         imgSlider = v.findViewById(R.id.imgSlider);
+
+        List<SlideModel> slideModels = new ArrayList<>();
+        slideModels.add(new SlideModel(R.drawable.banner1, ScaleTypes.CENTER_CROP));
+        slideModels.add(new SlideModel(R.drawable.banner2, ScaleTypes.CENTER_CROP));
+        slideModels.add(new SlideModel(R.drawable.banner3, ScaleTypes.CENTER_CROP));
+        slideModels.add(new SlideModel(R.drawable.banner4, ScaleTypes.CENTER_CROP));
+        slideModels.add(new SlideModel(R.drawable.banner5, ScaleTypes.CENTER_CROP));
+        slideModels.add(new SlideModel(R.drawable.banner6, ScaleTypes.CENTER_CROP));
+        slideModels.add(new SlideModel(R.drawable.banner7, ScaleTypes.CENTER_CROP));
+        imgSlider.setImageList(slideModels);
         //-- Middle
         //  ++ Category
         rvCategoryDog = v.findViewById(R.id.rvCategoryDog);
@@ -101,5 +115,6 @@ public class MainHomeFragment extends Fragment {
         //  ++ Category
         //  ++ Poster
     }
+
 
 }

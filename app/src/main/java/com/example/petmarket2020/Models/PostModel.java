@@ -1,9 +1,10 @@
 package com.example.petmarket2020.Models;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-public class PostModel {
+public class PostModel implements Serializable {
     private String postId;
     private String area;
     private long status; //0: Đang duyệt, 1: OK, 2:Cancel

@@ -189,4 +189,12 @@
     <string name="day_tin">Đẩy tin</string>
     <string name="sua_tin">Sửa tin</string>
     <string name="an_tin">Ẩn tin</string>
+    <string name="cho_duyet">Chờ xét duyệt</string>
+    <string name="hien_tin">Hiện tin</string>
+    <string name="bi_tu_choi">Bị từ chối</string>
+    <string name="cho_xiu">Chờ xíu...</string>
+    <string name="da_an">Đã ẩn</string>
+    <string name="ban_nhanh_hon">Bán nhanh hơn</string>
+    <string name="da_luu">Đã lưu</string>
+    <string name="thanh_toan_qua">Thanh toán qua</string>
 </resources>

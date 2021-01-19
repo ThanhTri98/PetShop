@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="7dp"
+    android:background="@drawable/shadow">
+
+    <RelativeLayout
+        android:id="@+id/rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="7dp">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/rlImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            app:cardCornerRadius="3dp"
+            app:cardElevation="0dp">
+
+            <ImageView
+                android:id="@+id/ivImage"
+                android:layout_width="90sp"
+                android:layout_height="70dp"
+                android:contentDescription="@string/AppName"
+                android:scaleType="fitXY" />
+        </androidx.cardview.widget.CardView>
+
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/rlImage"
+            android:textColor="@color/colorTextDefault" />
+
+        <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvTitle"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@+id/rlImage"
+            android:textColor="@color/grey_font"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvPrice"
+            android:layout_marginStart="3dp"
+            android:layout_toEndOf="@+id/iv"
+            android:text="@string/da_luu"
+            android:textColor="@color/colorRedDark"
+            android:textSize="13sp" />
+
+        <ImageView
+            android:id="@+id/iv"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_below="@+id/tvPrice"
+            android:layout_toEndOf="@+id/rlImage"
+            android:contentDescription="@string/AppName"
+            android:src="@drawable/ic_item_tym_checked" />
+
+        <ImageView
+            android:id="@+id/imgFav"
+            android:layout_width="40dp"
+            android:layout_height="35dp"
+            android:layout_alignBottom="@+id/iv"
+            android:layout_alignParentEnd="true"
+            android:contentDescription="@string/AppName"
+            android:padding="5dp"
+            android:src="@drawable/ic_item_tym_checked" />
+
+        <ProgressBar
+            android:id="@+id/pgBar"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_alignBottom="@+id/iv"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="7dp"
+            android:layout_marginBottom="8dp"
+            android:indeterminateTint="@color/colorRedDark"
+            android:visibility="invisible" />
+    </RelativeLayout>
+</RelativeLayout>

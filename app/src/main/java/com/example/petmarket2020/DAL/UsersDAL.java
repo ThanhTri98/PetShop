@@ -1,6 +1,7 @@
 package com.example.petmarket2020.DAL;
 
 import android.app.Activity;
+import android.os.Handler;
 
 import androidx.annotation.NonNull;
 
@@ -138,7 +139,8 @@ public class UsersDAL {
                                     UsersModel usersModel = snapshot.getValue(UsersModel.class);
                                     if (usersModel != null) {
                                         saveUserSession(usersModel.getUid());
-                                        iControlData.isSuccessful(true);
+                                        savePostManageOfUserSession(usersModel.getUid());
+                                        new Handler().postDelayed(() -> iControlData.isSuccessful(true), 500);
                                     } else {
                                         usersModel = new UsersModel();
                                         usersModel.setUid(emailID);
@@ -186,7 +188,8 @@ public class UsersDAL {
                                     mStorageRef.child(photoName).putBytes(baos.toByteArray()).addOnCompleteListener(task1 -> {
                                         if (task1.isSuccessful()) {
                                             saveUserSession(usersModel.getUid());
-                                            iControlData.isSuccessful(true);
+                                            savePostManageOfUserSession(usersModel.getUid());
+                                            new Handler().postDelayed(() -> iControlData.isSuccessful(true), 500);
                                         }
                                         try {
                                             is.close();
@@ -218,7 +221,8 @@ public class UsersDAL {
                         iControlData.isSuccessful(false);
                     } else {
                         saveUserSession(uId);
-                        iControlData.isSuccessful(true);
+                        savePostManageOfUserSession(usersModel.getUid());
+                        new Handler().postDelayed(() -> iControlData.isSuccessful(true), 500);
                     }
                 } else {
                     iControlData.isSuccessful(false);
@@ -343,8 +347,6 @@ public class UsersDAL {
         @Override
         public void onDataChange(@NonNull DataSnapshot snapshot) {
             createOrUpdateUserSession(snapshot.getValue(UsersModel.class));
-            // Change ne``
-//            Log.e("ValueEventListener123", "CHANGEEEEEE NE");
         }
 
         @Override

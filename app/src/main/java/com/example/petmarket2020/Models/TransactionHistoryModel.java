@@ -2,16 +2,16 @@ package com.example.petmarket2020.Models;
 
 import com.example.petmarket2020.HelperClass.Utils;
 
-public class TransactionHistory {
+public class TransactionHistoryModel {
     private long amount;
     private String payments;
     private String time;
     private String status;
 
-    public TransactionHistory() {
+    public TransactionHistoryModel() {
     }
 
-    public TransactionHistory(long amount, String payments, String status) {
+    public TransactionHistoryModel(long amount, String payments, String status) {
         this.amount = amount;
         this.payments = payments;
         this.time = Utils.getCurrentDate(true);

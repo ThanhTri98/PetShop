@@ -1,5 +1,6 @@
 package com.example.petmarket2020.Adapters;
 
+import android.location.Location;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,14 +32,19 @@ public class RV_PosterAdapter extends RecyclerView.Adapter<RV_PosterAdapter.MyVi
     private final List<PosterItem> listItems;
     private final StorageReference storageReference;
     private PostController postController;
-
+    private Location locationUser;
     private final IOnItemClick iOnItemClick;
+
+    public void setLocationUser(Location locationUser) {
+        this.locationUser = locationUser;
+    }
 
     public RV_PosterAdapter(List<PosterItem> listItems, IOnItemClick iOnItemClick) {
         super();
         this.iOnItemClick = iOnItemClick;
         this.listItems = listItems;
         storageReference = FirebaseStorage.getInstance().getReference();
+
     }
 
     public void setPostController(PostController postController) {
@@ -62,6 +69,15 @@ public class RV_PosterAdapter extends RecyclerView.Adapter<RV_PosterAdapter.MyVi
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         PosterItem posterItem = listItems.get(position);
+        // Location
+        if (locationUser != null) {
+            Location locationPost = new Location("");
+            locationPost.setLatitude(posterItem.getLatitude());
+            locationPost.setLongitude(posterItem.getLongitude());
+            double distance = (double) Math.round((locationUser.distanceTo(locationPost) / 1000) * 100) / 100;
+            holder.distance.setText(distance +" km");
+        }
+
         if (postController != null) {
             ImageView imgFav = holder.imgFav;
             imgFav.setTag(R.id.postId, posterItem.getPostId());
@@ -69,7 +85,10 @@ public class RV_PosterAdapter extends RecyclerView.Adapter<RV_PosterAdapter.MyVi
             imgFav.setOnClickListener(v -> postController.setFavorite(imgFav, holder.pgBar));
         }
         if (posterItem.isHot()) {
-            holder.ivHot.setVisibility(View.VISIBLE);
+            if (!posterItem.getPkgId().equals("pkg0"))
+                holder.ivHot.setVisibility(View.VISIBLE);
+            if (posterItem.getPkgId().equals("pkg2"))
+                holder.tvTitle.setTextColor(ContextCompat.getColor(holder.ivHot.getContext(), R.color.colorPrimary));
         }
         List<String> images = posterItem.getImages();
         String imageUrl = images.get(new Random().nextInt(images.size()));
@@ -105,7 +124,7 @@ public class RV_PosterAdapter extends RecyclerView.Adapter<RV_PosterAdapter.MyVi
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView, imgFav, ivHot;
-        TextView tvTitle, tvPrice, tvAddress, tvDate, tvViews;
+        TextView tvTitle, tvPrice, tvAddress, tvDate, tvViews, distance;
         ProgressBar pgBar;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -119,6 +138,7 @@ public class RV_PosterAdapter extends RecyclerView.Adapter<RV_PosterAdapter.MyVi
             tvAddress = itemView.findViewById(R.id.tvAddress);
             tvDate = itemView.findViewById(R.id.tvDate);
             tvViews = itemView.findViewById(R.id.tvViews);
+            distance = itemView.findViewById(R.id.distance);
 
         }
     }

@@ -1,5 +1,6 @@
 package com.example.petmarket2020.Adapters;
 
+import android.location.Location;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,19 +31,26 @@ import java.util.concurrent.atomic.AtomicLong;
 public class LoadMoreHorizontalAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_ITEM = 1;
     private static final int TYPE_LOADING = 2;
+    private int TYPE;
     private boolean isLoading;
     private final List<PosterItem> listItems;
     private final StorageReference storageReference;
     private PostController postController;
+    private Location locationUser;
 
     private final IOnItemClick iOnItemClick;
+
+    public void setLocationUser(Location locationUser) {
+        this.locationUser = locationUser;
+    }
 
     public interface IOnItemClick {
         void sendId(String postId, String peType, long price, long views);
     }
 
-    public LoadMoreHorizontalAdapter(List<PosterItem> listItems, IOnItemClick iOnItemClick) {
+    public LoadMoreHorizontalAdapter(List<PosterItem> listItems, int TYPE, IOnItemClick iOnItemClick) {
         super();
+        this.TYPE = TYPE;
         this.iOnItemClick = iOnItemClick;
         this.listItems = listItems;
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -66,7 +75,11 @@ public class LoadMoreHorizontalAdapter extends RecyclerView.Adapter<RecyclerView
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home_poster, parent, false);
             return new ItemHolder(view);
         } else {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_horizontal_loading, parent, false);
+            View view;
+            if (TYPE == 0)
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_horizontal_loading, parent, false);
+            else
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_ver_loading, parent, false);
             return new LoadingHolder(view);
         }
     }
@@ -77,7 +90,17 @@ public class LoadMoreHorizontalAdapter extends RecyclerView.Adapter<RecyclerView
             PosterItem posterItem = listItems.get(position);
             ItemHolder itemHolder = (ItemHolder) holder;
             if (posterItem.isHot()) {
-                itemHolder.ivHot.setVisibility(View.VISIBLE);
+                if (!posterItem.getPkgId().equals("pkg0"))
+                    itemHolder.ivHot.setVisibility(View.VISIBLE);
+                if (posterItem.getPkgId().equals("pkg2"))
+                    itemHolder.tvTitle.setTextColor(ContextCompat.getColor(itemHolder.ivHot.getContext(), R.color.colorPrimary));
+            }
+            if (locationUser != null) {
+                Location locationPost = new Location("");
+                locationPost.setLatitude(posterItem.getLatitude());
+                locationPost.setLongitude(posterItem.getLongitude());
+                double distance = (double) Math.round((locationUser.distanceTo(locationPost) / 1000) * 100) / 100;
+                itemHolder.distance.setText(distance + " km");
             }
             if (postController != null) {
                 ImageView imgFav = itemHolder.imgFav;
@@ -129,7 +152,7 @@ public class LoadMoreHorizontalAdapter extends RecyclerView.Adapter<RecyclerView
 
     public static class ItemHolder extends RecyclerView.ViewHolder {
         ImageView imageView, imgFav, ivHot;
-        TextView tvTitle, tvPrice, tvAddress, tvDate, tvViews;
+        TextView tvTitle, tvPrice, tvAddress, tvDate, tvViews, distance;
         ProgressBar pgBar;
 
         public ItemHolder(@NonNull View itemView) {
@@ -143,6 +166,7 @@ public class LoadMoreHorizontalAdapter extends RecyclerView.Adapter<RecyclerView
             tvAddress = itemView.findViewById(R.id.tvAddress);
             tvDate = itemView.findViewById(R.id.tvDate);
             tvViews = itemView.findViewById(R.id.tvViews);
+            distance = itemView.findViewById(R.id.distance);
         }
     }
 
